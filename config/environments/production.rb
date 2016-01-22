@@ -63,8 +63,8 @@ Rails.application.configure do
   # Send email using mailgun API
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
-    api_key: ENV["MAILGUN_API_KEY"],
-    domain: ENV["MAILGUN_DOMAIN"]
+    api_key: ENV["GRANTZILLA_MAILGUN_API_KEY"],
+    domain: ENV["GRANTZILLA_MAILGUN_DOMAIN"]
   }
   RestClient.log = ::Rails.logger # mailgun_rails uses RestClient under the hood.
 
