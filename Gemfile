@@ -14,6 +14,11 @@ gem "jbuilder", "~> 2.0"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "newrelic_rpm"
 
+# paperclip with support for S3 storage with aws-sdk v2
+# has not been published yet but is on master as of 1/22/16.
+gem "paperclip", github: "thoughtbot/paperclip"
+gem "rmagick"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug"
@@ -31,5 +36,6 @@ group :development do
 end
 
 group :production do
+  gem "aws-sdk"
   gem "mailgun_rails"
 end
