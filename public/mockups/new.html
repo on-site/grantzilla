@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Dashcon 2016 - Hackathon</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="navbar-fixed-top.css" rel="stylesheet">
+
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+      .navbar-brand {
+        font-weight: bold;
+        position: relative;
+      }
+      .tagline {
+        font-size: .5em;
+        left: 16px;
+        margin-top: 1.7em;
+        position: absolute;
+      }
+      .breadcrumb {
+        background-color: transparent;
+        padding-left: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">HIF Grant Requests<span class="tagline">powered by Grantzilla</span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html">Applications</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Agency Info</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<!--     <div class="container">
+ -->
+      <!-- Main component for a primary marketing message or call to action -->
+     <!--  <div class="jumbotron">
+        <h1>Navbar example</h1>
+        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>To see the difference between static and fixed top navbars, just scroll.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+      </div> -->
+
+    <!-- </div>  --><!-- /container -->
+
+
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="active">1. Applicants</li>
+        <li><a href="#">2. Need</a></li>
+        <li><a href="#">3. Employment</a></li>
+        <li><a href="#">4. Household</a></li>
+        <li><a href="#">5. Documents</a></li>
+        <li><a href="#">6. Sign</a></li>
+      </ol>
+
+      <h2>Caseworker Information <small>(Make hidden fields)</small></h2>
+      <div class="row">
+       <div class="col-md-8 col-sm-8 col-xs-12">
+        <form method="post">
+
+             <div class="form-group ">
+                <label class="control-label requiredField" for="name">
+                 Caseworker Name
+                 <span class="asteriskField">
+                  *
+                 </span>
+                </label>
+                <input class="form-control" id="name" name="name" type="text"/>
+             </div>
+
+             <div class="form-group ">
+                <label class="control-label " for="select">
+                 Referring Agency
+                </label>
+                <select class="select form-control" id="select" name="select">
+                 <option value="Emergency Housing Consortium">
+                  Emergency Housing Consortium
+                 </option>
+                 <option value="Salvation Army">
+                  Salvation Army
+                 </option>
+                 <option value="Third Choice">
+                  Third Choice
+                 </option>
+                </select>
+             </div>
+
+             <div class="form-group ">
+               <label class="control-label requiredField" for="tel">
+                 Phone Number
+                 <span class="asteriskField">
+                  *
+                 </span>
+               </label>
+               <input class="form-control" id="tel" name="tel" type="text"/>
+             </div>
+
+             <div class="form-group ">
+               <label class="control-label requiredField" for="email">
+                 Email
+                 <span class="asteriskField">
+                   *
+                 </span>
+               </label>
+               <input class="form-control" id="email" name="email" type="text"/>
+             </div>
+
+          <h2>Primary Applicant</h2>
+
+           <div class="form-group ">
+             <label class="control-label requiredField" for="name1">
+             Primary Applicant Name
+             <span class="asteriskField">
+              *
+             </span>
+             </label>
+             <input class="form-control" id="name1" name="name1" type="text"/>
+           </div>
+
+           <div class="form-group ">
+             <label class="control-label requiredField" for="tel1">
+             Phone Number
+             <span class="asteriskField">
+              *
+             </span>
+             </label>
+             <input class="form-control" id="tel1" name="tel1" type="text"/>
+           </div>
+
+           <div class="form-group ">
+             <label class="control-label requiredField" for="date">
+             Date of Birth
+             <span class="asteriskField">
+              *
+             </span>
+             </label>
+             <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+           </div>
+
+           <div class="form-group ">
+             <label class="control-label requiredField" for="email1">
+             Email
+             <span class="asteriskField">
+              *
+             </span>
+             </label>
+             <input class="form-control" id="email1" name="email1" type="text"/>
+           </div>
+
+            <div class="form-group">
+              <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add Another Applicant</a>
+            </div>
+
+            <div class="form-group">
+              <div>
+                <button class="btn btn-primary " name="submit" type="submit">
+                  Next
+                </button>
+              </div>
+            </div>
+
+           <h2>Financial Need</h2>
+
+           <div class="form-group ">
+             <label class="control-label requiredField">
+             Qualifying Criteria
+             <span class="asteriskField">
+              *
+             </span>
+             </label>
+             <span class="help-block" id="hint_checkbox">
+              Check all that apply
+             </span>
+
+             <div class="qualifying-criteria">
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Injury/Illness/Death in Family"/>
+                 Injury/Illness/Death in Family
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Currently Homeless"/>
+                 Currently Homeless
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Delay/Cancellation/Change in Subsidy, Assistance, or Benefits"/>
+                 Delay/Cancellation/Change in Subsidy, Assistance, or Benefits
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Loss of Employment"/>
+                 Loss of Employment
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Rent Increase Unaffordable"/>
+                 Rent Increase Unaffordable
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="No-fault Notice to Vacate"/>
+                 No-fault Notice to Vacate
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Moving from temporary/unsuitable living conditions"/>
+                 Moving from temporary/unsuitable living conditions
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Victim of crime/natural disaster"/>
+                 Victim of crime/natural disaster
+                </label>
+               </div>
+
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input name="checkbox" type="checkbox" value="Unanticipated expenses"/>
+                 Unanticipated expenses
+                </label>
+               </div>
+
+             </div><!-- qualifying criteria div -->
+
+             <div class="form-group">
+               <div>
+                 <button class="btn btn-primary " name="submit" type="submit">
+                   Next
+                 </button>
+               </div>
+             </div>
+
+
+             <h2>Employment Information</h2>
+             <div class="form-group">
+               <div>
+                 <button class="btn btn-primary " name="submit" type="submit">
+                   Next
+                 </button>
+               </div>
+             </div>
+
+             <h2>Household Information</h2>
+             <div class="form-group">
+               <div>
+                 <button class="btn btn-primary " name="submit" type="submit">
+                   Next
+                 </button>
+               </div>
+             </div>
+
+             <h2>Supporting Documents</h2>
+             <div class="form-group">
+               <div>
+                 <button class="btn btn-primary " name="submit" type="submit">
+                   Next
+                 </button>
+               </div>
+             </div>
+
+             <h2>Sign Application</h2>
+
+           </div>
+
+           <div class="form-group">
+             <div>
+               <button class="btn btn-primary " name="submit" type="submit">
+                 Finished!
+               </button>
+             </div>
+           </div>
+        </form>
+       </div><!-- left col -->
+       <div class="col-sm-4 fixed">
+         <div class="well">
+           <h4>HIF Controls</h4>
+
+            <div class="form-group ">
+              <label class="control-label " for="select1">
+               Status
+              </label>
+              <select class="select form-control" id="select1" name="select1">
+               <option value="Incomplete">
+                Incomplete
+               </option>
+               <option value="Pending">
+                Submitted
+               </option>
+               <option value="Approved">
+                Approved
+               </option>
+               <option value="Denied">
+                Denied
+               </option>
+               <option value="Paid">
+                Paid
+               </option>
+               <option value="Refund Needed">
+                Refund Needed
+               </option>
+               <option value="Refund Needed">
+                Refund Received
+               </option>
+              </select>
+            </div>
+
+            <div class="form-group ">
+              <label class="control-label " for="number">
+                Grant Amount
+              </label>
+              <input class="form-control" id="number" name="number" type="text"/>
+            </div>
+
+            <div class="form-group ">
+              <label class="control-label " for="number">
+                Check Number
+              </label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  #
+                </div>
+                <input class="form-control" id="number" name="number" type="text"/>
+              </div>
+            </div>
+
+            <div class="form-group ">
+              <label class="control-label " for="number">
+                Payee
+              </label>
+              <input class="form-control" id="number" name="number" type="text"/>
+            </div>
+
+            <div class="form-group">
+              <a href="#"><span class="glyphicon glyphicon-new-window"></span> Budget Worksheet</a>
+            </div>
+
+            <div class="form-group">
+              <div>
+                <button class="btn btn-default " name="submit" type="submit">
+                  Save Status
+                </button>
+              </div>
+            </div>
+
+
+
+         </div>
+       </div>
+      </div>
+     </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
