@@ -39,8 +39,7 @@ class EnvironmentSetup
 
     if changed?
       puts "#{GREEN}Your environment is now setup!#{CLEAR}\n" \
-           "Please run the following:\n" \
-           "$ rvm use ."
+           "Please run the following:\n$ rvm use ."
     else
       puts "Your environemt is already setup!"
     end
