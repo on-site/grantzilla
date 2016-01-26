@@ -38,6 +38,8 @@ cd .
 
 1. Install Postgres at postgresapp.com
 
+1. Install [HomeBrew](http://brew.sh), if you don't have it already
+
 2. Install dependencies
 
     ```
