@@ -34,6 +34,7 @@ class EnvironmentSetup
   def setup
     setup_secret_key_base
     setup_postgres
+    setup_database
     update_env_setup
 
     if changed?
@@ -56,8 +57,14 @@ class EnvironmentSetup
   end
 
   def setup_postgres
+    puts "Postgresapp users: leave these blank; just press enter"
     update "GRANTZILLA_DATABASE_USERNAME", prompt: "What is your postgres username?"
     update "GRANTZILLA_DATABASE_PASSWORD", prompt: "What is your postgres password?"
+  end
+
+  def setup_database
+    puts 'Creating database'
+    `rake db:create`
   end
 
   def update_env_setup

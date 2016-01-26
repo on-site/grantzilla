@@ -62,6 +62,10 @@ Rails.application.configure do
 
   # Send email using mailgun API
   config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.default_url_options = { host: ENV["ACTION_MAILER_DEFAULT_HOST"] }
+  config.action_mailer.default_options = {
+    from: ENV["ACTION_MAILER_DEFAULT_FROM"]
+  }
   config.action_mailer.mailgun_settings = {
     api_key: ENV["GRANTZILLA_MAILGUN_API_KEY"],
     domain: ENV["GRANTZILLA_MAILGUN_DOMAIN"]
@@ -80,4 +84,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+      bucket: ENV["S3_BUCKET_NAME"],
+      secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+      s3_region: ENV["S3_REGION"]
+    },
+    s3_permissions: :private,
+    s3_protocol: ""
+  }
 end
