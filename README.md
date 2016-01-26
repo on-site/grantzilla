@@ -63,9 +63,6 @@ cd .
 
 5. Run app setup
 
-    When rake setup asks for a postgres username and password, hit enter and leave it
-    blank.
-
     ```
     rake setup
     rvm use .
