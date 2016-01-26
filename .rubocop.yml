@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - bin/**/*
+    - db/**/*
     - tmp/**/*
     - vendor/**/*
   DisplayCopNames: true
