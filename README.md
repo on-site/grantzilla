@@ -43,8 +43,8 @@ cd .
 2. Install dependencies
 
     ```
-    sudo brew update
-    sudo brew install imagemagick
+    brew update
+    brew install imagemagick
     git clone https://github.com/on-site/grantzilla.git
     ```
 
