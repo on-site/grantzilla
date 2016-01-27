@@ -17,6 +17,7 @@ gem "momentjs-rails", ">= 2.9.0"
 gem "newrelic_rpm"
 gem "bootstrap-sass", "~> 3.3.6"
 gem "bootstrap3-datetimepicker-rails", "~> 4.17.37"
+gem "bootstrap-guardsjs-rails", "~> 0.4"
 
 # paperclip with support for S3 storage with aws-sdk v2
 # has not been published yet but is on master as of 1/22/16.
