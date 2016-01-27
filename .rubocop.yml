@@ -4,8 +4,6 @@ AllCops:
     - db/**/*
     - tmp/**/*
     - vendor/**/*
-    - db/migrate/schema.rb
-    - db/migrate/20160126231731_devise_create_users.rb
   DisplayCopNames: true
 
 Documentation:
