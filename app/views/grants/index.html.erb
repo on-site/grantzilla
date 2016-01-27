@@ -38,19 +38,18 @@
           <th>Agency</th>
           <th>Case Worker</th>
           <th>Status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <% @grants.each do |grant| %>
           <tr>
             <td><%= link_to grant.details, grant %></td>
-            <td><%= grant.date %></td>
+            <td><%= grant.date.strftime('%m/%d/%Y') %></td>
             <td><em>agency name</em></td>
             <td><em>case worker</em></td>
             <td><em>status</em></td>
-            <!-- <td><%= link_to 'Show', grant %></td>
-            <td><%= link_to 'Edit', edit_grant_path(grant) %></td>
-            <td><%= link_to 'Destroy', grant, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+            <td><%= link_to 'Edit', edit_grant_path(grant), class: 'btn btn-default' %></td>
           </tr>
         <% end %>
       </tbody>
