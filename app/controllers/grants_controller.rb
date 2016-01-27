@@ -47,6 +47,6 @@ class GrantsController < ApplicationController
   end
 
   def grant_params
-    params.require(:grant).permit(people_attributes: [:first_name, :last_name, :birth_date, :email])
+    params.require(:grant).permit(people_attributes: [:id, :first_name, :last_name, :birth_date, :email])
   end
 end
