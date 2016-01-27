@@ -11,9 +11,12 @@
     </div>
   <% end %>
 
-  <h2>Primary Applicant</h2>
-
-  <%= f.fields_for :person, @grant.people.first do |p| %>
+  <%= f.fields_for :people, @grant.people do |p| %>
+    <% if p.object == @grant.people.first %>
+      <h2>Primary Applicant</h2>
+    <% else %>
+      <hr />
+    <% end %>
     <div class="form-group">
       <%= p.label :first_name, "First Name" %> <span class="text-danger">*</span>
       <%= p.text_field :first_name, class: "form-control", data: { guard: "required" } %>
