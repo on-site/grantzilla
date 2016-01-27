@@ -15,6 +15,7 @@ class GrantsController < ApplicationController
   # GET /grants/new
   def new
     @grant = Grant.new
+    @grant.people.build
   end
 
   # GET /grants/1/edit

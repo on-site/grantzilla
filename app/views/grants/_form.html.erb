@@ -1,6 +1,6 @@
-<%= form_for(@grant) do |f| %>
+<%= form_for(@grant, data: { live_guarded: true }) do |f| %>
   <% if @grant.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-danger">
       <h2><%= pluralize(@grant.errors.count, "error") %> prohibited this grant from being saved:</h2>
 
       <ul>
@@ -11,15 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :application_date %><br>
-    <%= f.date_select :application_date %>
-  </div>
-  <div class="field">
-    <%= f.label :details %><br>
-    <%= f.text_field :details %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <h2>Primary Applicant</h2>
+
+  <%= f.fields_for :person, @grant.people.first do |p| %>
+    <div class="form-group">
+      <%= p.label :first_name, "First Name" %> <span class="text-danger">*</span>
+      <%= p.text_field :first_name, class: "form-control", data: { guard: "required" } %>
+    </div>
+    <div class="form-group">
+      <%= p.label :last_name, "Last Name" %> <span class="text-danger">*</span>
+      <%= p.text_field :last_name, class: "form-control", data: { guard: "required" } %>
+    </div>
+    <div class="form-group">
+      <%= p.label :birth_date, "Birth Date" %> <span class="text-danger">*</span>
+      <%= p.text_field :birth_date, class: "form-control datepicker", placeholder: "mm/dd/yyyy", data: { guard: "required dateUS" } %>
+    </div>
+    <div class="form-group">
+      <%= p.label :email, "Email" %>
+      <%= p.text_field :email, class: "form-control", data: { guard: "email" } %>
+    </div>
+  <% end %>
+
+  <%= f.submit "Continue", class: "btn btn-primary" %>
+  <%= link_to 'Back', grants_path, class: "btn btn-link" %>
 <% end %>
