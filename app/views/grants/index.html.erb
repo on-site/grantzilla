@@ -1,29 +1,41 @@
-<p id="notice"><%= notice %></p>
+<h1>Grant Applications</h1>
 
-<h1>Listing Grants</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Details</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @grants.each do |grant| %>
+<% if @grants.count > 0 %>
+  <div class="tab-filters">
+    <div class="row">
+      <div class="col-md-12">hello</div>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= grant.application_date %></td>
-        <td><%= grant.details %></td>
-        <td><%= link_to 'Show', grant %></td>
-        <td><%= link_to 'Edit', edit_grant_path(grant) %></td>
-        <td><%= link_to 'Destroy', grant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Primary Applicant</th>
+        <th>Application Date</th>
+        <th>Agency</th>
+        <th>Case Worker</th>
+        <th>Status</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Grant', new_grant_path %>
+    </thead>
+    <tbody>
+      <% @grants.each do |grant| %>
+        <tr>
+          <td><%= link_to grant.details, grant %></td>
+          <td><%= grant.application_date %></td>
+          <td><em>agency name</em></td>
+          <td><em>case worker</em></td>
+          <td><em>status</em></td>
+          <!-- <td><%= link_to 'Show', grant %></td>
+          <td><%= link_to 'Edit', edit_grant_path(grant) %></td>
+          <td><%= link_to 'Destroy', grant, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+    <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Application'.html_safe, new_grant_path, class: 'btn btn-primary' %>
+  </p>
+<% else %>
+  <div class="alert alert-warning">
+    No applications have been submitted yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Application'.html_safe, new_grant_path, class: 'btn btn-default' %>
+  </div>
+<% end %>

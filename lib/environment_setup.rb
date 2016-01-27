@@ -25,9 +25,8 @@ class EnvironmentSetup
   def self.check_setup
     unless EnvironmentSetup.setup?
       abort "#{RED}#{BOLD}Your environment is not set up!#{CLEAR}\n" \
-            "#{RED}#{BOLD}Please run the following commands:#{CLEAR}\n" \
-            "#{RED}$ rake setup#{CLEAR}\n" \
-            "#{RED}$ rvm use .#{CLEAR}"
+            "#{RED}#{BOLD}Please run the following commands and open a new shell:#{CLEAR}\n" \
+            "#{RED}$ rake setup#{CLEAR}"
     end
   end
 
@@ -39,7 +38,7 @@ class EnvironmentSetup
 
     if changed?
       puts "#{GREEN}Your environment is now setup!#{CLEAR}\n" \
-           "Please run the following:\n$ rvm use ."
+           "Please open a new shell:"
     else
       puts "Your environemt is already setup!"
     end
