@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <li><%= link_to 'Applications', grants_path %></li>
   <% if user_signed_in? %>
-    <% if true  %>
+    <% if true # If admin user %>
       <li><%= link_to 'Users', user_session_path %></li>
     <% end %>
   <% end %>
