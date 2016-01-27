@@ -10,11 +10,15 @@ gem 'devise-bootstrap-views'
 
 gem "jquery-rails"
 gem "turbolinks"
+gem "jquery-turbolinks"
 gem "jbuilder", "~> 2.0"
 # bundle exec rake doc:rails generates the API under doc/api.
 gem "sdoc", "~> 0.4.0", group: :doc
+gem "momentjs-rails", ">= 2.9.0"
 gem "newrelic_rpm"
 gem "bootstrap-sass", "~> 3.3.6"
+gem "bootstrap3-datetimepicker-rails", "~> 4.17.37"
+gem "bootstrap-guardsjs-rails", "~> 0.4"
 
 # paperclip with support for S3 storage with aws-sdk v2
 # has not been published yet but is on master as of 1/22/16.

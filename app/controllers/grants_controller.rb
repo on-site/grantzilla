@@ -10,6 +10,7 @@ class GrantsController < ApplicationController
 
   def new
     @grant = Grant.new
+    @grant.people.build
   end
 
   def edit
@@ -17,6 +18,7 @@ class GrantsController < ApplicationController
 
   def create
     @grant = Grant.new(grant_params)
+    @grant.application_date = Time.zone.today
 
     if @grant.save
       redirect_to @grant
@@ -45,6 +47,6 @@ class GrantsController < ApplicationController
   end
 
   def grant_params
-    params.require(:grant).permit(:application_date, :details)
+    params.require(:grant).permit(people_attributes: [:id, :first_name, :last_name, :birth_date, :email])
   end
 end
