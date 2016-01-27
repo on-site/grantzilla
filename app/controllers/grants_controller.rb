@@ -4,7 +4,7 @@ class GrantsController < ApplicationController
   # GET /grants
   # GET /grants.json
   def index
-    @grants = Grant.all
+    @grants = Grant.order(application_date: :desc)
   end
 
   # GET /grants/1
@@ -70,6 +70,6 @@ class GrantsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def grant_params
-    params.require(:grant).permit(:date, :details)
+    params.require(:grant).permit(:application_date, :details)
   end
 end
