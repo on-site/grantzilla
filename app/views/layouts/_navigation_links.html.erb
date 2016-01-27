@@ -1,9 +1,7 @@
 <% if user_signed_in? %>
   <li><%= link_to 'Applications', grants_path %></li>
-  <% if user_signed_in? %>
-    <% if true # If admin user %>
-      <li><%= link_to 'Users', user_session_path %></li>
-    <% end %>
+  <% if true # If admin user %>
+    <li><%= link_to 'Users', user_session_path %></li>
   <% end %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Name <span class="caret"></span></a>
