@@ -11,16 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126233142) do
+ActiveRecord::Schema.define(version: 20160126234826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "grants", force: :cascade do |t|
-    t.date     "date"
-    t.string   "details"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "grant_reasons", force: :cascade do |t|
+    t.integer "grant_id"
+    t.integer "reason_type_id"
   end
 
+  create_table "grants", force: :cascade do |t|
+    t.date   "date"
+    t.string "details"
+  end
+
+  create_table "incomes", force: :cascade do |t|
+    t.integer "person_id"
+    t.boolean "current"
+    t.date    "start_date"
+    t.date    "end_date"
+    t.string  "employer"
+    t.string  "occupation"
+    t.float   "monthly_income"
+    t.string  "reason_for_leaving"
+    t.boolean "disabled"
+    t.boolean "full_time"
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.integer "grant_id"
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "email"
+    t.string  "phone"
+    t.date    "birth_date"
+    t.boolean "veteran"
+    t.boolean "student"
+    t.boolean "full_time_student"
+  end
+
+  create_table "reason_types", force: :cascade do |t|
+    t.string "description"
+  end
+
+  add_foreign_key "grant_reasons", "grants"
+  add_foreign_key "grant_reasons", "reason_types"
+  add_foreign_key "incomes", "people"
+  add_foreign_key "people", "grants"
 end
