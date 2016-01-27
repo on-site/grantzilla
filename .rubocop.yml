@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - bin/**/*
+    - db/**/*
     - tmp/**/*
     - vendor/**/*
   DisplayCopNames: true
@@ -21,4 +22,4 @@ Style/SpaceInsideBlockBraces:
   EnforcedStyleForEmptyBraces: space
 
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  Enabled: false
