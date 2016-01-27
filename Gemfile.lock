@@ -65,6 +65,8 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap3-datetimepicker-rails (4.17.37)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     byebug (8.2.1)
     climate_control (0.0.3)
@@ -123,6 +125,8 @@ GEM
     mimemagic (0.3.1)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
+    momentjs-rails (2.11.0)
+      railties (>= 3.1)
     multi_json (1.11.2)
     netrc (0.11.0)
     newrelic_rpm (3.14.1.311)
@@ -238,6 +242,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   bootstrap-sass (~> 3.3.6)
+  bootstrap3-datetimepicker-rails (~> 4.17.37)
   byebug
   coffee-rails (~> 4.1.0)
   devise (~> 3.5)
@@ -246,6 +251,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   mailgun_rails
+  momentjs-rails (>= 2.9.0)
   newrelic_rpm
   paperclip!
   pg
