@@ -19,5 +19,12 @@ class AddPropertyInfoToGrant < ActiveRecord::Migration
     add_grants :adjusted_rent, :float
     add_grants :subsidized, :boolean
     add_grants :subsidy_type_id, :integer
+
+    # Financial Needs
+    add_grants :months_owed, :integer
+    add_grants :rent_owed, :float
+    add_grants :security_deposit_owed, :float
+    add_grants :utility_type_owed, :string
+    add_grants :utility_owed, :float
   end
 end
