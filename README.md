@@ -38,11 +38,15 @@ cd .
 
 1. Install Postgres at postgresapp.com
 
+1. Install [node.js](http://nodejs.org), if you don't already have it
+
+1. Install [HomeBrew](http://brew.sh), if you don't have it already
+
 2. Install dependencies
 
     ```
-    sudo brew update
-    sudo brew install imagemagick
+    brew update
+    brew install imagemagick
     git clone https://github.com/on-site/grantzilla.git
     ```
 
@@ -62,9 +66,6 @@ cd .
     ```
 
 5. Run app setup
-
-    When rake setup asks for a postgres username and password, hit enter and leave it
-    blank.
 
     ```
     rake setup
