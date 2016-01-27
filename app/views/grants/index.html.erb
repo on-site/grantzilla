@@ -14,7 +14,7 @@
   <tbody>
     <% @grants.each do |grant| %>
       <tr>
-        <td><%= grant.date %></td>
+        <td><%= grant.application_date %></td>
         <td><%= grant.details %></td>
         <td><%= link_to 'Show', grant %></td>
         <td><%= link_to 'Edit', edit_grant_path(grant) %></td>
