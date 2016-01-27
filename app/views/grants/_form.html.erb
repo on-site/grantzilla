@@ -1,0 +1,25 @@
+<%= form_for(@grant) do |f| %>
+  <% if @grant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grant.errors.count, "error") %> prohibited this grant from being saved:</h2>
+
+      <ul>
+      <% @grant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :application_date %><br>
+    <%= f.date_select :application_date %>
+  </div>
+  <div class="field">
+    <%= f.label :details %><br>
+    <%= f.text_field :details %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

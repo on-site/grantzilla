@@ -9,6 +9,7 @@
 
 # Ignore generated environment
 /.ruby-env
+/.rbenv-vars
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -19,3 +20,4 @@
 !/log/.keep
 /tmp
 public/system # For paperclip attachments in development and test environments
+*~

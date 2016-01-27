@@ -10,10 +10,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require_tree .
+ *= require_self
+ *= require devise_bootstrap_views
  */
 @import "bootstrap-sprockets";
 // We override bootstrap variables in a file a subdirectory
 // so that it's not pulled in twice with the @import "*" below
-@import "bootstrap-overrides/bootstrap-overrides";
 @import "bootstrap";
+@import "bootstrap-overrides/bootstrap-overrides";
 @import "*";
