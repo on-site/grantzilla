@@ -45,7 +45,7 @@
         <% @grants.each do |grant| %>
           <tr>
             <td><%= link_to grant.details, grant %></td>
-            <td><%= grant.application_date.strftime('%m/%d/%Y') %></td>
+            <td><%= grant.application_date.try(:strftime, '%m/%d/%Y') %></td>
             <td><em>agency name</em></td>
             <td><em>case worker</em></td>
             <td><em>status</em></td>
