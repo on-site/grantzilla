@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "grants/show", type: :view do
   before(:each) do
     @grant = assign(:grant, Grant.create!(
-      :details => "Details"
+                              details: "Details"
     ))
   end
 

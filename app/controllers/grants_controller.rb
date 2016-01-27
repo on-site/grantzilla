@@ -28,7 +28,7 @@ class GrantsController < ApplicationController
 
     respond_to do |format|
       if @grant.save
-        format.html { redirect_to @grant, notice: 'Grant was successfully created.' }
+        format.html { redirect_to @grant, notice: "Grant was successfully created." }
         format.json { render :show, status: :created, location: @grant }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class GrantsController < ApplicationController
   def update
     respond_to do |format|
       if @grant.update(grant_params)
-        format.html { redirect_to @grant, notice: 'Grant was successfully updated.' }
+        format.html { redirect_to @grant, notice: "Grant was successfully updated." }
         format.json { render :show, status: :ok, location: @grant }
       else
         format.html { render :edit }
@@ -56,19 +56,20 @@ class GrantsController < ApplicationController
   def destroy
     @grant.destroy
     respond_to do |format|
-      format.html { redirect_to grants_url, notice: 'Grant was successfully destroyed.' }
+      format.html { redirect_to grants_url, notice: "Grant was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_grant
-      @grant = Grant.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def grant_params
-      params.require(:grant).permit(:date, :details)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_grant
+    @grant = Grant.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def grant_params
+    params.require(:grant).permit(:date, :details)
+  end
 end

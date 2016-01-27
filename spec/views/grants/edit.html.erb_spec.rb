@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "grants/edit", type: :view do
   before(:each) do
     @grant = assign(:grant, Grant.create!(
-      :details => "MyString"
+                              details: "MyString"
     ))
   end
 
@@ -11,7 +11,6 @@ RSpec.describe "grants/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", grant_path(@grant), "post" do
-
       assert_select "input#grant_details[name=?]", "grant[details]"
     end
   end
