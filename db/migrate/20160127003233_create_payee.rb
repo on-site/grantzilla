@@ -1,6 +1,7 @@
 class CreatePayee < ActiveRecord::Migration
   def change
     create_table :payees do |t|
+      t.integer :grant_id
       t.string :name
       t.string :attention
       t.string :street_address
