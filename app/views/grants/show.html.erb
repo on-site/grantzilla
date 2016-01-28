@@ -17,3 +17,5 @@
                       grant: @grant,
                       payee: @grant_payee || {},
                       statuses: @grant_statuses) if current_user.admin? %>
+
+<%= react_component('CommentsSection', grant: @grant, current_comments: @comments) %>
