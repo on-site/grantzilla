@@ -1,0 +1,41 @@
+<h1>Agencies</h1>
+
+<p>
+  Manage the different agencies that HIF works with below.
+</p>
+
+<% if @agencies.count > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Agency Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Fax Number</th>
+        <th>Address</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @agencies.each do |agency| %>
+        <tr>
+          <td><%= agency.name %></td>
+          <td><%= agency.email.presence || '-' %></td>
+          <td><%= agency.phone.presence || '-' %></td>
+          <td><%= agency.fax.presence || '-' %></td>
+          <td><%= agency.full_address %></td>
+          <td>
+            <%= link_to 'Edit', agency_path(agency), class: 'btn btn-default' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+    <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Agency'.html_safe, new_agency_path, class: 'btn btn-primary btn-block-xs' %>
+  </p>
+<% else %>
+  <div class="alert alert-warning">
+    No agencies have been added yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Agency'.html_safe, new_agency_path, class: 'btn btn-default' %>
+  </div>
+<% end %>
