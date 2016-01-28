@@ -6,9 +6,9 @@
     <thead>
       <tr>
         <th></th>
-        <th>Last Month</th>
-        <th>Current Month</th>
-        <th>Next Month</th>
+        <th class="text-right">Last Month</th>
+        <th class="text-right">Current Month</th>
+        <th class="text-right">Next Month</th>
       </tr>
     </thead>
     <tbody>
@@ -26,9 +26,9 @@
     <thead>
       <tr>
         <th></th>
-        <th>Last Month</th>
-        <th>Current Month</th>
-        <th>Next Month</th>
+        <th class="text-right">Last Month</th>
+        <th class="text-right">Current Month</th>
+        <th class="text-right">Next Month</th>
       </tr>
     </thead>
     <tbody>
@@ -44,10 +44,10 @@
       <% budget_specified_expense_items.each_pair do |type, description| %>
         <tr>
           <td>
-            <%= description.html_safe %>
-            <%= f.fields_for type, budgets.first do |b| %>
+            <%= f.fields_for type, @grant.last_month_budget do |b| %>
               <%= b.text_field type, class: "form-control", placeholder: "Specify" %>
             <% end %>
+            <span class="help-block"><%= description.html_safe %></span>
           </td>
           <%= render partial: "budget_fields", locals: { f: f, type: type } %>
         </tr>

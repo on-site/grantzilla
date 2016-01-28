@@ -1,7 +1,7 @@
-<% budgets.each do |budget| %>
+<% budget_types.each do |budget_type| %>
    <td>
-     <%= f.fields_for type, budget do |b| %>
-       <%= b.text_field type, class: "form-control", data: { guard: "money" } %>
+     <%= f.fields_for budget_type, @grant.send(budget_type) do |b| %>
+       <%= b.text_field type, class: "form-control text-right money #{budget_type}", data: { guard: "money" }, value: number_to_currency(b.object.send(type)) %>
      <% end %>
    </td>
 <% end %>
