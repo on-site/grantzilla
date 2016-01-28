@@ -10,13 +10,8 @@ class User < ActiveRecord::Base
 
   belongs_to :agency
 
-  def self.case_workers_by_agency(agency = nil)
-    case_workers.where agency: agency
-  end
-
-  def self.case_workers
-    where role: "case_worker"
-  end
+  scope :case_workers_by_agency, ->(agency = nil) { case_workers.where(agency: agency) }
+  scope :case_workers, -> { where(role: :case_worker) }
 
   def full_name
     "#{first_name} #{last_name}"
