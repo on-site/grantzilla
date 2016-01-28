@@ -58,6 +58,6 @@ module BudgetsHelper
   end
 
   def extra_applicant_income_types
-    { household: "Other Household Members' Income (combined)" }
+    { other_household_income: "Other Household Members' Income (combined)" }
   end
 end

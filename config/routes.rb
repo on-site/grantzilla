@@ -6,7 +6,11 @@ Rails.application.routes.draw do
       patch :update_controls
       post :add_comment
     end
-    resources :budgets, only: [:index]
+    resources :budgets, only: [:index] do
+      collection do
+        patch :bulk_update
+      end
+    end
   end
 
   root 'grants#index'
