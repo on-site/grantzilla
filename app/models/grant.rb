@@ -35,4 +35,8 @@ class Grant < ActiveRecord::Base
   def primary_applicant
     people.first
   end
+
+  def agency
+    user.agency
+  end
 end
