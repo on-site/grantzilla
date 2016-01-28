@@ -1,26 +1,24 @@
 source "https://rubygems.org"
 
-gem "better_errors"
-gem "binding_of_caller"
-
-# bundle exec rake doc:rails generates the API under doc/api.
-gem "bootstrap-sass", "~> 3.3.6"
-gem "bootstrap3-datetimepicker-rails", "~> 4.17.37"
-gem "bootstrap-guardsjs-rails", "~> 0.4"
+gem "rails", "~> 4.2"
+gem "pg"
+gem "sass-rails", "~> 5.0"
+gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.1.0"
 gem "devise", "~> 3.5"
-gem "devise-bootstrap-views"
+gem 'devise-bootstrap-views'
+
 gem "jquery-rails"
 gem "turbolinks"
 gem "jquery-turbolinks"
 gem "jbuilder", "~> 2.0"
+# bundle exec rake doc:rails generates the API under doc/api.
+gem "sdoc", "~> 0.4.0", group: :doc
 gem "momentjs-rails", ">= 2.9.0"
 gem "newrelic_rpm"
-gem "pg"
-gem "rails", "~> 4.2"
-gem "sass-rails", "~> 5.0"
-gem "sdoc", "~> 0.4.0", group: :doc
-gem "uglifier", ">= 1.3.0"
+gem "bootstrap-sass", "~> 3.3.6"
+gem "bootstrap3-datetimepicker-rails", "~> 4.17.37"
+gem "bootstrap-guardsjs-rails", "~> 0.4"
 
 # paperclip with support for S3 storage with aws-sdk v2
 # has not been published yet but is on master as of 1/22/16.
@@ -30,7 +28,6 @@ gem "rmagick"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug"
-  gem "pry-rails"
   gem "rspec-rails", "~> 3.4"
   gem "rubocop", "~> 0.36"
 end
