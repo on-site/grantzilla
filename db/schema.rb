@@ -211,6 +211,22 @@ ActiveRecord::Schema.define(version: 20160128181736) do
     t.string "description"
   end
 
+  create_table "uploads", force: :cascade do |t|
+    t.integer  "user_id",           null: false
+    t.string   "user_type",         null: false
+    t.string   "description"
+    t.string   "category"
+    t.string   "file_fingerprint",  null: false
+    t.string   "file_file_name",    null: false
+    t.string   "file_content_type", null: false
+    t.integer  "file_file_size",    null: false
+    t.datetime "file_updated_at",   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "uploads", ["user_type", "user_id"], name: "index_uploads_on_user_type_and_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",            null: false
     t.string   "encrypted_password",     default: "",            null: false
