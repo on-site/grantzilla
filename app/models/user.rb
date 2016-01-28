@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   belongs_to :agency
 
-  def self.case_workers_by_agency(agency=nil)
+  def self.case_workers_by_agency(agency = nil)
     case_workers.where agency: agency
   end
 
