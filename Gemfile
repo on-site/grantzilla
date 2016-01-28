@@ -55,4 +55,5 @@ group :production do
   gem "aws-sdk"
   gem "mailgun_rails"
   gem "sidekiq"
+  gem "rails_12factor"
 end
