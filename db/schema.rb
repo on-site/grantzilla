@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 20160128064242) do
     t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "grant_amount"
+    t.datetime "funding_date"
     t.string   "ehf_number"
     t.float    "total_rent"
     t.float    "adjusted_rent"
@@ -112,8 +114,6 @@ ActiveRecord::Schema.define(version: 20160128064242) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
-    t.float    "grant_amount"
-    t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
@@ -209,6 +209,22 @@ ActiveRecord::Schema.define(version: 20160128064242) do
   create_table "subsidy_types", force: :cascade do |t|
     t.string "description"
   end
+
+  create_table "uploads", force: :cascade do |t|
+    t.integer  "user_id",           null: false
+    t.string   "user_type",         null: false
+    t.string   "description"
+    t.string   "category"
+    t.string   "file_fingerprint",  null: false
+    t.string   "file_file_name",    null: false
+    t.string   "file_content_type", null: false
+    t.integer  "file_file_size",    null: false
+    t.datetime "file_updated_at",   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "uploads", ["user_type", "user_id"], name: "index_uploads_on_user_type_and_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",            null: false
