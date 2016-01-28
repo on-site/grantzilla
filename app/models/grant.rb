@@ -1,4 +1,5 @@
 class Grant < ActiveRecord::Base
+  COMPONENTS = [:people]
   # Descriptors
   has_and_belongs_to_many :reason_types
   has_and_belongs_to_many :coverage_types
@@ -22,11 +23,5 @@ class Grant < ActiveRecord::Base
     foreign_key: :previous_residence_id
   )
 
-  accepts_nested_attributes_for *grant_application_entities
-
-  private
-
-  def grant_application_entities
-    [:people]
-  end
+  accepts_nested_attributes_for *COMPONENTS
 end
