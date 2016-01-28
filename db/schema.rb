@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20160128031635) do
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
+    t.integer  "user_id"
     t.integer  "last_month_budget_id"
     t.integer  "current_month_budget_id"
     t.integer  "next_month_budget_id"

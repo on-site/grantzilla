@@ -1,5 +1,6 @@
 class Grant < ActiveRecord::Base
   # Descriptors
+  belongs_to :user
   has_many :grant_reasons, autosave: true
   has_many :reason_types, through: :grant_reasons, autosave: true
   has_many :grant_coverage_types
