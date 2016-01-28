@@ -1,5 +1,5 @@
 class FormsController < ApplicationController
-  before_action :get_grant
+  before_action :find_grant
 
   include Wicked::Wizard
   steps :applicants, :criteria, :ask, :properties, :payee, :employment
@@ -22,7 +22,7 @@ class FormsController < ApplicationController
 
   private
 
-  def get_grant
+  def find_grant
     @grant = Grant.find(params[:grant_id])
   end
 
@@ -31,20 +31,8 @@ class FormsController < ApplicationController
   end
 
   def people_attributes
-    {
-      people_attributes: [
-        :id,
-        :first_name,
-        :last_name,
-        :birth_date,
-        :phone,
-        :email,
-        :veteran,
-        :student,
-        :full_time_student,
-        :_destroy
-      ]
-    }
+    { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
+        :email, :veteran, :student, :full_time_student, :_destroy] }
   end
 
   def finish_wizard_path

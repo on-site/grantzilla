@@ -1,5 +1,5 @@
 class Grant < ActiveRecord::Base
-  COMPONENTS = [:people]
+  COMPONENTS = [:people].freeze
 
   before_save :set_application_date
 
@@ -22,7 +22,7 @@ class Grant < ActiveRecord::Base
   has_many :payees
   has_many :comments
 
-  accepts_nested_attributes_for *COMPONENTS, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
   def status_name
     raise "Grant can not have blank grant status" if status.blank?
