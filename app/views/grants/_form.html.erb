@@ -17,18 +17,22 @@
     <% else %>
       <hr />
     <% end %>
+
     <div class="form-group">
       <%= p.label :first_name, "First Name" %> <span class="text-danger">*</span>
       <%= p.text_field :first_name, class: "form-control", data: { guard: "required" } %>
     </div>
+
     <div class="form-group">
       <%= p.label :last_name, "Last Name" %> <span class="text-danger">*</span>
       <%= p.text_field :last_name, class: "form-control", data: { guard: "required" } %>
     </div>
+
     <div class="form-group">
       <%= p.label :birth_date, "Birth Date" %> <span class="text-danger">*</span>
       <%= p.text_field :birth_date, class: "form-control datepicker", placeholder: "mm/dd/yyyy", data: { guard: "required dateUS" } %>
     </div>
+
     <div class="form-group">
       <%= p.label :email, "Email" %>
       <%= p.text_field :email, class: "form-control", data: { guard: "email" } %>

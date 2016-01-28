@@ -1,18 +1,35 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @grant.application_date %>
-</p>
-
-<% @grant.people.each do |person| %>
-  <%= render partial: "person", locals: {person: person} %>
+<% if notice %>
+  <p id="notice" class="alert alert-default">
+    <%= notice %>
+  </p>
 <% end %>
 
 <div class="form-group">
   <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
   <%= link_to 'Back', grants_path, class: "btn btn-link" %>
 </div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <em>Grant added on: <%= @grant.application_date %></em></small>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr class="info">
+      <th colspan="6">
+        <h2>Applicants</h2>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @grant.people.each do |person| %>
+      <%= render partial: "person", locals: {person: person} %>
+    <% end %>
+  </tbody>
+</table>
 
 <%= react_component('GrantControls', {
       grant: @grant,
@@ -21,3 +38,8 @@
 }) if current_user.admin? %>
 
 <%= react_component('CommentsSection', grant: @grant, current_comments: @comments) %>
+
+<div class="form-group">
+  <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
+  <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+</div>
