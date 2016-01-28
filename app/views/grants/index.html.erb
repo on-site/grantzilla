@@ -47,7 +47,7 @@
         <% @grants.each do |grant| %>
           <tr>
             <td>
-              <%= link_to grant.details, grant.primary_applicant.full_name %>
+              <%= link_to grant.primary_applicant.full_name, grant  %>
             </td>
             <td><%= grant.application_date.try(:strftime, '%m/%d/%Y') %></td>
             <% if current_user.admin? %>
