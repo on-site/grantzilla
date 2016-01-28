@@ -18,6 +18,7 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require accountingjs
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 //= require bootstrap-guards
