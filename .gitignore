@@ -21,3 +21,4 @@
 /tmp
 public/system # For paperclip attachments in development and test environments
 *~
+.*.swp
