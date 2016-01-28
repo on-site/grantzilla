@@ -23,6 +23,8 @@ class Grant < ActiveRecord::Base
   has_many :payees
   has_many :comments
 
+  delegate :agency, to: :user
+
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
   def status_name

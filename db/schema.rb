@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128181736) do
+ActiveRecord::Schema.define(version: 20160128191420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,9 +274,9 @@ ActiveRecord::Schema.define(version: 20160128181736) do
   add_foreign_key "grants_reason_types", "grants"
   add_foreign_key "grants_reason_types", "reason_types"
   add_foreign_key "incomes", "income_types"
-  add_foreign_key "incomes", "people"
-  add_foreign_key "other_payments", "grants"
-  add_foreign_key "people", "grants"
+  add_foreign_key "incomes", "people", on_delete: :cascade
+  add_foreign_key "other_payments", "grants", on_delete: :cascade
+  add_foreign_key "people", "grants", on_delete: :cascade
   add_foreign_key "residences", "residence_types"
   add_foreign_key "users", "agencies"
 end
