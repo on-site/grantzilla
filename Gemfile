@@ -51,4 +51,5 @@ end
 group :production do
   gem "aws-sdk"
   gem "mailgun_rails"
+  gem "sidekiq"
 end
