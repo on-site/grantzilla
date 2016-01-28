@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-sm-6">
-      <%= f.input :birth_date %>
+      <%= f.input :birth_date, start_year: (Date.today - 120.years).year, order: [:month, :day, :year] %>
     </div>
   </div>
 

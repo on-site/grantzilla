@@ -1,1 +1,9 @@
-<%= breadcrumbs %>
+<h2>Qualifying Criteria</h2>
+
+<%= simple_form_for(@grant, url: wizard_path, method: :put, html: {data: {live_guarded: true}}) do |f| %>
+  <% @grant.reason_types.to_a.in_groups_of(3) do |group| %>
+    <% group.each do |reason_type| %>
+      <%= f.check_box reason_type %>
+    <% end %>
+  <% end %>
+<% end %>

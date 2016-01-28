@@ -4,7 +4,9 @@
   <%= react_component('GrantsList', grants: @grants) %>
 
   <p>
-    <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Application'.html_safe, new_grant_path, class: 'btn btn-primary' %>
+    <a href="<%= new_grant_path %>" class="btn btn-primary">
+      <span class="glyphicon glyphicon-plus"></span> New Application
+    </a>
   </p>
 <% else %>
   <div class="alert alert-warning">
