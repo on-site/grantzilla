@@ -11,4 +11,12 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def admin?
+    role == 'admin'
+  end
+
+  def case_worker?
+    role == 'case_worker'
+  end
 end
