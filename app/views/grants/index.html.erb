@@ -47,25 +47,20 @@
         <% @grants.each do |grant| %>
           <tr>
             <td>
-              <%= link_to grant.people.first.try(:full_name), grant %>
+              <%= link_to grant.details, grant.primary_applicant.full_name %>
             </td>
-
             <td><%= grant.application_date.try(:strftime, '%m/%d/%Y') %></td>
-
             <% if current_user.admin? %>
               <td>
-                <em>agency name</em>
+                <em><%= grant.user.agency.name %></em>
               </td>
             <% end %>
-
             <td>
               <em><%= grant.user.full_name %></em>
             </td>
-
             <td>
               <em><%= grant.status_name %></em>
             </td>
-
             <td>
               <%= link_to 'Edit', edit_grant_path(grant), class: 'btn btn-default' %>
             </td>
