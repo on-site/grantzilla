@@ -32,6 +32,13 @@ class Grant < ActiveRecord::Base
 
   accepts_nested_attributes_for :people, :grant_reasons
 
+  def status_name
+    unless status.present?
+      raise "Grant is missing its status, which should not happen."
+    end
+    status.description
+  end
+
   def set_application_date
     self.application_date = Time.zone.today
   end

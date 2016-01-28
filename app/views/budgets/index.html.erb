@@ -1,0 +1,59 @@
+<%= "Applicant".pluralize(@grant.people.size) %>: <%= @grant.people.map(&:full_name).to_sentence %>
+
+<%= form_for(@grant, data: { live_guarded: true }) do |f| %>
+  <h3>Monthly Net Income</h3>
+  <table class="table table-striped budgets">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Last Month</th>
+        <th>Current Month</th>
+        <th>Next Month</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% budget_income_items.each_pair do |type, description| %>
+        <tr>
+          <td><%= description.html_safe %></td>
+          <%= render partial: "budget_fields", locals: { f: f, type: type } %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h3>Monthly Expenses</h3>
+  <table class="table table-striped budgets">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Last Month</th>
+        <th>Current Month</th>
+        <th>Next Month</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% budget_expense_items.each_pair do |type, description| %>
+        <tr>
+          <td>
+            <%= description.html_safe %>
+          </td>
+          <%= render partial: "budget_fields", locals: { f: f, type: type } %>
+        </tr>
+      <% end %>
+
+      <% budget_specified_expense_items.each_pair do |type, description| %>
+        <tr>
+          <td>
+            <%= description.html_safe %>
+            <%= f.fields_for type, budgets.first do |b| %>
+              <%= b.text_field type, class: "form-control", placeholder: "Specify" %>
+            <% end %>
+          </td>
+          <%= render partial: "budget_fields", locals: { f: f, type: type } %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to 'Back', edit_grant_path(@grant), class: "btn btn-link" %>
+<% end %>
