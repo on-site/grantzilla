@@ -10,6 +10,9 @@ gem "bootstrap-guardsjs-rails", "~> 0.4"
 gem "coffee-rails", "~> 4.1.0"
 gem "devise", "~> 3.5"
 gem "devise-bootstrap-views"
+gem "react-rails"
+
+gem 'accountingjs-rails'
 gem "jquery-rails"
 gem "turbolinks"
 gem "jquery-turbolinks"

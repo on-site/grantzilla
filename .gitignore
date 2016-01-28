@@ -11,6 +11,9 @@
 /.ruby-env
 /.rbenv-vars
 
+# Ignore byebug history
+.byebug_history
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -21,3 +24,7 @@
 /tmp
 public/system # For paperclip attachments in development and test environments
 *~
+*\#
+.\#*
+.DS_Store
+.*.swp

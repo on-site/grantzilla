@@ -1,12 +1,16 @@
 class GrantsController < ApplicationController
-  before_action :set_grant, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :destroy]
 
   def index
     @grants = Grant.order(application_date: :desc)
   end
 
   def show
+    @grant_statuses = GrantStatus.all
+    @grant_payee = @grant.payees.last
+    @comments = @grant.comments.joins(:user)
+                      .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def new
@@ -19,10 +23,9 @@ class GrantsController < ApplicationController
   end
 
   def create
-    @grant = Grant.new(grant_params)
-    @grant.application_date = Time.zone.today
-
-    if @grant.save
+    creates_grants = CreatesGrants.new(grant_params.merge(user_id: current_user.id))
+    @grant = creates_grants.grant
+    if creates_grants.save
       redirect_to grant_forms_path(@grant, :applicants)
     else
       render :new
@@ -30,12 +33,35 @@ class GrantsController < ApplicationController
   end
 
   def update
-    if @grant.update(grant_params)
+    if @grant.update(grant_params.merge(user_id: current_user.id))
       redirect_to @grant
     else
       render :edit
     end
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def update_controls
+    raise unless current_user.admin?
+    if @grant.update(grant_admin_params)
+      payee = @grant.payees.last || Payee.new(grant_id: @grant.id)
+      payee.update(grant_payee_params)
+      render json: @grant
+    else
+      render json: { errors: @grant.errors.full_messages }
+    end
+  end
+
+  def add_comment
+    new_comment = @grant.comments.new(body: params[:body], user_id: current_user.id)
+    if new_comment.save
+      response = new_comment.attributes.merge(first_name: current_user.first_name, last_name: current_user.last_name)
+      render json: response
+    else
+      render json: { errors: @grant.errors.full_messages }
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     @grant.destroy
@@ -54,5 +80,13 @@ class GrantsController < ApplicationController
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :email] }
+  end
+
+  def grant_admin_params
+    params.require(:grant).permit(:grant_status_id, :grant_amount)
+  end
+
+  def grant_payee_params
+    params.require(:payee).permit(:name, :check_number)
   end
 end
