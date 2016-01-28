@@ -1,0 +1,28 @@
+<% person_fields = 'forms/fields/person_fields' %>
+
+<%= breadcrumbs %>
+
+<div class="row">
+  <div class="col-md-8 col-sm-7">
+    <h1>Applicant Details</h1>
+    <%= simple_form_for(@grant, url: wizard_path,  method: :put, html: { data: { live_guarded: true } }) do |f| %>
+      <%= f.simple_fields_for :people, @grant.people do |pf| %>
+        <%= render partial: person_fields, locals: { f: pf } %>
+      <% end %>
+
+      <div class="links">
+        <%= link_to_add_association f, :people, partial: person_fields, class: 'btn btn-primary' do %>
+          <i class="glyphicon glyphicon-plus"></i>
+          Add Person
+        <% end %>
+      </div>
+
+      <hr/>
+      <%= f.submit 'save', class: 'btn btn-success' %>
+    <% end %>
+  </div>
+
+  <div class="col-md-4 col-sm-5">
+    <%= render "grants/controls" %>
+  </div>
+</div>

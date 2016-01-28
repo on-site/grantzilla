@@ -1,4 +1,12 @@
 class Grant < ActiveRecord::Base
+  COMPONENTS = [:people].freeze
+
+  before_save :set_application_date
+
+  # rubocop:disable Rails/HasAndBelongsToMany
+  has_and_belongs_to_many :reason_types
+  has_and_belongs_to_many :coverage_types
+
   default_scope -> { order(application_date: :desc) }
 
   belongs_to :user
@@ -10,18 +18,14 @@ class Grant < ActiveRecord::Base
   belongs_to :current_month_budget, class_name: "Budget"
   belongs_to :next_month_budget, class_name: "Budget"
 
-  has_many :grant_reasons, autosave: true
-  has_many :reason_types, through: :grant_reasons, autosave: true
-  has_many :grant_coverage_types
-  has_many :coverage_types, through: :grant_coverage_types
   has_many :people, autosave: true
   has_many :other_payments
   has_many :payees
   has_many :comments
 
-  before_save :set_application_date
+  delegate :agency, to: :user
 
-  accepts_nested_attributes_for :people, :grant_reasons
+  accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
   def status_name
     raise "Grant can not have blank grant status" if status.blank?
@@ -34,5 +38,17 @@ class Grant < ActiveRecord::Base
 
   def primary_applicant
     people.first
+  end
+
+  def primary_applicant_name
+    primary_applicant.full_name
+  end
+
+  def agency_name
+    user.agency.name
+  end
+
+  def case_worker_name
+    user.full_name
   end
 end

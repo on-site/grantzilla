@@ -1,74 +1,7 @@
 <h1>Grant Applications</h1>
 
-<% if @grants.count > 0 %>
-  <div class="tab-filters">
-    <div class="row">
-      <div class="col-md-2 col-sm-4 col-xs-12">
-        <%= select("grant", "user_id", case_workers.collect { |u| [u.full_name, u.id] }, {}, { class: "form-control" }) %>
-      </div>
-
-      <div class="col-md-2 col-sm-4 col-xs-12">
-        <% if current_user.admin? %>
-          <select class="form-control">
-            <option>Agency</option>
-            <option value="1">Salvation Army</option>
-            <option value="2">Emergency Housing Consortium</option>
-          </select>
-        <% end %>
-      </div>
-
-      <div class="col-md-2 col-sm-4 col-xs-12 col-md-offset-6">
-        <select class="form-control">
-          <option>Incomplete</option>
-          <option>Approved</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Primary Applicant</th>
-          <th>Application Date</th>
-
-          <% if current_user.admin? %>
-            <th>Agency</th>
-          <% end %>
-
-          <th>Case Worker</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @grants.each do |grant| %>
-          <tr>
-            <td>
-              <%= link_to grant.primary_applicant.full_name, grant  %>
-            </td>
-            <td><%= grant.application_date.try(:strftime, '%m/%d/%Y') %></td>
-            <% if current_user.admin? %>
-              <td>
-                <em><%= grant.user.agency.name %></em>
-              </td>
-            <% end %>
-            <td>
-              <em><%= grant.user.full_name %></em>
-            </td>
-            <td>
-              <em><%= grant.status_name %></em>
-            </td>
-            <td>
-              <%= link_to 'Edit', edit_grant_path(grant), class: 'btn btn-default' %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+<% if @grants %>
+  <%= react_component('GrantsList', grants: @grants) %>
 
   <p>
     <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Application'.html_safe, new_grant_path, class: 'btn btn-primary' %>

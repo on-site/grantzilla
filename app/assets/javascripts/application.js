@@ -17,9 +17,11 @@
 //= require moment
 //= require react
 //= require react_ujs
+//= require fixed-data-table
 //= require components
 //= require accountingjs
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 //= require bootstrap-guards
+//= require cocoon
 //= require_tree .

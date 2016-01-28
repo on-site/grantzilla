@@ -4,25 +4,36 @@ class GrantsController < ApplicationController
   before_action :set_controls_info, only: [:show, :edit]
 
   def index
-    @grants = Grant.all
+    # TODO: Return all Grants Info in ONE SQL query
+    @grants = Grant.order(application_date: :desc)
+                   .includes(user: :agency)
+                   .all
+                   .to_json(only: [:id, :application_date],
+                            methods: [
+                              :primary_applicant_name,
+                              :agency_name,
+                              :case_worker_name,
+                              :status_name
+                            ])
   end
 
   def show
   end
 
   def new
-    @grant = Grant.new
-    @grant.people.build
+    @grant = CreatesGrants.new(user_id: current_user.id).tap(&:save).grant
+    redirect_to grant_forms_path(@grant, :applicants)
   end
 
   def edit
+    redirect_to grant_forms_path(@grant, :applicants)
   end
 
   def create
     creates_grants = CreatesGrants.new(grant_params.merge(user_id: current_user.id))
     @grant = creates_grants.grant
     if creates_grants.save
-      redirect_to @grant
+      redirect_to grant_forms_path(@grant, :applicants)
     else
       render :new
     end
@@ -78,7 +89,11 @@ class GrantsController < ApplicationController
   end
 
   def grant_params
-    params.require(:grant).permit(people_attributes: [:id, :first_name, :last_name, :birth_date, :email])
+    params.require(:grant).permit(people_attributes)
+  end
+
+  def people_attributes
+    { people_attributes: [:id, :first_name, :last_name, :birth_date, :email] }
   end
 
   def grant_admin_params
