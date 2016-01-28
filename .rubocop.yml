@@ -23,3 +23,6 @@ Style/SpaceInsideBlockBraces:
 
 Style/StringLiterals:
   Enabled: false
+
+Style/TrailingCommaInLiteral:
+  Enabled: false
