@@ -5,6 +5,7 @@ class Grant < ActiveRecord::Base
   has_many :reason_types, through: :grant_reasons, autosave: true
   has_many :grant_coverage_types
   has_many :coverage_types, through: :grant_coverage_types
+  before_save :set_application_date
 
   belongs_to :subsidy_type
   belongs_to(
@@ -30,4 +31,8 @@ class Grant < ActiveRecord::Base
   belongs_to :next_month_budget, class_name: "Budget"
 
   accepts_nested_attributes_for :people, :grant_reasons
+
+  def set_application_date
+    self.application_date = Time.zone.today
+  end
 end
