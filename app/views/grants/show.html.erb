@@ -14,4 +14,7 @@
 <%= link_to 'Back', grants_path %>
 
 
-<%= react_component('GrantControls', grantId: @grant.id, statuses: @grant_statuses) %>
+<%= react_component('GrantControls',
+                      grant: @grant,
+                      payee: @grant_payee,
+                      statuses: @grant_statuses) %>

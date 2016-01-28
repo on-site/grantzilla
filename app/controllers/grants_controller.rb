@@ -8,6 +8,7 @@ class GrantsController < ApplicationController
 
   def show
     @grant_statuses = GrantStatus.all
+    @grant_payee = @grant.payees.last
   end
 
   def new
@@ -41,6 +42,8 @@ class GrantsController < ApplicationController
   def update_controls
     # TODO: Check access
     if @grant.update(grant_admin_params)
+      payee = @grant.payees.last || Payee.new(grant_id: @grant.id)
+      payee.update(grant_payee_params)
       render json: @grant
     else
       render json: { errors: @grant.errors.full_messages }
@@ -63,6 +66,10 @@ class GrantsController < ApplicationController
   end
 
   def grant_admin_params
-    params.require(:grant).permit(:grant_amount, :check_number, :payee)
+    params.require(:grant).permit(:grant_status_id, :grant_amount)
+  end
+
+  def grant_payee_params
+    params.require(:payee).permit(:name, :check_number)
   end
 end
