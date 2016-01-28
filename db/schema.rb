@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20160128040438) do
     t.string "description"
   end
 
+  create_table "data_import_history_logs", force: :cascade do |t|
+    t.integer  "ehf_records_processed"
+    t.integer  "ehf_records_imported"
+    t.text     "errors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "grant_coverage_types", force: :cascade do |t|
     t.integer "grant_id"
     t.integer "coverage_type_id"
@@ -86,6 +94,9 @@ ActiveRecord::Schema.define(version: 20160128040438) do
     t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.float    "grant_amount"
+    t.datetime "funding_date"
     t.string   "ehf_number"
     t.float    "total_rent"
     t.float    "adjusted_rent"
@@ -96,9 +107,6 @@ ActiveRecord::Schema.define(version: 20160128040438) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
-    t.string   "status"
-    t.float    "grant_amount"
-    t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
