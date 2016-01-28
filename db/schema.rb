@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160128181736) do
     t.boolean  "full_time_student"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cell"
   end
 
   create_table "reason_types", force: :cascade do |t|
