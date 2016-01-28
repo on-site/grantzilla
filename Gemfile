@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "2.3.0"
+
 gem "better_errors"
 gem "binding_of_caller"
 
@@ -25,10 +27,16 @@ gem "sass-rails", "~> 5.0"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "uglifier", ">= 1.3.0"
 
+gem "wicked"
+gem "simple_form"
+gem "cocoon"
+
 # paperclip with support for S3 storage with aws-sdk v2
 # has not been published yet but is on master as of 1/22/16.
 gem "paperclip", github: "thoughtbot/paperclip"
 gem "rmagick"
+gem "puma"
+gem "rack-timeout"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,4 +58,6 @@ end
 group :production do
   gem "aws-sdk"
   gem "mailgun_rails"
+  gem "sidekiq"
+  gem "rails_12factor"
 end

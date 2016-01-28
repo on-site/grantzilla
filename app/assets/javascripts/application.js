@@ -23,4 +23,5 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 //= require bootstrap-guards
+//= require cocoon
 //= require_tree .

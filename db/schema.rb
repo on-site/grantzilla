@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128181736) do
+ActiveRecord::Schema.define(version: 20160128191420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,23 +72,18 @@ ActiveRecord::Schema.define(version: 20160128181736) do
     t.string "description"
   end
 
+  create_table "coverage_types_grants", force: :cascade do |t|
+    t.integer "coverage_type_id"
+    t.integer "grant_id"
+  end
+
+  add_index "coverage_types_grants", ["coverage_type_id"], name: "index_coverage_types_grants_on_coverage_type_id", using: :btree
+  add_index "coverage_types_grants", ["grant_id"], name: "index_coverage_types_grants_on_grant_id", using: :btree
+
   create_table "data_import_history_logs", force: :cascade do |t|
     t.integer  "ehf_records_processed"
     t.integer  "ehf_records_imported"
     t.text     "errors"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "grant_coverage_types", force: :cascade do |t|
-    t.integer "grant_id"
-    t.integer "coverage_type_id"
-    t.boolean "past_due"
-  end
-
-  create_table "grant_reasons", force: :cascade do |t|
-    t.integer  "grant_id"
-    t.integer  "reason_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -102,8 +97,6 @@ ActiveRecord::Schema.define(version: 20160128181736) do
     t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "grant_amount"
-    t.datetime "funding_date"
     t.string   "ehf_number"
     t.float    "total_rent"
     t.float    "adjusted_rent"
@@ -114,6 +107,8 @@ ActiveRecord::Schema.define(version: 20160128181736) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
+    t.float    "grant_amount"
+    t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
@@ -121,7 +116,16 @@ ActiveRecord::Schema.define(version: 20160128181736) do
     t.integer  "last_month_budget_id"
     t.integer  "current_month_budget_id"
     t.integer  "next_month_budget_id"
+    t.string   "step"
   end
+
+  create_table "grants_reason_types", force: :cascade do |t|
+    t.integer "grant_id"
+    t.integer "reason_type_id"
+  end
+
+  add_index "grants_reason_types", ["grant_id"], name: "index_grants_reason_types_on_grant_id", using: :btree
+  add_index "grants_reason_types", ["reason_type_id"], name: "index_grants_reason_types_on_reason_type_id", using: :btree
 
   create_table "income_types", force: :cascade do |t|
     t.string "description"
@@ -211,6 +215,22 @@ ActiveRecord::Schema.define(version: 20160128181736) do
     t.string "description"
   end
 
+  create_table "uploads", force: :cascade do |t|
+    t.integer  "user_id",           null: false
+    t.string   "user_type",         null: false
+    t.string   "description"
+    t.string   "category"
+    t.string   "file_fingerprint",  null: false
+    t.string   "file_file_name",    null: false
+    t.string   "file_content_type", null: false
+    t.integer  "file_file_size",    null: false
+    t.datetime "file_updated_at",   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "uploads", ["user_type", "user_id"], name: "index_uploads_on_user_type_and_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",            null: false
     t.string   "encrypted_password",     default: "",            null: false
@@ -243,20 +263,20 @@ ActiveRecord::Schema.define(version: 20160128181736) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
-  add_foreign_key "grant_coverage_types", "coverage_types"
-  add_foreign_key "grant_coverage_types", "grants"
-  add_foreign_key "grant_reasons", "grants"
-  add_foreign_key "grant_reasons", "reason_types"
+  add_foreign_key "coverage_types_grants", "coverage_types"
+  add_foreign_key "coverage_types_grants", "grants", on_delete: :cascade
   add_foreign_key "grants", "budgets", column: "current_month_budget_id"
   add_foreign_key "grants", "budgets", column: "last_month_budget_id"
   add_foreign_key "grants", "budgets", column: "next_month_budget_id"
   add_foreign_key "grants", "grant_statuses"
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
+  add_foreign_key "grants_reason_types", "grants", on_delete: :cascade
+  add_foreign_key "grants_reason_types", "reason_types"
   add_foreign_key "incomes", "income_types"
-  add_foreign_key "incomes", "people"
-  add_foreign_key "other_payments", "grants"
-  add_foreign_key "people", "grants"
+  add_foreign_key "incomes", "people", on_delete: :cascade
+  add_foreign_key "other_payments", "grants", on_delete: :cascade
+  add_foreign_key "people", "grants", on_delete: :cascade
   add_foreign_key "residences", "residence_types"
   add_foreign_key "users", "agencies"
 end
