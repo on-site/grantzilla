@@ -24,5 +24,9 @@ class Grant < ActiveRecord::Base
     foreign_key: :previous_residence_id
   )
 
+  belongs_to :last_month_budget, class_name: "Budget"
+  belongs_to :current_month_budget, class_name: "Budget"
+  belongs_to :next_month_budget, class_name: "Budget"
+
   accepts_nested_attributes_for :people, :grant_reasons
 end
