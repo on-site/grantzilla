@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128014528) do
+ActiveRecord::Schema.define(version: 20160128031635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,39 @@ ActiveRecord::Schema.define(version: 20160128014528) do
     t.string "city"
     t.string "state"
     t.string "zip"
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.float    "earned_income1"
+    t.float    "unearned_income1"
+    t.float    "earned_income2"
+    t.float    "unearned_income2"
+    t.float    "other_household_income"
+    t.float    "child_support"
+    t.float    "food_stamps"
+    t.float    "security_deposit_refund"
+    t.float    "rent"
+    t.float    "utilities"
+    t.float    "phone"
+    t.float    "food"
+    t.float    "health_insurance"
+    t.float    "medical"
+    t.float    "auto_loan"
+    t.float    "auto_insurance"
+    t.float    "auto_expenses"
+    t.float    "public_transportation"
+    t.float    "child_care"
+    t.float    "clothing"
+    t.float    "toiletries"
+    t.float    "household"
+    t.float    "television"
+    t.float    "internet"
+    t.float    "installment_payments"
+    t.string   "installment_payment_description"
+    t.float    "miscellaneous_expenses"
+    t.string   "miscellaneous_expenses_description"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "coverage_types", force: :cascade do |t|
@@ -69,6 +102,9 @@ ActiveRecord::Schema.define(version: 20160128014528) do
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
+    t.integer  "last_month_budget_id"
+    t.integer  "current_month_budget_id"
+    t.integer  "next_month_budget_id"
   end
 
   create_table "income_types", force: :cascade do |t|
@@ -183,6 +219,9 @@ ActiveRecord::Schema.define(version: 20160128014528) do
   add_foreign_key "grant_coverage_types", "grants"
   add_foreign_key "grant_reasons", "grants"
   add_foreign_key "grant_reasons", "reason_types"
+  add_foreign_key "grants", "budgets", column: "current_month_budget_id"
+  add_foreign_key "grants", "budgets", column: "last_month_budget_id"
+  add_foreign_key "grants", "budgets", column: "next_month_budget_id"
   add_foreign_key "grants", "grant_statuses"
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
