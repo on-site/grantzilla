@@ -10,7 +10,7 @@ class AddLookupValues < ActiveRecord::Migration
     },
     ResidenceType => %w{
       Room
-      ApartmentApartment
+      Apartment
       Single family home
       Town home
     },
