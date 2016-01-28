@@ -37,5 +37,4 @@ class Grant < ActiveRecord::Base
   def primary_applicant
     people.first
   end
-
 end
