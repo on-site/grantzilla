@@ -23,4 +23,8 @@ class Grant < ActiveRecord::Base
   def set_application_date
     self.application_date = Time.zone.today
   end
+
+  def primary_applicant
+    people.first
+  end
 end
