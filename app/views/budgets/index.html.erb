@@ -1,14 +1,13 @@
 <%= "Applicant".pluralize(@grant.people.size) %>: <%= @grant.people.map(&:full_name).to_sentence %>
 
 <%= form_for(@grant, data: { live_guarded: true }) do |f| %>
-  <h3>Monthly Net Income</h3>
-  <table class="table table-striped budgets">
+  <table class="table table-striped budgets income">
     <thead>
       <tr>
-        <th></th>
-        <th>Last Month</th>
-        <th>Current Month</th>
-        <th>Next Month</th>
+        <th><h3>Monthly Net Income</h3></th>
+        <th class="text-right">Last Month</th>
+        <th class="text-right">Current Month</th>
+        <th class="text-right">Next Month</th>
       </tr>
     </thead>
     <tbody>
@@ -19,16 +18,23 @@
         </tr>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <td class="text-bold">Subtotal of Monthly Income</strong></td>
+        <td class="text-right text-bold subtotal-last-month-budget"></td>
+        <td class="text-right text-bold subtotal-current-month-budget"></td>
+        <td class="text-right text-bold subtotal-next-month-budget"></td>
+      </tr>
+    </tfoot>
   </table>
 
-  <h3>Monthly Expenses</h3>
-  <table class="table table-striped budgets">
+  <table class="table table-striped budgets expenses">
     <thead>
       <tr>
-        <th></th>
-        <th>Last Month</th>
-        <th>Current Month</th>
-        <th>Next Month</th>
+        <th><h3>Monthly Expenses</h3></th>
+        <th class="text-right">Last Month</th>
+        <th class="text-right">Current Month</th>
+        <th class="text-right">Next Month</th>
       </tr>
     </thead>
     <tbody>
@@ -44,15 +50,30 @@
       <% budget_specified_expense_items.each_pair do |type, description| %>
         <tr>
           <td>
-            <%= description.html_safe %>
-            <%= f.fields_for type, budgets.first do |b| %>
+            <%= f.fields_for type, @grant.last_month_budget do |b| %>
               <%= b.text_field type, class: "form-control", placeholder: "Specify" %>
             <% end %>
+            <span class="help-block"><%= description.html_safe %></span>
           </td>
           <%= render partial: "budget_fields", locals: { f: f, type: type } %>
         </tr>
       <% end %>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td class="text-bold">Subtotal of Monthly Expenses</strong></td>
+        <td class="text-right text-bold subtotal-last-month-budget"></td>
+        <td class="text-right text-bold subtotal-current-month-budget"></td>
+        <td class="text-right text-bold subtotal-next-month-budget"></td>
+      </tr>
+      <tr>
+        <td class="text-bold">Net Income</strong></td>
+        <td class="text-right text-bold total-last-month-budget"></td>
+        <td class="text-right text-bold total-current-month-budget"></td>
+        <td class="text-right text-bold total-next-month-budget"></td>
+      </tr>
+    </tfoot>
   </table>
 
   <%= f.submit "Save", class: "btn btn-primary" %>
