@@ -5,17 +5,19 @@
   <%= @grant.application_date %>
 </p>
 
-<p>
-  <strong>Details:</strong>
-  <%= @grant.details %>
-</p>
+<% @grant.people.each do |person| %>
+  <%= render partial: "person", locals: {person: person} %>
+<% end %>
 
-<%= link_to 'Edit', edit_grant_path(@grant) %> |
-<%= link_to 'Back', grants_path %>
+<div class="form-group">
+  <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
+  <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+</div>
 
-<%= react_component('GrantControls',
-                      grant: @grant,
-                      payee: @grant_payee || {},
-                      statuses: @grant_statuses) if current_user.admin? %>
+<%= react_component('GrantControls', {
+      grant: @grant,
+      payee: @grant_payee || {},
+      statuses: @grant_statuses
+}) if current_user.admin? %>
 
 <%= react_component('CommentsSection', grant: @grant, current_comments: @comments) %>
