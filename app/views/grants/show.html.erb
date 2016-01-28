@@ -1,75 +1,74 @@
-<% if notice %>
-  <p id="notice" class="alert alert-default">
-    <%= notice %>
-  </p>
-<% end %>
-
-<div class="form-group">
-  <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
-  <%= link_to 'Back', grants_path, class: "btn btn-link" %>
-</div>
-
-<p>
-  <em>Grant added on: <%= @grant.application_date %></em></small>
-</p>
-
-<table class="table">
-  <thead>
-    <tr class="info">
-      <th colspan="6">
-        <h2>Applicants</h2>
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @grant.people.each do |person| %>
-      <%= render partial: "person", locals: {person: person} %>
+<div class="row">
+  <div class="col-md-8 col-sm-7">
+    <% if notice %>
+    <p id="notice" class="alert alert-default">
+      <%= notice %>
+    </p>
     <% end %>
-  </tbody>
-</table>
 
-<table class="table">
-  <thead>
-    <tr class="info">
-      <th colspan="6">
-        <h2>Grant Information</h2>
-      </th>
-    </tr>
-  </thead>
+    <div class="form-group">
+      <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
+      <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+    </div>
 
-  <tbody>
-    <tr>
-      <th class="active">Grant Amount</th>
+    <p>
+      <em>Grant added on: <%= @grant.application_date %></em></small>
+    </p>
 
-      <td>
-        <%= @grant.grant_amount %>
-      </td>
+    <table class="table">
+      <thead>
+        <tr class="info">
+          <th colspan="6">
+            <h2>Applicants</h2>
+          </th>
+        </tr>
+      </thead>
 
-      <th class="active">Funding Date</th>
+      <tbody>
+        <% @grant.people.each do |person| %>
+        <%= render partial: "person", locals: {person: person} %>
+        <% end %>
+      </tbody>
+    </table>
 
-      <td>
-        <%= @grant.funding_date %>
-      </td>
+    <table class="table">
+      <thead>
+        <tr class="info">
+          <th colspan="6">
+            <h2>Grant Information</h2>
+          </th>
+        </tr>
+      </thead>
 
-      <th class="active">EHF Number</th>
+      <tbody>
+        <tr>
+          <th class="active">Grant Amount</th>
 
-      <td>
-        <%= @grant.ehf_number %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          <td>
+            <%= @grant.grant_amount %>
+          </td>
 
-<%= react_component('GrantControls', {
-      grant: @grant,
-      payee: @grant_payee || {},
-      statuses: @grant_statuses
-}) if current_user.admin? %>
+          <th class="active">Funding Date</th>
 
-<%= react_component('CommentsSection', grant: @grant, current_comments: @comments) %>
+          <td>
+            <%= @grant.funding_date %>
+          </td>
 
-<div class="form-group">
-  <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
-  <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+          <th class="active">EHF Number</th>
+
+          <td>
+            <%= @grant.ehf_number %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
+      <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-5">
+    <%= render "controls" %>
+  </div>
 </div>
