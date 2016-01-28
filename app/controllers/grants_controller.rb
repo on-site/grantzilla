@@ -37,7 +37,7 @@ class GrantsController < ApplicationController
   end
 
   def update_controls
-    # TODO: Check access
+    raise unless current_user.admin?
     if @grant.update(grant_admin_params)
       payee = @grant.payees.last || Payee.new(grant_id: @grant.id)
       payee.update(grant_payee_params)
