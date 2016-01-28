@@ -18,9 +18,7 @@ class GrantsController < ApplicationController
   end
 
   def create
-    @grant = Grant.new(grant_params)
-    @grant.application_date = Time.zone.today
-
+    @grant = Grant.new(grant_params.merge(user_id: current_user.id))
     if @grant.save
       redirect_to @grant
     else
@@ -29,7 +27,7 @@ class GrantsController < ApplicationController
   end
 
   def update
-    if @grant.update(grant_params)
+    if @grant.update(grant_params.merge(user_id: current_user.id))
       redirect_to @grant
     else
       render :edit

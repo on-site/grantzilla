@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <li><%= link_to 'Applications', grants_path %></li>
-  <% if true # If admin user %>
+  <% if current_user.admin? %>
     <li><%= link_to 'Users', user_session_path %></li>
   <% end %>
   <li class="dropdown">
