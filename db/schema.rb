@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128160543) do
+ActiveRecord::Schema.define(version: 20160128201336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20160128160543) do
   create_table "data_import_history_logs", force: :cascade do |t|
     t.integer  "ehf_records_processed"
     t.integer  "ehf_records_imported"
-    t.text     "errors"
+    t.text     "error_encountered"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
