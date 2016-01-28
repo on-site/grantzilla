@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128181736) do
+ActiveRecord::Schema.define(version: 20160128191420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -260,8 +260,8 @@ ActiveRecord::Schema.define(version: 20160128181736) do
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   add_foreign_key "grant_coverage_types", "coverage_types"
-  add_foreign_key "grant_coverage_types", "grants"
-  add_foreign_key "grant_reasons", "grants"
+  add_foreign_key "grant_coverage_types", "grants", on_delete: :cascade
+  add_foreign_key "grant_reasons", "grants", on_delete: :cascade
   add_foreign_key "grant_reasons", "reason_types"
   add_foreign_key "grants", "budgets", column: "current_month_budget_id"
   add_foreign_key "grants", "budgets", column: "last_month_budget_id"
@@ -270,9 +270,9 @@ ActiveRecord::Schema.define(version: 20160128181736) do
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
   add_foreign_key "incomes", "income_types"
-  add_foreign_key "incomes", "people"
-  add_foreign_key "other_payments", "grants"
-  add_foreign_key "people", "grants"
+  add_foreign_key "incomes", "people", on_delete: :cascade
+  add_foreign_key "other_payments", "grants", on_delete: :cascade
+  add_foreign_key "people", "grants", on_delete: :cascade
   add_foreign_key "residences", "residence_types"
   add_foreign_key "users", "agencies"
 end
