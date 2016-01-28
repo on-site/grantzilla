@@ -13,8 +13,7 @@
 <%= link_to 'Edit', edit_grant_path(@grant) %> |
 <%= link_to 'Back', grants_path %>
 
-
 <%= react_component('GrantControls',
                       grant: @grant,
                       payee: @grant_payee,
-                      statuses: @grant_statuses) %>
+                      statuses: @grant_statuses) if current_user.admin? %>

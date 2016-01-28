@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20160128055555) do
     t.string "description"
   end
 
+  create_table "data_import_history_logs", force: :cascade do |t|
+    t.integer  "ehf_records_processed"
+    t.integer  "ehf_records_imported"
+    t.text     "errors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "grant_coverage_types", force: :cascade do |t|
     t.integer "grant_id"
     t.integer "coverage_type_id"
