@@ -36,6 +36,7 @@ class GrantsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def update_controls
     raise unless current_user.admin?
     if @grant.update(grant_admin_params)
@@ -46,6 +47,7 @@ class GrantsController < ApplicationController
       render json: { errors: @grant.errors.full_messages }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     @grant.destroy
