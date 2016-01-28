@@ -24,6 +24,10 @@ class FormsController < ApplicationController
 
   def find_grant
     @grant = Grant.find(params[:grant_id])
+    @grant_statuses = GrantStatus.all
+    @grant_payee = @grant.payees.last || {}
+    @comments = @grant.comments.joins(:user)
+                      .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def form_params
