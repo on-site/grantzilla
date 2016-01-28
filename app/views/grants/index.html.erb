@@ -55,7 +55,7 @@
             <td><%= grant.application_date.try(:strftime, '%m/%d/%Y') %></td>
             <% if current_user.admin? %>
               <td>
-                <em>agency name</em>
+                <em><%= grant.user.agency.name %></em>
               </td>
             <% end %>
             <td>

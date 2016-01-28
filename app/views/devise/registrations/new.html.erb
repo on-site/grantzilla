@@ -13,10 +13,9 @@
         <%= f.label :last_name %>
         <%= f.text_field :last_name, class: "form-control" %>
       </div>
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: "form-control" %>
-      </div>
+
+      <%= react_component('AgencySignupFields', agencies: Agency.all)  %>
+
       <div class="form-group">
         <%= f.label :password %><br />
         <%= f.password_field :password, class: "form-control" %>
