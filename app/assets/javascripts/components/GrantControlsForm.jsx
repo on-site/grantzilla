@@ -5,9 +5,7 @@ let GrantControlsForm = (props) => (
     <div className="form-group ">
       <label className="control-label " htmlFor="gcf-select">Status</label>
       <select className="select form-control" id="gcf-select" name="select1">
-        <option value="TODO">
-          TODO: Read from :grant_statuses
-        </option>
+        {props.statuses.map(status => <option value={status.id} key={status.id}>{status.description}</option>)}
       </select>
     </div>
 

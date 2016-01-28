@@ -7,6 +7,7 @@ class GrantsController < ApplicationController
   end
 
   def show
+    @grant_statuses = GrantStatus.all
   end
 
   def new

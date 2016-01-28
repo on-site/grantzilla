@@ -17,7 +17,7 @@ class GrantControls extends React.Component {
       <div className="well">
         <h4>HIF Controls</h4>
 
-        <GrantControlsForm handleSubmit={this.save.bind(this)} />
+        <GrantControlsForm handleSubmit={this.save.bind(this)} statuses={this.props.statuses} />
       </div>
     );
   }
