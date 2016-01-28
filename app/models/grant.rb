@@ -1,4 +1,6 @@
 class Grant < ActiveRecord::Base
+  default_scope -> { order(application_date: :desc) }
+
   # Descriptors
   belongs_to :user
   has_many :grant_reasons, autosave: true

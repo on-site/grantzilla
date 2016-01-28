@@ -3,7 +3,7 @@ class GrantsController < ApplicationController
   before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :destroy]
 
   def index
-    @grants = Grant.order(application_date: :desc)
+    @grants = Grant.all
   end
 
   def show
