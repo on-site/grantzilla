@@ -84,11 +84,8 @@ ActiveRecord::Schema.define(version: 20160128040438) do
   create_table "grants", force: :cascade do |t|
     t.date     "application_date"
     t.string   "details"
-    t.string   "status"
-    t.float    "grant_amount"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "funding_date"
     t.string   "ehf_number"
     t.float    "total_rent"
     t.float    "adjusted_rent"
@@ -99,6 +96,9 @@ ActiveRecord::Schema.define(version: 20160128040438) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
+    t.string   "status"
+    t.float    "grant_amount"
+    t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
@@ -208,6 +208,8 @@ ActiveRecord::Schema.define(version: 20160128040438) do
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.string   "role",                   default: "user", null: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
