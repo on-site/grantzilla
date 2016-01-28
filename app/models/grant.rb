@@ -15,10 +15,11 @@ class Grant < ActiveRecord::Base
   )
 
   # Components
-  has_many :people, autosave: true
   has_many :other_payments
   has_many :payees
+  has_many :people, autosave: true
 
+  # Residences
   belongs_to :residence
   belongs_to(
     :previous_residence,
@@ -26,6 +27,7 @@ class Grant < ActiveRecord::Base
     foreign_key: :previous_residence_id
   )
 
+  # Budgets
   belongs_to :last_month_budget, class_name: "Budget"
   belongs_to :current_month_budget, class_name: "Budget"
   belongs_to :next_month_budget, class_name: "Budget"
