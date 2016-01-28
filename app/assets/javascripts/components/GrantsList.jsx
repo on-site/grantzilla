@@ -49,7 +49,6 @@ const TextCell = ({rowIndex, data, columnKey, ...props}) => (
 
 class Links extends React.Component {
   render() {
-    console.log(this.props);
     const {rowIndex, data, ...props} = this.props;
     const id = data.getObjectAt(rowIndex)["id"];
     return (
