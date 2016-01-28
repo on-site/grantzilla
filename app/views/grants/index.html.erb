@@ -5,8 +5,7 @@
     <div class="row">
       <div class="col-md-2 col-sm-4 col-xs-12">
         <select class="form-control">
-          <option>User 1</option>
-          <option>User 2</option>
+          <%= options_from_collection_for_select(User.case_workers_by_agency(current_user.agency), :id, :full_name) %>
         </select>
       </div>
 

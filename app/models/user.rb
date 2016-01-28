@@ -8,6 +8,16 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
+  belongs_to :agency
+
+  def self.case_workers_by_agency(agency=nil)
+    case_workers.where agency: agency
+  end
+
+  def self.case_workers
+    where role: "case_worker"
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
