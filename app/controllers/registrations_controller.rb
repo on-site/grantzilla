@@ -6,6 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
       :first_name,
       :last_name,
       :email,
+      :agency_id,
       :password,
       :password_confirmation
     ).tap do |params|
@@ -18,6 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
       :first_name,
       :last_name,
       :email,
+      :agency_id,
       :password,
       :password_confirmation,
       :current_password
