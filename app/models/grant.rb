@@ -1,4 +1,6 @@
 class Grant < ActiveRecord::Base
+  default_scope -> { order(application_date: :desc) }
+
   belongs_to :user
   belongs_to :subsidy_type
   belongs_to :status, class_name: "GrantStatus", foreign_key: :grant_status_id
