@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127235224) do
+ActiveRecord::Schema.define(version: 20160128001156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,26 +44,31 @@ ActiveRecord::Schema.define(version: 20160127235224) do
     t.datetime "updated_at"
   end
 
+  create_table "grant_statuses", force: :cascade do |t|
+    t.string "description"
+  end
+
   create_table "grants", force: :cascade do |t|
     t.date     "application_date"
     t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ehf_number"
-    t.string   "total_rent"
-    t.string   "adjusted_rent"
-    t.string   "subsidized"
-    t.string   "subsidy_type_id"
-    t.string   "months_owed"
-    t.string   "rent_owed"
-    t.string   "security_deposit_owed"
+    t.float    "total_rent"
+    t.float    "adjusted_rent"
+    t.boolean  "subsidized"
+    t.integer  "subsidy_type_id"
+    t.integer  "months_owed"
+    t.float    "rent_owed"
+    t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
-    t.string   "utility_owed"
+    t.float    "utility_owed"
     t.string   "status"
     t.float    "grant_amount"
     t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
+    t.integer  "grant_status_id"
   end
 
   create_table "income_types", force: :cascade do |t|
@@ -176,6 +181,7 @@ ActiveRecord::Schema.define(version: 20160127235224) do
   add_foreign_key "grant_coverage_types", "grants"
   add_foreign_key "grant_reasons", "grants"
   add_foreign_key "grant_reasons", "reason_types"
+  add_foreign_key "grants", "grant_statuses"
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
   add_foreign_key "incomes", "income_types"

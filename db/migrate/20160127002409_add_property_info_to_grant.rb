@@ -1,6 +1,6 @@
 class AddPropertyInfoToGrant < ActiveRecord::Migration
   def add_grants(column, type = :string)
-    add_column :grants, column, :string
+    add_column :grants, column, type
   end
 
   def change
