@@ -226,8 +226,10 @@ ActiveRecord::Schema.define(version: 20160128160543) do
     t.string   "role",                   default: "case_worker", null: false
     t.string   "first_name"
     t.string   "last_name"
+    t.integer  "agency_id"
   end
 
+  add_index "users", ["agency_id"], name: "index_users_on_agency_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
@@ -246,4 +248,5 @@ ActiveRecord::Schema.define(version: 20160128160543) do
   add_foreign_key "other_payments", "grants"
   add_foreign_key "people", "grants"
   add_foreign_key "residences", "residence_types"
+  add_foreign_key "users", "agencies"
 end

@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
+  belongs_to :agency
+
+  scope :case_workers_by_agency, ->(agency = nil) { case_workers.where(agency: agency) }
+  scope :case_workers, -> { where(role: :case_worker) }
+
   def full_name
     "#{first_name} #{last_name}"
   end
