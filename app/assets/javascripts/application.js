@@ -17,6 +17,7 @@
 //= require moment
 //= require react
 //= require react_ujs
+//= require fixed-data-table
 //= require components
 //= require accountingjs
 //= require bootstrap-sprockets

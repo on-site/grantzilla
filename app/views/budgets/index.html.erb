@@ -1,6 +1,6 @@
 <%= "Applicant".pluralize(@grant.people.size) %>: <%= @grant.people.map(&:full_name).to_sentence %>
 
-<%= form_for(@grant, data: { live_guarded: true }) do |f| %>
+<%= form_for(@grant, url: bulk_update_grant_budgets_path(@grant), data: { live_guarded: true }) do |f| %>
   <table class="table table-striped budgets income">
     <thead>
       <tr>
