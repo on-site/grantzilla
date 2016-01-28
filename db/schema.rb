@@ -264,14 +264,14 @@ ActiveRecord::Schema.define(version: 20160128191420) do
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   add_foreign_key "coverage_types_grants", "coverage_types"
-  add_foreign_key "coverage_types_grants", "grants"
+  add_foreign_key "coverage_types_grants", "grants", on_delete: :cascade
   add_foreign_key "grants", "budgets", column: "current_month_budget_id"
   add_foreign_key "grants", "budgets", column: "last_month_budget_id"
   add_foreign_key "grants", "budgets", column: "next_month_budget_id"
   add_foreign_key "grants", "grant_statuses"
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
-  add_foreign_key "grants_reason_types", "grants"
+  add_foreign_key "grants_reason_types", "grants", on_delete: :cascade
   add_foreign_key "grants_reason_types", "reason_types"
   add_foreign_key "incomes", "income_types"
   add_foreign_key "incomes", "people", on_delete: :cascade
