@@ -13,3 +13,23 @@ body {
 .text-bold {
   font-weight: bold;
 }
+
+.navbar-brand {
+  background: url(/images/hif_logo.png) 16px 6px no-repeat;
+  background-size: 40px;
+  display: inline-block;
+  height: 55px;
+  margin-bottom: -3px;
+  padding-left: 65px;
+  width: auto;
+}
+
+#footer-icon {
+  background: url(/favicon-96x96.png) no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  height: 16px;
+  margin-bottom: -3px;
+  width: 16px;
+}
+
