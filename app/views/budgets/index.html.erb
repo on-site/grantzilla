@@ -20,10 +20,10 @@
     </tbody>
     <tfoot>
       <tr>
-        <td><strong>TOTALS</strong></td>
-        <td class="subtotal-last-month-budget"></td>
-        <td class="subtotal-current-month-budget"></td>
-        <td class="subtotal-next-month-budget"></td>
+        <td class="text-bold">Subtotal of Monthly Income</strong></td>
+        <td class="text-right text-bold subtotal-last-month-budget"></td>
+        <td class="text-right text-bold subtotal-current-month-budget"></td>
+        <td class="text-right text-bold subtotal-next-month-budget"></td>
       </tr>
     </tfoot>
   </table>
@@ -59,6 +59,21 @@
         </tr>
       <% end %>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td class="text-bold">Subtotal of Monthly Expenses</strong></td>
+        <td class="text-right text-bold subtotal-last-month-budget"></td>
+        <td class="text-right text-bold subtotal-current-month-budget"></td>
+        <td class="text-right text-bold subtotal-next-month-budget"></td>
+      </tr>
+      <tr>
+        <td class="text-bold">Net Income</strong></td>
+        <td class="text-right text-bold total-last-month-budget"></td>
+        <td class="text-right text-bold total-current-month-budget"></td>
+        <td class="text-right text-bold total-next-month-budget"></td>
+      </tr>
+    </tfoot>
   </table>
 
   <%= f.submit "Save", class: "btn btn-primary" %>
