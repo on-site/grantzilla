@@ -1,11 +1,10 @@
 <%= "Applicant".pluralize(@grant.people.size) %>: <%= @grant.people.map(&:full_name).to_sentence %>
 
 <%= form_for(@grant, data: { live_guarded: true }) do |f| %>
-  <h3>Monthly Net Income</h3>
-  <table class="table table-striped budgets">
+  <table class="table table-striped budgets income">
     <thead>
       <tr>
-        <th></th>
+        <th><h3>Monthly Net Income</h3></th>
         <th class="text-right">Last Month</th>
         <th class="text-right">Current Month</th>
         <th class="text-right">Next Month</th>
@@ -19,13 +18,20 @@
         </tr>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <td><strong>TOTALS</strong></td>
+        <td class="subtotal-last-month-budget"></td>
+        <td class="subtotal-current-month-budget"></td>
+        <td class="subtotal-next-month-budget"></td>
+      </tr>
+    </tfoot>
   </table>
 
-  <h3>Monthly Expenses</h3>
-  <table class="table table-striped budgets">
+  <table class="table table-striped budgets expenses">
     <thead>
       <tr>
-        <th></th>
+        <th><h3>Monthly Expenses</h3></th>
         <th class="text-right">Last Month</th>
         <th class="text-right">Current Month</th>
         <th class="text-right">Next Month</th>
