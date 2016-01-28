@@ -9,7 +9,10 @@
     </div>
 
     <div class="col-sm-6">
-      <%= f.input :birth_date %>
+      <%= f.label :birth_date, "Birth Date" %> <span class="text-danger">*</span>
+      <div class="form-inline">
+        <%= f.date_select(:birth_date, { start_year: 1925, end_year: Time.now.year, order: [:month, :day, :year] }, { class: "form-control", data: { guard: "required" } }) %>
+      </div>
     </div>
   </div>
 
