@@ -45,7 +45,7 @@ class Grant < ActiveRecord::Base
   end
 
   def agency_name
-    user.agency.name
+    agency.name
   end
 
   def case_worker_name
