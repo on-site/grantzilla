@@ -23,5 +23,11 @@ class Grant < ActiveRecord::Base
     foreign_key: :previous_residence_id
   )
 
-  accepts_nested_attributes_for :people, :grant_reasons
+  accepts_nested_attributes_for *grant_application_entities
+
+  private
+
+  def grant_application_entities
+    [:people]
+  end
 end
