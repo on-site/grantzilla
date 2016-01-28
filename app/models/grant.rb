@@ -10,6 +10,8 @@ class Grant < ActiveRecord::Base
   belongs_to :current_month_budget, class_name: "Budget"
   belongs_to :next_month_budget, class_name: "Budget"
 
+  delegate :agency, to: :user
+
   has_many :grant_reasons, autosave: true
   has_many :reason_types, through: :grant_reasons, autosave: true
   has_many :grant_coverage_types
