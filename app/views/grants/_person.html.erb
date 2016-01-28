@@ -1,0 +1,43 @@
+<h2>
+  <%= person.full_name %>
+  <br />
+  <small>
+    <em><%= person.email %></em>
+  </small>
+</h2>
+
+<div class="form form-horizontal">
+  <% if person.phone %>
+    <div class="form-group">
+      <label class="col-sm-2">Phone:</label>
+
+      <div class="col-sm-10">
+        <%= person.phone %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label class="col-sm-2">Born:</label>
+
+    <div class="col-sm-10">
+      <%= person.birth_date %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2">Veteran?</label>
+
+    <div class="col-sm-9">
+      <%= person.veteran ? "Yes" : "No" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2">Student?</label>
+
+    <div class="col-sm-10">
+      <%= person.student_status %>
+    </div>
+  </div>
+</div>
