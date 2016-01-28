@@ -96,4 +96,6 @@ Rails.application.configure do
     s3_permissions: :private,
     s3_protocol: ""
   }
+
+  config.active_job.queue_adapter = :sidekiq # Send emails in the background only in production
 end
