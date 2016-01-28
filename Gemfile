@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "2.3.0"
+
 gem "better_errors"
 gem "binding_of_caller"
 
@@ -57,4 +59,5 @@ group :production do
   gem "aws-sdk"
   gem "mailgun_rails"
   gem "sidekiq"
+  gem "rails_12factor"
 end
