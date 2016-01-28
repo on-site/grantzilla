@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127162912) do
+ActiveRecord::Schema.define(version: 20160127235224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,10 @@ ActiveRecord::Schema.define(version: 20160127162912) do
     t.string "phone"
     t.string "fax"
     t.string "email"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
   end
 
   create_table "coverage_types", force: :cascade do |t|
@@ -46,12 +50,6 @@ ActiveRecord::Schema.define(version: 20160127162912) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ehf_number"
-    t.string   "street_address"
-    t.string   "unit_number"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "move_in_date"
     t.string   "total_rent"
     t.string   "adjusted_rent"
     t.string   "subsidized"
@@ -63,9 +61,13 @@ ActiveRecord::Schema.define(version: 20160127162912) do
     t.string   "utility_owed"
     t.string   "status"
     t.float    "grant_amount"
-    t.string   "check_number"
-    t.string   "payee"
     t.datetime "funding_date"
+    t.integer  "residence_id"
+    t.integer  "previous_residence_id"
+  end
+
+  create_table "income_types", force: :cascade do |t|
+    t.string "description"
   end
 
   create_table "incomes", force: :cascade do |t|
@@ -81,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160127162912) do
     t.boolean  "full_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "income_type_id"
   end
 
   create_table "other_payments", force: :cascade do |t|
@@ -91,15 +94,19 @@ ActiveRecord::Schema.define(version: 20160127162912) do
   end
 
   create_table "payees", force: :cascade do |t|
-    t.string "name"
-    t.string "attention"
-    t.string "street_address"
-    t.string "unit_number"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
-    t.string "email"
-    t.string "phone"
+    t.integer "grant_id"
+    t.string  "name"
+    t.string  "attention"
+    t.string  "street_address"
+    t.string  "unit_number"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
+    t.string  "email"
+    t.string  "phone"
+    t.float   "check_amount"
+    t.date    "check_date"
+    t.string  "check_number"
   end
 
   create_table "people", force: :cascade do |t|
@@ -120,6 +127,26 @@ ActiveRecord::Schema.define(version: 20160127162912) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "residence_types", force: :cascade do |t|
+    t.string "description"
+  end
+
+  create_table "residences", force: :cascade do |t|
+    t.string  "address"
+    t.string  "unit_number"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
+    t.integer "residence_type_id"
+    t.date    "move_in_date"
+    t.date    "move_out_date"
+    t.string  "reason_left"
+    t.boolean "transitional_housing"
+    t.float   "rent"
+    t.float   "deposit"
+    t.float   "amount_returned"
   end
 
   create_table "subsidy_types", force: :cascade do |t|
@@ -149,7 +176,11 @@ ActiveRecord::Schema.define(version: 20160127162912) do
   add_foreign_key "grant_coverage_types", "grants"
   add_foreign_key "grant_reasons", "grants"
   add_foreign_key "grant_reasons", "reason_types"
+  add_foreign_key "grants", "residences"
+  add_foreign_key "grants", "residences", column: "previous_residence_id"
+  add_foreign_key "incomes", "income_types"
   add_foreign_key "incomes", "people"
   add_foreign_key "other_payments", "grants"
   add_foreign_key "people", "grants"
+  add_foreign_key "residences", "residence_types"
 end
