@@ -52,23 +52,18 @@
             <td>
               <%= link_to grant.details, grant %>
             </td>
-
             <td><%= grant.application_date.try(:strftime, '%m/%d/%Y') %></td>
-
             <% if current_user.admin? %>
               <td>
                 <em>agency name</em>
               </td>
             <% end %>
-
             <td>
               <em><%= grant.user.full_name %></em>
             </td>
-
             <td>
               <em>status</em>
             </td>
-
             <td>
               <%= link_to 'Edit', edit_grant_path(grant), class: 'btn btn-default' %>
             </td>
