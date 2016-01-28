@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
+  belongs_to :agency
+
   def full_name
     "#{first_name} #{last_name}"
   end
