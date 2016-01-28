@@ -7,6 +7,7 @@ class AgenciesController < ApplicationController
   end
 
   def show
+    @agency = Agency.find(params[:id])
   end
 
   def new
@@ -17,8 +18,7 @@ class AgenciesController < ApplicationController
   end
 
   def create
-    @agency = Grant.new(agency_params.merge(user_id: current_user.id))
-    @agency.application_date = Time.zone.today
+    @agency = Agency.new(agency_params)
 
     if @agency.save
       redirect_to @agency
@@ -28,7 +28,7 @@ class AgenciesController < ApplicationController
   end
 
   def update
-    if @agency.update(agency_params.merge(user_id: current_user.id))
+    if @agency.update(agency_params)
       redirect_to @agency
     else
       render :edit
@@ -43,11 +43,11 @@ class AgenciesController < ApplicationController
   private
 
   def set_agency
-    @agency = Grant.find(params[:id])
+    @agency = Agency.find(params[:id])
   end
 
   def agency_params
-    params.permit(:agency).permit(
+    params.require(:agency).permit(
      :name,
      :phone,
      :fax,
