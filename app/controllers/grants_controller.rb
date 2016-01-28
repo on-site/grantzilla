@@ -1,6 +1,6 @@
 class GrantsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_grant, only: [:show, :edit, :update, :update_controls, :destroy]
+  before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :destroy]
 
   def index
     @grants = Grant.order(application_date: :desc)
@@ -9,6 +9,8 @@ class GrantsController < ApplicationController
   def show
     @grant_statuses = GrantStatus.all
     @grant_payee = @grant.payees.last
+    @comments = @grant.comments.joins(:user)
+                      .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def new
@@ -20,8 +22,9 @@ class GrantsController < ApplicationController
   end
 
   def create
-    @grant = Grant.new(grant_params.merge(user_id: current_user.id))
-    if @grant.save
+    creates_grants = CreatesGrants.new(grant_params.merge(user_id: current_user.id))
+    @grant = creates_grants.grant
+    if creates_grants.save
       redirect_to @grant
     else
       render :new
@@ -43,6 +46,16 @@ class GrantsController < ApplicationController
       payee = @grant.payees.last || Payee.new(grant_id: @grant.id)
       payee.update(grant_payee_params)
       render json: @grant
+    else
+      render json: { errors: @grant.errors.full_messages }
+    end
+  end
+
+  def add_comment
+    new_comment = @grant.comments.new(body: params[:body], user_id: current_user.id)
+    if new_comment.save
+      response = new_comment.attributes.merge(first_name: current_user.first_name, last_name: current_user.last_name)
+      render json: response
     else
       render json: { errors: @grant.errors.full_messages }
     end

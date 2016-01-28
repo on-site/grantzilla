@@ -1,0 +1,7 @@
+<% budgets.each do |budget| %>
+   <td>
+     <%= f.fields_for type, budget do |b| %>
+       <%= b.text_field type, class: "form-control", data: { guard: "money" } %>
+     <% end %>
+   </td>
+<% end %>

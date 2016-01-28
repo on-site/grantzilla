@@ -15,10 +15,12 @@ class Grant < ActiveRecord::Base
   )
 
   # Components
-  has_many :people, autosave: true
+  has_many :comments
   has_many :other_payments
   has_many :payees
+  has_many :people, autosave: true
 
+  # Residences
   belongs_to :residence
   belongs_to(
     :previous_residence,
@@ -26,11 +28,19 @@ class Grant < ActiveRecord::Base
     foreign_key: :previous_residence_id
   )
 
+  # Budgets
   belongs_to :last_month_budget, class_name: "Budget"
   belongs_to :current_month_budget, class_name: "Budget"
   belongs_to :next_month_budget, class_name: "Budget"
 
   accepts_nested_attributes_for :people, :grant_reasons
+
+  def status_name
+    unless status.present?
+      raise "Grant is missing its status, which should not happen."
+    end
+    status.description
+  end
 
   def set_application_date
     self.application_date = Time.zone.today
