@@ -44,6 +44,7 @@ class Grant < ActiveRecord::Base
     primary_applicant.full_name
   end
 
+  # rubocop:disable Rails/Delegate
   def agency_name
     agency.name
   end
