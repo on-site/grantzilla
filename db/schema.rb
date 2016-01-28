@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128001156) do
+ActiveRecord::Schema.define(version: 20160128033503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,13 +37,6 @@ ActiveRecord::Schema.define(version: 20160128001156) do
     t.boolean "past_due"
   end
 
-  create_table "grant_reasons", force: :cascade do |t|
-    t.integer  "grant_id"
-    t.integer  "reason_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "grant_statuses", force: :cascade do |t|
     t.string "description"
   end
@@ -51,8 +44,12 @@ ActiveRecord::Schema.define(version: 20160128001156) do
   create_table "grants", force: :cascade do |t|
     t.date     "application_date"
     t.string   "details"
+    t.string   "status"
+    t.float    "grant_amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "funding_date"
+    t.string   "step",                  default: "applicants"
     t.string   "ehf_number"
     t.float    "total_rent"
     t.float    "adjusted_rent"
@@ -63,13 +60,18 @@ ActiveRecord::Schema.define(version: 20160128001156) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
-    t.string   "status"
-    t.float    "grant_amount"
-    t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
   end
+
+  create_table "grants_reason_types", force: :cascade do |t|
+    t.integer "grant_id"
+    t.integer "reason_type_id"
+  end
+
+  add_index "grants_reason_types", ["grant_id"], name: "index_grants_reason_types_on_grant_id", using: :btree
+  add_index "grants_reason_types", ["reason_type_id"], name: "index_grants_reason_types_on_reason_type_id", using: :btree
 
   create_table "income_types", force: :cascade do |t|
     t.string "description"
@@ -179,11 +181,11 @@ ActiveRecord::Schema.define(version: 20160128001156) do
 
   add_foreign_key "grant_coverage_types", "coverage_types"
   add_foreign_key "grant_coverage_types", "grants"
-  add_foreign_key "grant_reasons", "grants"
-  add_foreign_key "grant_reasons", "reason_types"
   add_foreign_key "grants", "grant_statuses"
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
+  add_foreign_key "grants_reason_types", "grants"
+  add_foreign_key "grants_reason_types", "reason_types"
   add_foreign_key "incomes", "income_types"
   add_foreign_key "incomes", "people"
   add_foreign_key "other_payments", "grants"
