@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128040438) do
+ActiveRecord::Schema.define(version: 20160128055555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,9 +94,6 @@ ActiveRecord::Schema.define(version: 20160128040438) do
     t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status"
-    t.float    "grant_amount"
-    t.datetime "funding_date"
     t.string   "ehf_number"
     t.float    "total_rent"
     t.float    "adjusted_rent"
@@ -107,6 +104,8 @@ ActiveRecord::Schema.define(version: 20160128040438) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
+    t.float    "grant_amount"
+    t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"

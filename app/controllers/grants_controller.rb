@@ -20,8 +20,9 @@ class GrantsController < ApplicationController
   end
 
   def create
-    @grant = Grant.new(grant_params.merge(user_id: current_user.id))
-    if @grant.save
+    creates_grants = CreatesGrants.new(grant_params.merge(user_id: current_user.id))
+    @grant = creates_grants.grant
+    if creates_grants.save
       redirect_to @grant
     else
       render :new
