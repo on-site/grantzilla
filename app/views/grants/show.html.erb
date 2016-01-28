@@ -9,11 +9,9 @@
   <%= link_to 'Back', grants_path, class: "btn btn-link" %>
 </div>
 
-<div class="row">
-  <div class="col-sm-12">
-    <em>Grant added on: <%= @grant.application_date %></em></small>
-  </div>
-</div>
+<p>
+  <em>Grant added on: <%= @grant.application_date %></em></small>
+</p>
 
 <table class="table">
   <thead>
@@ -28,6 +26,38 @@
     <% @grant.people.each do |person| %>
       <%= render partial: "person", locals: {person: person} %>
     <% end %>
+  </tbody>
+</table>
+
+<table class="table">
+  <thead>
+    <tr class="info">
+      <th colspan="6">
+        <h2>Grant Information</h2>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th class="active">Grant Amount</th>
+
+      <td>
+        <%= @grant.grant_amount %>
+      </td>
+
+      <th class="active">Funding Date</th>
+
+      <td>
+        <%= @grant.funding_date %>
+      </td>
+
+      <th class="active">EHF Number</th>
+
+      <td>
+        <%= @grant.ehf_number %>
+      </td>
+    </tr>
   </tbody>
 </table>
 
