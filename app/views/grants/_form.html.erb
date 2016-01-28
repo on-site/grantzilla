@@ -31,7 +31,7 @@
     <div class="form-group">
       <%= p.label :birth_date, "Birth Date" %> <span class="text-danger">*</span>
       <div class="form-inline">
-        <%= p.date_select(:birth_date, { start_year: 1925, order: [:month, :day, :year] }, { class: "form-control", data: { guard: "required" } }) %>
+        <%= p.date_select(:birth_date, { start_year: 1925, end_year: Time.now.year, order: [:month, :day, :year] }, { class: "form-control", data: { guard: "required" } }) %>
       </div>
     </div>
 

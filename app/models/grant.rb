@@ -6,6 +6,8 @@ class Grant < ActiveRecord::Base
   has_and_belongs_to_many :reason_types
   has_and_belongs_to_many :coverage_types
 
+  default_scope -> { order(application_date: :desc) }
+
   belongs_to :user
   belongs_to :subsidy_type
   belongs_to :status, class_name: "GrantStatus", foreign_key: :grant_status_id
