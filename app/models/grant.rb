@@ -51,5 +51,4 @@ class Grant < ActiveRecord::Base
   def case_worker_name
     user.full_name
   end
-
 end
