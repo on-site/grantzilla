@@ -6,11 +6,13 @@ class CommentsSection extends React.Component {
   saveNewComment(e) {
     e.preventDefault();
     let $form = $(e.target);
-    $.post(`/grants/${this.props.grant.id}/add_comment`, { body: $form.find("#gc-text").val() })
+    let $gcText = $form.find("#gc-text");
+    $.post(`/grants/${this.props.grant.id}/add_comment`, { body: $gcText.val() })
     .done(resp => {
       let currentComments = this.state.comments;
       currentComments.unshift(resp);
       this.setState({ comments: currentComments });
+      $gcText.val("");
     })
     .fail(errors => console.log(errors));
   }

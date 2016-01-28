@@ -1,0 +1,53 @@
+<%= form_for(@agency, data: { live_guarded: true }) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%= panel_title %></h4>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <%= f.label :name, "Agency Name" %> <span class="text-danger">*</span>
+        <%= f.text_field :name, class: "form-control", data: { guard: "required", guard_required_message: "A name for the agency is required." } %>
+      </div>
+      <div class="form-group">
+        <%= f.label :phone, "Phone Number" %> <span class="text-danger">*</span>
+        <%= f.text_field :phone, class: "form-control", data: { guard: "required phoneUS", guard_required_message: "A phone number is required." } %>
+      </div>
+      <div class="form-group">
+        <%= f.label :fax, "Fax Number" %>
+        <%= f.text_field :fax, class: "form-control", data: { guard: "phoneUS" } %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email, "Email Address" %> <span class="text-danger">*</span>
+        <%= f.text_field :email, class: "form-control", data: { guard: "required email", guard_required_message: "An email address is required." } %>
+      </div>
+      <div class="form-group">
+        <%= f.label :address, "Street Address" %> <span class="text-danger">*</span>
+        <%= f.text_field :address, class: "form-control", data: { guard: "required", guard_required_message: "A street address is required." } %>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-xs-12">
+          <div class="form-group">
+            <%= f.label :city, "City" %> <span class="text-danger">*</span>
+            <%= f.text_field :city, class: "form-control", data: { guard: "required", guard_required_message: "A city is required." } %>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-6">
+          <div class="form-group">
+            <%= f.label :state, "State" %> <span class="text-danger">*</span>
+            <%= f.text_field :state, class: "form-control", data: { guard: "required", guard_required_message: "A state is required." } %>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-6">
+          <div class="form-group">
+            <%= f.label :zip, "ZIP Code" %> <span class="text-danger">*</span>
+            <%= f.text_field :zip, class: "form-control", data: { guard: "required", guard_required_message: "A ZIP code is required." } %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.submit btn_action, class: "btn btn-primary btn-block-xs" %>
+        <%= link_to 'return', agencies_path, class: 'btn btn-link btn-block-xs' %>
+      </div>
+    </div>
+  </div>
+<% end %>
