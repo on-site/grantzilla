@@ -1,6 +1,6 @@
 class GrantsController < ApplicationController
-  before_action :set_grant, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_grant, only: [:show, :edit, :update, :update_controls, :destroy]
 
   def index
     @grants = Grant.order(application_date: :desc)
@@ -29,10 +29,20 @@ class GrantsController < ApplicationController
   end
 
   def update
-    if @grant.update(grant_params)
+    update_params = params[:grant_controls] && "TODO: IS_ADMIN?" ? grant_admin_params : grant_params
+    if @grant.update(update_params)
       redirect_to @grant
     else
       render :edit
+    end
+  end
+
+  def update_controls
+    # TODO: Check access
+    if @grant.update(grant_admin_params)
+      render json: @grant
+    else
+      render json: { errors: @grant.errors.full_messages }
     end
   end
 
@@ -49,5 +59,9 @@ class GrantsController < ApplicationController
 
   def grant_params
     params.require(:grant).permit(people_attributes: [:id, :first_name, :last_name, :birth_date, :email])
+  end
+
+  def grant_admin_params
+    params.require(:grant).permit(:grant_amount, :check_number, :payee)
   end
 end

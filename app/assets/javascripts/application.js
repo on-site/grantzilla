@@ -15,6 +15,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require moment
+//= require react
+//= require react_ujs
+//= require components
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 //= require bootstrap-guards

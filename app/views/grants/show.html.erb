@@ -12,3 +12,6 @@
 
 <%= link_to 'Edit', edit_grant_path(@grant) %> |
 <%= link_to 'Back', grants_path %>
+
+
+<%= react_component('GrantControls', grantId: @grant.id) %>
