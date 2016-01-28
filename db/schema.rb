@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128033503) do
+ActiveRecord::Schema.define(version: 20160128035348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,11 +31,13 @@ ActiveRecord::Schema.define(version: 20160128033503) do
     t.string "description"
   end
 
-  create_table "grant_coverage_types", force: :cascade do |t|
-    t.integer "grant_id"
+  create_table "coverage_types_grants", force: :cascade do |t|
     t.integer "coverage_type_id"
-    t.boolean "past_due"
+    t.integer "grant_id"
   end
+
+  add_index "coverage_types_grants", ["coverage_type_id"], name: "index_coverage_types_grants_on_coverage_type_id", using: :btree
+  add_index "coverage_types_grants", ["grant_id"], name: "index_coverage_types_grants_on_grant_id", using: :btree
 
   create_table "grant_statuses", force: :cascade do |t|
     t.string "description"
@@ -179,8 +181,8 @@ ActiveRecord::Schema.define(version: 20160128033503) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "grant_coverage_types", "coverage_types"
-  add_foreign_key "grant_coverage_types", "grants"
+  add_foreign_key "coverage_types_grants", "coverage_types"
+  add_foreign_key "coverage_types_grants", "grants"
   add_foreign_key "grants", "grant_statuses"
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
