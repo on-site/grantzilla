@@ -4,57 +4,80 @@
   <div class="tab-filters">
     <div class="row">
       <div class="col-md-2 col-sm-4 col-xs-12">
-        <div class="form-group">
-          <select class="form-control">
-            <option>Salvation Army</option>
-            <option>Emergency Housing Consortium</option>
-          </select>
-        </div>
+        <select class="form-control">
+          <option>User 1</option>
+          <option>User 2</option>
+        </select>
       </div>
+
       <div class="col-md-2 col-sm-4 col-xs-12">
-        <div class="form-group">
+        <% if current_user.role == 'admin' %>
           <select class="form-control">
-            <option>User 1</option>
-            <option>User 2</option>
+            <option>Agency</option>
+            <option value="1">Salvation Army</option>
+            <option value="2">Emergency Housing Consortium</option>
           </select>
-        </div>
+        <% end %>
       </div>
+
       <div class="col-md-2 col-sm-4 col-xs-12 col-md-offset-6">
-        <div class="form-group">
-          <select class="form-control">
-            <option>Incomplete</option>
-            <option>Approved</option>
-          </select>
-        </div>
+        <select class="form-control">
+          <option>Incomplete</option>
+          <option>Approved</option>
+        </select>
       </div>
     </div>
   </div>
+
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Primary Applicant</th>
           <th>Application Date</th>
-          <th>Agency</th>
+
+          <% if current_user.role == 'admin' %>
+            <th>Agency</th>
+          <% end %>
+
           <th>Case Worker</th>
           <th>Status</th>
           <th></th>
         </tr>
       </thead>
+
       <tbody>
         <% @grants.each do |grant| %>
           <tr>
-            <td><%= link_to grant.details, grant %></td>
+            <td>
+              <%= link_to grant.details, grant %>
+            </td>
+
             <td><%= grant.application_date.try(:strftime, '%m/%d/%Y') %></td>
-            <td><em>agency name</em></td>
-            <td><em>case worker</em></td>
-            <td><em>status</em></td>
-            <td><%= link_to 'Edit', edit_grant_path(grant), class: 'btn btn-default' %></td>
+
+            <% if current_user.role == 'admin' %>
+              <td>
+                <em>agency name</em>
+              </td>
+            <% end %>
+
+            <td>
+              <em><%= grant.user.full_name %></em>
+            </td>
+
+            <td>
+              <em>status</em>
+            </td>
+
+            <td>
+              <%= link_to 'Edit', edit_grant_path(grant), class: 'btn btn-default' %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
+
   <p>
     <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Application'.html_safe, new_grant_path, class: 'btn btn-primary' %>
   </p>
