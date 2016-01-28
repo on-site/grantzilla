@@ -10,11 +10,12 @@ class GrantsController < ApplicationController
   end
 
   def new
-    @grant = Grant.new
-    @grant.people.build
+    @grant = Grant.create
+    redirect_to grant_forms_path(@grant, :applicants)
   end
 
   def edit
+    redirect_to grant_forms_path(@grant, :applicants)
   end
 
   def create
@@ -22,7 +23,7 @@ class GrantsController < ApplicationController
     @grant.application_date = Time.zone.today
 
     if @grant.save
-      redirect_to @grant
+      redirect_to grant_forms_path(@grant, :applicants)
     else
       render :new
     end

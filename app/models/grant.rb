@@ -23,5 +23,5 @@ class Grant < ActiveRecord::Base
     foreign_key: :previous_residence_id
   )
 
-  accepts_nested_attributes_for *COMPONENTS
+  accepts_nested_attributes_for *COMPONENTS, reject_if: :all_blank, allow_destroy: true
 end

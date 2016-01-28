@@ -22,6 +22,10 @@ gem "sass-rails", "~> 5.0"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "uglifier", ">= 1.3.0"
 
+gem "wicked"
+gem "simple_form"
+gem "cocoon"
+
 # paperclip with support for S3 storage with aws-sdk v2
 # has not been published yet but is on master as of 1/22/16.
 gem "paperclip", github: "thoughtbot/paperclip"
