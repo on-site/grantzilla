@@ -8,10 +8,6 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
-  def admin?
-    role == 'admin'
-  end
-
   def full_name
     "#{first_name} #{last_name}"
   end
