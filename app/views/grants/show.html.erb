@@ -6,66 +6,84 @@
     </p>
     <% end %>
 
-    <div class="form-group">
-      <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
-      <%= link_to 'Back', grants_path, class: "btn btn-link" %>
-    </div>
+    <h2>Applicants</h2>
 
     <p>
-      <em>Grant added on: <%= @grant.application_date %></em></small>
+      This grant was submitted on <%= @grant.application_date.try(:strftime, '%m/%d/%Y') %>.
     </p>
 
-    <table class="table">
-      <thead>
-        <tr class="info">
-          <th colspan="6">
-            <h2>Applicants</h2>
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
+    <% if @grant.people.count > 0 %>
+      <div class="row">
         <% @grant.people.each do |person| %>
-        <%= render partial: "person", locals: {person: person} %>
+          <div class="col-md-6">
+            <div class="well">
+              <p>
+                <label class="control-label">Name:</label>
+                <%= person.full_name %>
+              </p>
+
+              <p>
+                <label class="control-label">Phone Number:</label>
+                <%= person.phone %>
+              </p>
+
+              <p>
+                <label class="control-label">Email:</label>
+                <%= person.email %>
+              </p>
+
+              <p>
+                <label class="control-label">Birthday:</label>
+                <%= person.birth_date.try(:strftime, '%m/%d/%Y') %>
+              </p>
+
+              <p>
+                <label class="control-label">Veteran?</label>
+                <% if person.veteran %>
+                  <span class="glyphicon glyphicon-ok text-green"></span> Yes
+                <% else %>
+                  <span class="glyphicon glyphicon-remove text-red"></span> No
+                <% end %>
+              </p>
+
+              <p>
+                <label class="control-label">Student?</label>
+                <% if person.student_status != 'None' %>
+                  <span class="glyphicon glyphicon-ok text-green"></span> <%= person.student_status %>
+                <% else %>
+                  <span class="glyphicon glyphicon-remove text-red"></span> No
+                <% end %>
+              </p>
+            </div>
+          </div>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+    <% else %>
+      <div class="alert alert-warning">
+        There are no applicants associated with this grant yet. <%= link_to 'Add Now...', edit_grant_path(@grant), class: "btn btn-default" %>
+      </div>
+    <% end %>
 
-    <table class="table">
-      <thead>
-        <tr class="info">
-          <th colspan="6">
-            <h2>Grant Information</h2>
-          </th>
-        </tr>
-      </thead>
+    <h2>Grant Information</h2>
 
-      <tbody>
-        <tr>
-          <th class="active">Grant Amount</th>
+    <p>
+      <label class="control-label">Grant Amount:</label>
+      <%= @grant.grant_amount || '<em>no grant yet</em>'.html_safe %>
+    </p>
 
-          <td>
-            <%= @grant.grant_amount %>
-          </td>
+    <p>
+      <label class="control-label">Funding Date:</label>
+      <%= @grant.funding_date %>
+    </p>
 
-          <th class="active">Funding Date</th>
-
-          <td>
-            <%= @grant.funding_date %>
-          </td>
-
-          <th class="active">EHF Number</th>
-
-          <td>
-            <%= @grant.ehf_number %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p>
+      <label class="control-label">EHF Number:</label>
+      <%= @grant.ehf_number %>
+    </p>
 
     <div class="form-group">
       <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
-      <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+      <%= link_to 'return', grants_path, class: "btn btn-link" %>
     </div>
   </div>
   <div class="col-md-4 col-sm-5">
