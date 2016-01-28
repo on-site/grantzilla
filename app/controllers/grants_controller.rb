@@ -29,7 +29,7 @@ class GrantsController < ApplicationController
   end
 
   def update
-    update_params = params[:grant_controls] && "TODO: IS_ADMIN?" ? grant_admin_params : grant_params
+    update_params = params[:grant_controls] && current_user.admin? ? grant_admin_params : grant_params
     if @grant.update(update_params)
       redirect_to @grant
     else
