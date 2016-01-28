@@ -1,21 +1,74 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-8 col-sm-7">
+    <% if notice %>
+    <p id="notice" class="alert alert-default">
+      <%= notice %>
+    </p>
+    <% end %>
 
-<p>
-  <strong>Date:</strong>
-  <%= @grant.application_date %>
-</p>
+    <div class="form-group">
+      <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
+      <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+    </div>
 
-<p>
-  <strong>Details:</strong>
-  <%= @grant.details %>
-</p>
+    <p>
+      <em>Grant added on: <%= @grant.application_date %></em></small>
+    </p>
 
-<%= link_to 'Edit', edit_grant_path(@grant) %> |
-<%= link_to 'Back', grants_path %>
+    <table class="table">
+      <thead>
+        <tr class="info">
+          <th colspan="6">
+            <h2>Applicants</h2>
+          </th>
+        </tr>
+      </thead>
 
-<%= react_component('GrantControls',
-                      grant: @grant,
-                      payee: @grant_payee || {},
-                      statuses: @grant_statuses) if current_user.admin? %>
+      <tbody>
+        <% @grant.people.each do |person| %>
+        <%= render partial: "person", locals: {person: person} %>
+        <% end %>
+      </tbody>
+    </table>
 
-<%= react_component('CommentsSection', grant: @grant, current_comments: @comments) %>
+    <table class="table">
+      <thead>
+        <tr class="info">
+          <th colspan="6">
+            <h2>Grant Information</h2>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <th class="active">Grant Amount</th>
+
+          <td>
+            <%= @grant.grant_amount %>
+          </td>
+
+          <th class="active">Funding Date</th>
+
+          <td>
+            <%= @grant.funding_date %>
+          </td>
+
+          <th class="active">EHF Number</th>
+
+          <td>
+            <%= @grant.ehf_number %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
+      <%= link_to 'Back', grants_path, class: "btn btn-link" %>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-5">
+    <%= render "controls" %>
+  </div>
+</div>

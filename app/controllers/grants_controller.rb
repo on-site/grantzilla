@@ -1,16 +1,13 @@
 class GrantsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :destroy]
+  before_action :set_controls_info, only: [:show, :edit]
 
   def index
-    @grants = Grant.order(application_date: :desc)
+    @grants = Grant.all
   end
 
   def show
-    @grant_statuses = GrantStatus.all
-    @grant_payee = @grant.payees.last
-    @comments = @grant.comments.joins(:user)
-                      .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def new
@@ -71,6 +68,13 @@ class GrantsController < ApplicationController
 
   def set_grant
     @grant = Grant.find(params[:id])
+  end
+
+  def set_controls_info
+    @grant_statuses = GrantStatus.all
+    @grant_payee = @grant.payees.last || {}
+    @comments = @grant.comments.joins(:user)
+                      .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def grant_params

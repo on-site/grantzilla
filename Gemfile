@@ -12,6 +12,7 @@ gem "devise", "~> 3.5"
 gem "devise-bootstrap-views"
 gem "react-rails"
 
+gem 'accountingjs-rails'
 gem "jquery-rails"
 gem "turbolinks"
 gem "jquery-turbolinks"

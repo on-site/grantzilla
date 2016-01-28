@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
+  resources :agencies
   resources :grants do
     member do
       patch :update_controls

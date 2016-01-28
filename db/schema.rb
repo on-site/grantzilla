@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128064242) do
+ActiveRecord::Schema.define(version: 20160128181736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 20160128064242) do
     t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "grant_amount"
+    t.datetime "funding_date"
     t.string   "ehf_number"
     t.float    "total_rent"
     t.float    "adjusted_rent"
@@ -112,8 +114,6 @@ ActiveRecord::Schema.define(version: 20160128064242) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
-    t.float    "grant_amount"
-    t.datetime "funding_date"
     t.integer  "residence_id"
     t.integer  "previous_residence_id"
     t.integer  "grant_status_id"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160128064242) do
     t.boolean  "full_time_student"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cell"
   end
 
   create_table "reason_types", force: :cascade do |t|
@@ -226,10 +227,21 @@ ActiveRecord::Schema.define(version: 20160128064242) do
     t.string   "role",                   default: "case_worker", null: false
     t.string   "first_name"
     t.string   "last_name"
+    t.integer  "agency_id"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        default: 0,             null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
   end
 
+  add_index "users", ["agency_id"], name: "index_users_on_agency_id", using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   add_foreign_key "grant_coverage_types", "coverage_types"
   add_foreign_key "grant_coverage_types", "grants"
@@ -246,4 +258,5 @@ ActiveRecord::Schema.define(version: 20160128064242) do
   add_foreign_key "other_payments", "grants"
   add_foreign_key "people", "grants"
   add_foreign_key "residences", "residence_types"
+  add_foreign_key "users", "agencies"
 end

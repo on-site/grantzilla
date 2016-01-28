@@ -12,6 +12,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    accountingjs-rails (0.0.4)
     actionmailer (4.2.5)
       actionpack (= 4.2.5)
       actionview (= 4.2.5)
@@ -280,6 +281,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  accountingjs-rails
   aws-sdk
   better_errors
   binding_of_caller

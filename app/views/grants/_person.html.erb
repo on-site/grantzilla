@@ -1,0 +1,41 @@
+<tr>
+  <th colspan="6">
+    <%= person.full_name %>
+  </th>
+</tr>
+
+<tr>
+  <th class="active">First Name</th>
+
+  <td><%= person.first_name %></td>
+
+  <th class="active">Last Name</th>
+
+  <td><%= person.last_name %></td>
+
+  <th class="active">Date of Birth</th>
+
+  <td><%= person.birth_date %></td>
+</tr>
+
+<tr>
+  <th class="active">Phone</th>
+
+  <td><%= person.phone %></td>
+
+  <th class="active">Email</th>
+
+  <td colspan="2"><%= person.email %></td>
+</tr>
+
+<tr>
+  <th class="active">Veteran</th>
+
+  <td><%= person.veteran ? "Yes" : "No" %></td>
+
+  <th class="active">Student Status</th>
+
+  <td><%= person.student_status %></td>
+
+  <td colspan="2"></td>
+</tr>
