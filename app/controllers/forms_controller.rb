@@ -32,11 +32,10 @@ class FormsController < ApplicationController
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
-        :email, :veteran, :student, :full_time_student, :_destroy] }
+                          :email, :veteran, :student, :full_time_student, :_destroy] }
   end
 
   def finish_wizard_path
     grant_path(@grant)
   end
 end
-

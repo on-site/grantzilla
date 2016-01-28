@@ -3,6 +3,7 @@ class Grant < ActiveRecord::Base
 
   before_save :set_application_date
 
+  # rubocop:disable Rails/HasAndBelongsToMany
   has_and_belongs_to_many :reason_types
   has_and_belongs_to_many :coverage_types
 
