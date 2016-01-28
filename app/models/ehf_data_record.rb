@@ -2,6 +2,7 @@
 # is a CSV row. The EHF data record is an array matching each column in the CVS file. The CVS
 # headings is an array matching the heading of each column.  The CVS headings are used as keys
 # to lookup the position in the EHF data record of the associated data.
+# rubocop:disable RaiseArgs, ClassLength
 class EhfDataRecord
   def initialize(csv_headings, csv_row, lookup_cache)
     @csv_heading_hash = convert_headers_to_hash csv_headings
@@ -25,16 +26,8 @@ class EhfDataRecord
   end
 
   def agency_name
-    case
-    when agency_address.present? && agency_city.present?
-      return "#{value("Agency")} (#{agency_address}, #{agency_city})"
-    when agency_address.present?
-      return "#{value("Agency")} (#{agency_address})"
-    when agency_city.present?
-      return "#{value("Agency")} (#{agency_city})"
-    else
-      return value("Agency")
-    end
+    return "#{value('Agency')} (#{agency_city})" if agency_city.present?
+    value("Agency")
   end
 
   def agent_first_name
