@@ -15,5 +15,5 @@
 
 <%= react_component('GrantControls',
                       grant: @grant,
-                      payee: @grant_payee,
+                      payee: @grant_payee || {},
                       statuses: @grant_statuses) if current_user.admin? %>
