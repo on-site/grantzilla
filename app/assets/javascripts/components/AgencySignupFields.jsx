@@ -6,13 +6,8 @@ class AgencySignupFields extends React.Component {
   }
 
   emailChanged(e) {
-    this.forceUpdate();
-
-    if(e.target.value.indexOf('@hifinfo.org') > -1) {
-      this.setState({disableAgency: true});
-    } else {
-      this.setState({disableAgency: false});
-    }
+    let disableAgency = e.target.value.indexOf('@hifinfo.org') > -1;
+    this.setState({disableAgency: disableAgency});
   }
 
   render() {
