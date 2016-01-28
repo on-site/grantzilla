@@ -15,7 +15,7 @@
 
   <th class="active">Date of Birth</th>
 
-  <td><%= person.birth_date %></td>
+  <td><%= person.birth_date.try(:strftime, '%m/%d/%Y') %></td>
 </tr>
 
 <tr>
