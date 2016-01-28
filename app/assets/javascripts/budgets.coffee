@@ -3,7 +3,7 @@ calculateTotals = (month) ->
   budgetType = month.data("budget-type")
   subtotal = 0
   month.parents("tbody").find(".#{budgetType}").each (index, item) ->
-    subtotal += accounting.unformat($(item).val())
+    subtotal += accounting.unformat(item.value)
   month.parents("table").find("tfoot .subtotal-#{budgetType}").html(accounting.formatMoney(subtotal))
   income = accounting.unformat $("table.income .subtotal-#{budgetType}").html()
   expenses = accounting.unformat $("table.expenses .subtotal-#{budgetType}").html()
