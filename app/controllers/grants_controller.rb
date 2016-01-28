@@ -21,7 +21,7 @@ class GrantsController < ApplicationController
   end
 
   def new
-    @grant = Grant.create
+    @grant = CreatesGrants.new(user_id: current_user.id).tap(&:save).grant
     redirect_to grant_forms_path(@grant, :applicants)
   end
 
