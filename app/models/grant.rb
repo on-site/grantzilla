@@ -15,6 +15,7 @@ class Grant < ActiveRecord::Base
   )
 
   # Components
+  has_many :comments
   has_many :other_payments
   has_many :payees
   has_many :people, autosave: true
