@@ -15,10 +15,16 @@ class Grant < ActiveRecord::Base
   has_many :people, autosave: true
   has_many :other_payments
   has_many :payees
+  has_many :comments
 
   before_save :set_application_date
 
   accepts_nested_attributes_for :people, :grant_reasons
+
+  def status_name
+    raise "Grant can not have blank grant status" if status.blank?
+    status.description
+  end
 
   def set_application_date
     self.application_date = Time.zone.today

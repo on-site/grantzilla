@@ -23,3 +23,9 @@ Style/SpaceInsideBlockBraces:
 
 Style/StringLiterals:
   Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  Enabled: false

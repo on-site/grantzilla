@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128060255) do
+ActiveRecord::Schema.define(version: 20160128160543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,8 +60,24 @@ ActiveRecord::Schema.define(version: 20160128060255) do
     t.datetime "updated_at",                         null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "grant_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "coverage_types", force: :cascade do |t|
     t.string "description"
+  end
+
+  create_table "data_import_history_logs", force: :cascade do |t|
+    t.integer  "ehf_records_processed"
+    t.integer  "ehf_records_imported"
+    t.text     "errors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "grant_coverage_types", force: :cascade do |t|
@@ -96,7 +112,6 @@ ActiveRecord::Schema.define(version: 20160128060255) do
     t.float    "security_deposit_owed"
     t.string   "utility_type_owed"
     t.float    "utility_owed"
-    t.string   "status"
     t.float    "grant_amount"
     t.datetime "funding_date"
     t.integer  "residence_id"
