@@ -12,6 +12,7 @@ gem "devise", "~> 3.5"
 gem "devise-bootstrap-views"
 gem "react-rails"
 
+gem 'accountingjs-rails'
 gem "jquery-rails"
 gem "turbolinks"
 gem "jquery-turbolinks"
@@ -28,6 +29,8 @@ gem "uglifier", ">= 1.3.0"
 # has not been published yet but is on master as of 1/22/16.
 gem "paperclip", github: "thoughtbot/paperclip"
 gem "rmagick"
+gem "puma"
+gem "rack-timeout"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -49,4 +52,5 @@ end
 group :production do
   gem "aws-sdk"
   gem "mailgun_rails"
+  gem "sidekiq"
 end
