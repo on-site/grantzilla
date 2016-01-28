@@ -1,7 +1,5 @@
 class AddGrantCascades < ActiveRecord::Migration
   TABLES = %w{
-    grant_coverage_types
-    grant_reasons
     other_payments
     people
   }

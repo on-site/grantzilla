@@ -20,4 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  applicants: Applicant Details
+  criteria: Qualifying Criteria
+  ask: Grant Request
+  properties: Property Information
+  payee: Payee Information
+  employment: Employment
