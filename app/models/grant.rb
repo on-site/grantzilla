@@ -2,8 +2,10 @@ class Grant < ActiveRecord::Base
   # Descriptors
   has_many :grant_reasons, autosave: true
   has_many :reason_types, through: :grant_reasons, autosave: true
-  has_many :coverage_types, class_name: "GrantCoverageType"
-  has_one :subsidy_type
+  has_many :grant_coverage_types
+  has_many :coverage_types, through: :grant_coverage_types
+
+  belongs_to :subsidy_type
   belongs_to(
     :status,
     class_name: "GrantStatus",

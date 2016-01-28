@@ -1,4 +1,4 @@
 class Residence < ActiveRecord::Base
-  has_one :residence_type
+  belongs_to :residence_type
   has_one :grant
 end
