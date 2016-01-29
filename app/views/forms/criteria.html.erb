@@ -3,30 +3,12 @@
 <h2>Qualifying Criteria</h2>
 
 <%= simple_form_for(@grant, url: wizard_path, method: :put, html: {data: {live_guarded: true}}) do |f| %>
-  <p><em>Please select all criteria that apply</em></p>
 
-  <div class="well">
-    <% ReasonType.all.in_groups_of(3, false) do |group| %>
-      <div class="form-group clearfix">
-        <% group.each do |reason_type| %>
-          <div class="col-sm-4">
-            <div class="checkbox">
-              <label>
-                <input class="check_boxes optional"
-                       type="checkbox"
-                       value="<%= reason_type.id %>"
-                       name="grant[reason_type_ids][]" />
-
-                <%= reason_type.description %>
-              </label>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+  <div class="alert alert-info">
+    Please select the reason(s) that this grant is being submitted.
+    Select all that apply.
   </div>
-
-  <p><em>Please enter a detailed description of crisis</em></p>
-
-  <%= f.text_area :details, class: "form-control" %>
+  <%= f.association :reason_types, multiple: true, label: "Qualifying Criteria", html: {class: "select2"} %>
+  <%= f.input :details, label: "Detailed Description of Crisis", required: true, class: "form-control", input_html: {data: {guard: "required"}} %>
+  <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
 <% end %>

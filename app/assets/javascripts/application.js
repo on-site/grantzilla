@@ -24,4 +24,5 @@
 //= require bootstrap-datetimepicker
 //= require bootstrap-guards
 //= require cocoon
+//= require select2
 //= require_tree .
