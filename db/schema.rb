@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129010826) do
+ActiveRecord::Schema.define(version: 20160129021652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,7 +89,8 @@ ActiveRecord::Schema.define(version: 20160129010826) do
   end
 
   create_table "grant_statuses", force: :cascade do |t|
-    t.string "description"
+    t.string  "description"
+    t.boolean "pending",     default: false, null: false
   end
 
   create_table "grants", force: :cascade do |t|
