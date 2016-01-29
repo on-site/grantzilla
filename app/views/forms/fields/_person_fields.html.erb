@@ -1,7 +1,8 @@
 <div class="nested-fields">
+
   <%= f.input :first_name, required: true %>
   <%= f.input :last_name, required: true %>
-  <%= f.input :birth_date, start_year: (Date.today - 120.years).year, order: [:month, :day, :year], required: true %>
+  <%= f.input :birth_date, start_year: 1910, order: [:month, :day, :year], required: true %>
   <%= f.input :phone %>
   <%= f.input :email %>
 

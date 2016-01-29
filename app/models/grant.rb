@@ -6,6 +6,7 @@ class Grant < ActiveRecord::Base
   # rubocop:disable Rails/HasAndBelongsToMany
   has_and_belongs_to_many :reason_types
   has_and_belongs_to_many :coverage_types
+  has_and_belongs_to_many :payees
 
   default_scope -> { order(application_date: :desc) }
 
@@ -20,7 +21,6 @@ class Grant < ActiveRecord::Base
 
   has_many :people, autosave: true
   has_many :other_payments
-  has_many :payees
   has_many :comments
 
   delegate :agency, to: :user
@@ -44,12 +44,13 @@ class Grant < ActiveRecord::Base
     primary_applicant.full_name
   end
 
-  # rubocop:disable Rails/Delegate
   def agency_name
+    return "" unless agency.present?
     agency.name
   end
 
   def case_worker_name
+    return "" unless user.present?
     user.full_name
   end
 end
