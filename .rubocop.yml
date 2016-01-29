@@ -9,6 +9,10 @@ AllCops:
 Documentation:
   Enabled: false
 
+# Uncomment in order to use byebug.
+# Lint/Debugger:
+#   Enabled: false
+
 Metrics/LineLength:
   Max: 120
 
