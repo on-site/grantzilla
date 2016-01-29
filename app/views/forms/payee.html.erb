@@ -1,1 +1,40 @@
 <%= breadcrumbs %>
+<div class="row">
+  <div class="col-sm-6">
+  <h2>Payee Information</h2>
+  <%= simple_form_for(@grant, url: wizard_path,  method: :put, html: { data: { live_guarded: true } }) do |f| %>
+
+    <%= f.simple_fields_for :payees, @grant.payees do |pf| %>
+      <%= pf.input :name, required: true, input_html: { data: { guard: "required" } } %>
+      <%= pf.input :attention %>
+      <%= pf.input :street_address, required: true, input_html: { data: { guard: "required" } } %>
+      <%= pf.input :unit_number %>
+      <%= pf.input :city, required: true, input_html: { data: { guard: "required" } } %>
+      <%= pf.input :state, required: true, collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>
+      <%= pf.input :zip, required: true, input_html: { data: { guard: "int" } } %>
+      <%= pf.input :phone, required: true, input_html: { data: { guard: "phoneUS" } } %>
+      <%= pf.input :email %>
+
+
+      <div class="form-group">
+        <label for="check_amount">Check Amount</label>
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <%= pf.input_field :check_amount, required: true, class: "form-control" %>
+        </div>
+      </div>
+
+      <%= pf.input :check_date, order: [:month, :day, :year] %>
+
+      <div class="form-group">
+        <label for="check_amount">Check Number</label>
+        <div class="input-group">
+          <div class="input-group-addon">#</div>
+          <%= pf.input_field :check_number, class: "form-control" %>
+        </div>
+      </div>
+
+    <% end %>
+  <% end %>
+  </div>
+</div>

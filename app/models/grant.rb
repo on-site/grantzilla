@@ -1,5 +1,5 @@
 class Grant < ActiveRecord::Base
-  COMPONENTS = [:people].freeze
+  COMPONENTS = [:people, :payees].freeze
 
   before_save :set_application_date
 
