@@ -1,27 +1,9 @@
 <div class="nested-fields">
-  <div class="row">
-    <div class="col-sm-3">
-      <%= f.input :first_name %>
-    </div>
-
-    <div class="col-sm-3">
-      <%= f.input :last_name %>
-    </div>
-
-    <div class="col-sm-6">
-      <%= f.input :birth_date, start_year: (Date.today - 120.years).year, order: [:month, :day, :year] %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6">
-      <%= f.input :phone %>
-    </div>
-
-    <div class="col-sm-6">
-      <%= f.input :email %>
-    </div>
-  </div>
+  <%= f.input :first_name, required: true %>
+  <%= f.input :last_name, required: true %>
+  <%= f.input :birth_date, start_year: (Date.today - 120.years).year, order: [:month, :day, :year], required: true %>
+  <%= f.input :phone %>
+  <%= f.input :email %>
 
   <div class="row">
     <div class="col-sm-4">

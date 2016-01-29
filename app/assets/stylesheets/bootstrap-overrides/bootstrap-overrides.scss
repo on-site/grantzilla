@@ -3,3 +3,9 @@
  * Variables that can be overridden can be found at:
  * https://github.com/twbs/bootstrap-sass/blob/v3.3.6/assets/stylesheets/bootstrap/_variables.scss
  */
+abbr[title],
+abbr[data-original-title] {
+  color: $brand-danger;
+  cursor: default;
+  border-bottom: 0px;
+}
