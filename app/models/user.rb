@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   belongs_to :agency
 
-  def self.case_workers_by_agency(agency=nil)
+  def self.case_workers_by_agency(agency = nil)
     case_workers.where(agency: agency)
   end
 
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     where(role: :case_worker)
   end
 
-  def self.send_reset_password_instructions(attributes={})
+  def self.send_reset_password_instructions(attributes = {})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
     if !recoverable.approved?
       recoverable.errors[:base] << I18n.t("devise.failure.not_approved")
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def send_admin_mail
-    #AdminMailer.new_user_waiting_for_approval(self).deliver
+    # AdminMailer.new_user_waiting_for_approval(self).deliver
   end
 
   def active_for_authentication?
