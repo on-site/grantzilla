@@ -1,3 +1,4 @@
 class Payee < ActiveRecord::Base
-  belongs_to :grant
+  # rubocop:disable Rails/HasAndBelongsToMany
+  has_and_belongs_to_many :grants
 end
