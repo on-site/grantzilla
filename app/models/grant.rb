@@ -53,4 +53,8 @@ class Grant < ActiveRecord::Base
     return "" unless user.present?
     user.full_name
   end
+
+  def grant_amount=(value)
+    self[:grant_amount] = value.to_s.delete("$,")
+  end
 end
