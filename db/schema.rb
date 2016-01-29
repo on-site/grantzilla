@@ -119,6 +119,14 @@ ActiveRecord::Schema.define(version: 20160129011756) do
     t.string   "step"
   end
 
+  create_table "grants_payees", force: :cascade do |t|
+    t.integer "grant_id"
+    t.integer "payee_id"
+  end
+
+  add_index "grants_payees", ["grant_id"], name: "index_grants_payees_on_grant_id", using: :btree
+  add_index "grants_payees", ["payee_id"], name: "index_grants_payees_on_payee_id", using: :btree
+
   create_table "grants_reason_types", force: :cascade do |t|
     t.integer "grant_id"
     t.integer "reason_type_id"
@@ -155,19 +163,18 @@ ActiveRecord::Schema.define(version: 20160129011756) do
   end
 
   create_table "payees", force: :cascade do |t|
-    t.integer "grant_id"
-    t.string  "name"
-    t.string  "attention"
-    t.string  "street_address"
-    t.string  "unit_number"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
-    t.string  "email"
-    t.string  "phone"
-    t.float   "check_amount"
-    t.date    "check_date"
-    t.string  "check_number"
+    t.string "name"
+    t.string "attention"
+    t.string "street_address"
+    t.string "unit_number"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "email"
+    t.string "phone"
+    t.float  "check_amount"
+    t.date   "check_date"
+    t.string "check_number"
   end
 
   create_table "people", force: :cascade do |t|
@@ -273,6 +280,8 @@ ActiveRecord::Schema.define(version: 20160129011756) do
   add_foreign_key "grants", "grant_statuses"
   add_foreign_key "grants", "residences"
   add_foreign_key "grants", "residences", column: "previous_residence_id"
+  add_foreign_key "grants_payees", "grants"
+  add_foreign_key "grants_payees", "payees"
   add_foreign_key "grants_reason_types", "grants", on_delete: :cascade
   add_foreign_key "grants_reason_types", "reason_types"
   add_foreign_key "incomes", "income_types"
