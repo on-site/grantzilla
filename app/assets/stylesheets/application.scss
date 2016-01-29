@@ -12,10 +12,10 @@
  *
  */
 @import "bootstrap-sprockets";
-@import "bootstrap";
 // We override bootstrap variables in a file a subdirectory
 // so that it's not pulled in twice with the @import "*" below
 @import "bootstrap-overrides/bootstrap-overrides";
+@import "bootstrap";
 @import "bootstrap-datetimepicker";
 @import "devise_bootstrap_views";
 @import "select2";
