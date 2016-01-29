@@ -44,12 +44,13 @@ class Grant < ActiveRecord::Base
     primary_applicant.full_name
   end
 
-  # rubocop:disable Rails/Delegate
   def agency_name
+    return "" unless agency.present?
     agency.name
   end
 
   def case_worker_name
+    return "" unless user.present?
     user.full_name
   end
 end
