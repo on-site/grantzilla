@@ -32,12 +32,16 @@ class FormsController < ApplicationController
   end
 
   def form_params
-    params.require(:grant).permit(people_attributes)
+    params.require(:grant).permit(people_attributes, payee_attributes)
   end
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
                           :email, :veteran, :student, :full_time_student, :_destroy] }
+  end
+
+  def payee_attributes
+    { payee_attributes: [:id, :name, :attention, :street_address, :unit_number, :city, :state, :zip, :email, :phone, :_destroy] }
   end
 
   def finish_wizard_path
