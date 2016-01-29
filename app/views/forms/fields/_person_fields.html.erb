@@ -1,10 +1,10 @@
 <div class="nested-fields">
 
-  <%= f.input :first_name, required: true %>
-  <%= f.input :last_name, required: true %>
+  <%= f.input :first_name, required: true, input_html: { data: { guard: "required" } } %>
+  <%= f.input :last_name, required: true, input_html: { data: { guard: "required" } } %>
   <%= f.input :birth_date, start_year: 1910, order: [:month, :day, :year], required: true %>
-  <%= f.input :phone %>
-  <%= f.input :email %>
+  <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
+  <%= f.input :email, input_html: { data: { guard: "email" } } %>
 
   <div class="row">
     <div class="col-sm-4">
