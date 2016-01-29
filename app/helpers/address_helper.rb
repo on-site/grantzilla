@@ -55,5 +55,5 @@ module AddressHelper
     "Wisconsin" => "WI",
     "West Virginia" => "WV",
     "Wyoming" => "WY",
-  }
+  }.freeze
 end

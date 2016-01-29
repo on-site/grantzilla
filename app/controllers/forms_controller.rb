@@ -41,7 +41,8 @@ class FormsController < ApplicationController
   end
 
   def payees_attributes
-    { payees_attributes: [:id, :name, :attention, :street_address, :unit_number, :city, :state, :zip, :email, :phone, :_destroy] }
+    { payees_attributes: [:id, :name, :attention, :street_address, :unit_number,
+                          :city, :state, :zip, :email, :phone, :_destroy] }
   end
 
   def finish_wizard_path

@@ -1,5 +1,4 @@
 module FormsHelper
-  # rubocop:disable Metrics/MethodLength
   def breadcrumbs
     content_tag(:ol, class: 'breadcrumb') do
       wizard_steps.collect do |every_step|
