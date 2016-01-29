@@ -11,10 +11,11 @@
       <%= pf.input :unit_number %>
       <%= pf.input :city, required: true, input_html: { data: { guard: "required" } } %>
       <%= pf.input :state, required: true, collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>
-      <%= pf.input :zip, required: true, input_html: { data: { guard: "int" } } %>
+      <%= pf.input :zip, required: true, input_html: { data: { guard: "int" }, maxlength: 5 } %>
       <%= pf.input :phone, required: true, input_html: { data: { guard: "phoneUS" } } %>
       <%= pf.input :email %>
     <% end %>
+    <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
   <% end %>
   </div>
 </div>
