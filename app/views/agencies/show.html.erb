@@ -15,7 +15,31 @@
         <h4>Case Workers</h4>
       </div>
       <div class="panel-body">
-        List of users should go here...
+        <div class="center hero-unit">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Approved</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users = User.case_workers_by_agency(@agency) %>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.full_name.presence || "-" %></td>
+                  <td><%= user.email %></td>
+                  <td>
+                    <%= form_for(user, url: "/users", format: :patch,  remote: true) do |f| %>
+                      <%= f.check_box :approved, :onchange => "$(this.form).submit();" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <p>

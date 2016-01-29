@@ -22,7 +22,8 @@ class RegistrationsController < Devise::RegistrationsController
       :agency_id,
       :password,
       :password_confirmation,
-      :current_password
+      :current_password,
+      :approved
     )
   end
 end

@@ -24,3 +24,11 @@ unless Rails.env.production?
   user.skip_confirmation!
   user.save
 end
+
+user = User.new
+user.email = "admin@hifinfo.org"
+user.password = "password"
+user.role = "admin"
+user.approved = true
+user.skip_confirmation!
+user.save
