@@ -1,10 +1,9 @@
 class Grant < ActiveRecord::Base
-  COMPONENTS = [:people, :payees].freeze
+  COMPONENTS = [:grants_reason_types, :people, :payees].freeze
 
   before_save :set_application_date
 
   # rubocop:disable Rails/HasAndBelongsToMany
-  has_and_belongs_to_many :reason_types
   has_and_belongs_to_many :coverage_types
   has_and_belongs_to_many :payees
 
@@ -22,6 +21,8 @@ class Grant < ActiveRecord::Base
   has_many :people, autosave: true
   has_many :other_payments
   has_many :comments
+  has_many :grants_reason_types
+  has_many :reason_types, through: :grants_reason_types
 
   delegate :agency, to: :user
 
