@@ -32,7 +32,7 @@ class FormsController < ApplicationController
   end
 
   def form_params
-    params.require(:grant).permit([:details, :reason_type_ids => []], people_attributes, payees_attributes)
+    params.require(:grant).permit([:details, reason_type_ids: []], people_attributes, payees_attributes)
   end
 
   def people_attributes
