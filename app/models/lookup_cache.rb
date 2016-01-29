@@ -1,7 +1,7 @@
 # This class stores the lookup values to avoid trips to the database.
 class LookupCache
   def income_type_id(description)
-    income_type_hash.get(description)
+    income_type_hash[description]
   end
 
   def residence_type_id(description)
@@ -9,19 +9,23 @@ class LookupCache
   end
 
   def coverage_type_id(description)
-    coverage_type_hash.get(description)
+    coverage_type_hash[description]
   end
 
   def subsidy_type_id(description)
-    subsidy_type_hash.get(description)
+    subsidy_type_hash[description]
   end
 
   def reason_type_id(description)
-    reason_type_hash.get(description)
+    reason_type_hash[description]
   end
 
   def grant_status_id(description)
-    reason_type_hash.get(description)
+    reason_type_hash[description]
+  end
+
+  def approved_status_id
+    grant_status_hash["Approved"]
   end
 
   private

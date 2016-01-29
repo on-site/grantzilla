@@ -36,7 +36,8 @@ class DataImportManager
 
   # Consider this a new record is the EHF Number is not associated with an existing grant.
   def new_ehf_data_record?(ehf_data_record)
-    ehf_data_record.ehf_number != 0
+    grants = Grant.where(ehf_number: ehf_data_record.ehf_number)
+    grants.empty?
   end
 
   def increment_ehf_data_records_imported

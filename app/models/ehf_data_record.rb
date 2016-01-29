@@ -21,7 +21,7 @@ class EhfDataRecord
     value("EHF.")
   end
 
-  def date
+  def application_date
     string_to_date value("Date")
   end
 
@@ -87,7 +87,7 @@ class EhfDataRecord
   end
 
   def client1_dob
-    value("Client 1 DOB")
+    string_to_date value("Client 1 DOB")
   end
 
   def client1_email
@@ -112,7 +112,7 @@ class EhfDataRecord
   end
 
   def client2_dob
-    value("Client 2 DOB")
+    string_to_date value("Client 2 DOB")
   end
 
   def client2_email
@@ -294,6 +294,10 @@ class EhfDataRecord
 
   def eval_information
     value("Eval Info")
+  end
+
+  def approved_status_id
+    lookup_cache.approved_status_id
   end
 
   private
