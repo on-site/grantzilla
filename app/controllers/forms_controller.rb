@@ -1,4 +1,5 @@
 class FormsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_grant
 
   include Wicked::Wizard
