@@ -10,6 +10,22 @@ RSpec.describe Grant, type: :model do
 
     let!(:user_grants) { Grant.user_visible(user).map(&:id) }
 
+    before do
+      statuses = [
+        ["Incomplete", true],
+        ["Submitted", true],
+        ["Approved", false],
+        ["Denied", false],
+        ["Paid", false],
+        ["Refund Needed", false],
+        ["Refund Received", false]
+      ]
+
+      statuses.each do |desc, pending|
+        GrantStatus.create(description: desc, pending: pending)
+      end
+    end
+
     context "when given a case worker" do
       let(:user) { double("case_worker?" => true) }
 
