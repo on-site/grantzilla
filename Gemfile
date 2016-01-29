@@ -16,6 +16,8 @@ gem "react-rails"
 
 gem 'accountingjs-rails'
 gem "jquery-rails"
+gem "turbolinks"
+gem "jquery-turbolinks"
 gem "jbuilder", "~> 2.0"
 gem "momentjs-rails", ">= 2.9.0"
 gem "newrelic_rpm"
