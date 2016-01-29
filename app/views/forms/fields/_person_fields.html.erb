@@ -1,0 +1,49 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= f.input :first_name %>
+    </div>
+
+    <div class="col-sm-3">
+      <%= f.input :last_name %>
+    </div>
+
+    <div class="col-sm-6">
+      <%= f.label :birth_date, "Birth Date" %> <span class="text-danger">*</span>
+      <div class="form-inline">
+        <%= f.date_select(:birth_date, { start_year: 1925, end_year: Time.now.year, order: [:month, :day, :year] }, { class: "form-control", data: { guard: "required" } }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <%= f.input :phone %>
+    </div>
+
+    <div class="col-sm-6">
+      <%= f.input :email %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <%= f.input :veteran %>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.input :student %>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.input :full_time_student %>
+    </div>
+  </div>
+
+  <%= link_to_remove_association f, class: 'btn btn-danger' do %>
+    <i class="glyphicon glyphicon-minus"></i>
+    Remove
+  <% end %>
+
+  <hr/>
+</div>

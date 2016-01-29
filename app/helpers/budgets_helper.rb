@@ -1,21 +1,8 @@
 module BudgetsHelper
-  def budgets
-    [@grant.last_month_budget,
-     @grant.current_month_budget,
-     @grant.next_month_budget]
-  end
-
-  def budget_income_items
-    {
-      earned_income1: "Applicant #1's income from employment",
-      unearned_income1: "Applicant #1's unearned income<br/>SSI, SSDI, UID, CalWorks, etc.",
-      earned_income2: "Applicant #2's income from employment",
-      unearned_income2: "Applicant #2's unearned income<br/>SSI, SSDI, UID, CalWorks, etc.",
-      household: "Other Household Members' Income (combined)",
-      child_support: "Child Support/Family Support",
-      food_stamps: "CalFRESH/Food Stamps",
-      security_deposit_refund: "Previous Security Deposit Returned (if moving)"
-    }
+  def budget_types
+    [:last_month_budget,
+     :current_month_budget,
+     :next_month_budget]
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -40,10 +27,37 @@ module BudgetsHelper
     }
   end
 
+  def budget_income_items
+    items = {
+      earned_income1: "Applicant #1's income from employment",
+      unearned_income1: "Applicant #1's unearned income<br/>SSI, SSDI, UID, CalWorks, etc."
+    }
+    items.merge!(second_applicant_income_types) if @grant.people.size > 1
+    items.merge!(extra_applicant_income_types) if @grant.people.size > 2
+    items.merge(
+      child_support: "Child Support/Family Support",
+      food_stamps: "CalFRESH/Food Stamps",
+      security_deposit_refund: "Previous Security Deposit Returned (if moving)"
+    )
+  end
+
   def budget_specified_expense_items
     {
       installment_payments: "Installment payments (credit cards or loans)",
       miscellaneous_expenses: "Miscellaneous (cigarettes, entertainment, etc.)"
     }
+  end
+
+  private
+
+  def second_applicant_income_types
+    {
+      earned_income2: "Applicant #2's income from employment",
+      unearned_income2: "Applicant #2's unearned income<br/>SSI, SSDI, UID, CalWorks, etc."
+    }
+  end
+
+  def extra_applicant_income_types
+    { other_household_income: "Other Household Members' Income (combined)" }
   end
 end
