@@ -2,6 +2,13 @@
  * This file contains CSS that applies to the application layout, not to any particular controller.
  */
 
+abbr[title],
+abbr[data-original-title] {
+  color: $brand-danger;
+  cursor: default;
+  border-bottom: 0px;
+}
+
 body {
   padding-top: 70px;
 }

@@ -1,4 +1,5 @@
 class FormsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_grant
 
   include Wicked::Wizard
@@ -25,18 +26,23 @@ class FormsController < ApplicationController
   def find_grant
     @grant = Grant.find(params[:grant_id])
     @grant_statuses = GrantStatus.all
-    @grant_payee = @grant.payees.last || {}
+    @grant.payees.build if @grant.payees.empty?
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def form_params
-    params.require(:grant).permit(people_attributes)
+    params.require(:grant).permit([:details, reason_type_ids: []], people_attributes, payees_attributes)
   end
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
                           :email, :veteran, :student, :full_time_student, :_destroy] }
+  end
+
+  def payees_attributes
+    { payees_attributes: [:id, :name, :attention, :street_address, :unit_number,
+                          :city, :state, :zip, :email, :phone, :_destroy] }
   end
 
   def finish_wizard_path
