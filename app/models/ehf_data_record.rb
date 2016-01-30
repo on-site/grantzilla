@@ -2,19 +2,20 @@
 # is a CSV row. The EHF data record is an array matching each column in the CVS file. The CVS
 # headings is an array matching the heading of each column.  The CVS headings are used as keys
 # to lookup the position in the EHF data record of the associated data.
-# rubocop:disable RaiseArgs, ClassLength
+# rubocop:disable ClassLength
 class EhfDataRecord
   def initialize(csv_headings, csv_row, lookup_cache)
     @csv_heading_hash = convert_headers_to_hash csv_headings
     @csv_row = csv_row
     @lookup_cache = lookup_cache
+    validate
   end
 
   # These fields are required for importing the record.
   def validate
-    raise StandardError.new("Record skipped because no EHF Number found.") if value("EHF.").blank?
-    raise StandardError.new("Record skipped because no Client First Name found.") if value("Client 1 FN").blank?
-    raise StandardError.new("Record skipped because no Client Last Name found.") if value("Client 1 LN").blank?
+    raise StandardError, "Record skipped because no EHF Number found." if value("EHF.").blank?
+    raise StandardError, "Record skipped because no Client First Name found." if value("Client 1 FN").blank?
+    raise StandardError, "Record skipped because no Client Last Name found." if value("Client 1 LN").blank?
   end
 
   def ehf_number
@@ -22,7 +23,8 @@ class EhfDataRecord
   end
 
   def application_date
-    string_to_date value("Date")
+    application_date = value("Date")
+    valid_date_string?(application_date) ? application_date : nil
   end
 
   def agency_name
@@ -40,6 +42,19 @@ class EhfDataRecord
 
   def agency_address
     value("Ag Address")
+  end
+
+  def agent_full_name
+    "#{agent_first_name} #{agent_last_name}"
+  end
+
+  def agent_fake_password
+    "password_#{agent_full_name}_#{ehf_number}"
+  end
+
+  def agent_fake_email
+    user_name = agent_full_name.strip.downcase.gsub(/[^a-z ]/, '').tr(' ', '_').downcase
+    "imported_user_#{user_name}_#{ehf_number}@no_email.com"
   end
 
   def agency_city
@@ -87,7 +102,8 @@ class EhfDataRecord
   end
 
   def client1_dob
-    string_to_date value("Client 1 DOB")
+    dob = value("Client 1 DOB")
+    valid_date_string?(dob) ? dob : nil
   end
 
   def client1_email
@@ -112,7 +128,8 @@ class EhfDataRecord
   end
 
   def client2_dob
-    string_to_date value("Client 2 DOB")
+    dob = value("Client 2 DOB")
+    valid_date_string?(dob) ? dob : nil
   end
 
   def client2_email
@@ -201,7 +218,7 @@ class EhfDataRecord
     extract_state value("Payee City, State")
   end
 
-  def payee_zip
+  def payee_zip_code
     value("Payee Zip")
   end
 
@@ -217,10 +234,10 @@ class EhfDataRecord
     sanitize_phone_number value("P Fax")
   end
 
-  def coverage_type_id
+  def coverage_type
     coverage_type_keys.each_index do |i|
       if string_to_boolean value(coverage_type_keys[i])
-        return lookup_coverage_type_id i
+        return lookup_coverage_type i
       end
     end
     nil
@@ -247,10 +264,10 @@ class EhfDataRecord
     value("Criterion")
   end
 
-  def reason_type_id
+  def reason_type
     reason_type_keys.each_index do |i|
       if string_to_boolean value(reason_type_keys[i])
-        return lookup_reason_type_id i
+        return lookup_reason_type i
       end
     end
     nil
@@ -297,7 +314,9 @@ class EhfDataRecord
   end
 
   def approved_status_id
-    lookup_cache.approved_status_id
+    grant_status = lookup_cache.grant_status "Approved"
+    return grant_status.id if grant_status.present?
+    nil
   end
 
   private
@@ -332,12 +351,37 @@ class EhfDataRecord
 
   def string_to_boolean(value)
     return nil if value.blank?
-    value.casecmp('true') || value.casecmp('yes')
+    value.casecmp('true') == 0 || value.casecmp('yes') == 0
   end
 
-  def string_to_date(value)
-    return nil if value.blank?
-    Date.parse value
+  # Quick and dirty check for the issues we found in the CSV file.
+  def valid_date_string?(value)
+    return false if value.blank?
+    return false if value =~ /[A-Z a-z]/
+    return verify_date_parts(value.split('/')) if value.include?('/')
+    false
+  end
+
+  def verify_date_parts(parts)
+    return false if parts.length != 3
+    return false if date_part_not_number? parts
+    return false if date_part_out_of_range? parts
+    true
+  end
+
+  def date_part_not_number?(parts)
+    !is_number?(parts[0]) || !is_number?(parts[1]) || !is_number?(parts[2])
+  end
+
+  def date_part_out_of_range?(parts)
+    parts[0].to_i > 12 || parts[1].to_i > 31 || parts[2].to_i > 2016
+  end
+
+  def number?(value)
+    Float(value)
+    true
+  rescue
+    false
   end
 
   def reason_type_keys
@@ -358,8 +402,8 @@ class EhfDataRecord
      "Other"]
   end
 
-  def lookup_reason_type_id(ordinal)
-    lookup_cache.reason_type_id reason_type_descriptions[ordinal]
+  def lookup_reason_type(ordinal)
+    lookup_cache.reason_type reason_type_descriptions[ordinal]
   end
 
   def subsidy_type_keys
@@ -367,7 +411,9 @@ class EhfDataRecord
   end
 
   def lookup_subsidy_type_id(ordinal)
-    lookup_cache.subsidy_type_id subsidy_type_keys[ordinal]
+    subsidy_type = lookup_cache.subsidy_type subsidy_type_keys[ordinal]
+    return subsidy_type.id if subsidy_type.present?
+    nil
   end
 
   def coverage_type_keys
@@ -386,8 +432,8 @@ class EhfDataRecord
      "Utilities"]
   end
 
-  def lookup_coverage_type_id(ordinal)
-    lookup_cache.coverage_type_id coverage_type_descriptions[ordinal]
+  def lookup_coverage_type(ordinal)
+    lookup_cache.coverage_type coverage_type_descriptions[ordinal]
   end
 
   def residence_type_keys
@@ -399,7 +445,9 @@ class EhfDataRecord
   end
 
   def lookup_residence_type_id(ordinal)
-    lookup_cache.residence_type_id residence_type_descriptions[ordinal]
+    residence_type = lookup_cache.residence_type residence_type_descriptions[ordinal]
+    return residence_type.id if residence_type.present?
+    nil
   end
 
   def client1_income_type_keys
@@ -425,7 +473,9 @@ class EhfDataRecord
   end
 
   def lookup_income_type_id(ordinal)
-    lookup_cache.income_type_id client_income_source_descriptions[ordinal]
+    income_type = lookup_cache.income_type client_income_source_descriptions[ordinal]
+    return income_type.id if income_type.present?
+    nil
   end
 
   def value(name)
