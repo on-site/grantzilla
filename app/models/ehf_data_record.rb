@@ -370,7 +370,7 @@ class EhfDataRecord
   end
 
   def date_part_not_number?(parts)
-    !is_number?(parts[0]) || !is_number?(parts[1]) || !is_number?(parts[2])
+    !number?(parts[0]) || !number?(parts[1]) || !number?(parts[2])
   end
 
   def date_part_out_of_range?(parts)
