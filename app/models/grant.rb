@@ -34,7 +34,7 @@ class Grant < ActiveRecord::Base
   end
 
   def set_application_date
-    return if self.application_date.present?
+    return if application_date.present?
     self.application_date = Time.zone.today
   end
 
