@@ -1,5 +1,47 @@
 require "rails_helper"
 
 RSpec.describe Grant, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe ".user_visible" do
+    let!(:pending_status) { GrantStatus.where(pending: true).first }
+    let!(:non_pending_status) { GrantStatus.where(pending: false).first }
+
+    let!(:pending_grant) { Grant.create(status: pending_status) }
+    let!(:non_pending_grant) { Grant.create(status: non_pending_status) }
+
+    let!(:user_grants) { Grant.user_visible(user).map(&:id) }
+
+    before do
+      statuses = [
+        ["Incomplete", true],
+        ["Submitted", true],
+        ["Approved", false],
+        ["Denied", false],
+        ["Paid", false],
+        ["Refund Needed", false],
+        ["Refund Received", false]
+      ]
+
+      statuses.each do |desc, pending|
+        GrantStatus.create(description: desc, pending: pending)
+      end
+    end
+
+    context "when given a case worker" do
+      let(:user) { double("case_worker?" => true) }
+
+      it "includes only pending grants" do
+        expect(user_grants).to include(pending_grant.id)
+        expect(user_grants).to_not include(non_pending_grant.id)
+      end
+    end
+
+    context "when given an admin" do
+      let(:user) { double("case_worker?" => false) }
+
+      it "includes all grants" do
+        expect(user_grants).to include(pending_grant.id)
+        expect(user_grants).to include(non_pending_grant.id)
+      end
+    end
+  end
 end

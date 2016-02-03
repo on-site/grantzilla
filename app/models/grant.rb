@@ -28,6 +28,16 @@ class Grant < ActiveRecord::Base
 
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
+  def self.user_visible(current_user)
+    grant_filter = if current_user.case_worker?
+                     joins(:status).where(grant_statuses: { pending: true })
+                   else
+                     all
+                   end
+
+    grant_filter.order(application_date: :desc).includes(user: :agency)
+  end
+
   def status_name
     raise "Grant can not have blank grant status" if status.blank?
     status.description
