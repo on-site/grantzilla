@@ -10,19 +10,20 @@
       <%= f.simple_fields_for :people, @grant.people do |pf| %>
         <%= render partial: person_fields, locals: { f: pf } %>
       <% end %>
-
       <div class="links">
-        <%= link_to_add_association f, :people, partial: person_fields, class: 'btn btn-primary' do %>
-          <i class="glyphicon glyphicon-plus"></i>
+        <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+        <%= link_to_add_association f, :people, partial: person_fields, class: 'btn btn-default' do %>
+          <span class="glyphicon glyphicon-plus"></span>
           Add Person
         <% end %>
 
-        <%= f.submit 'Save and Continue', class: 'btn btn-success' %>
       </div>
     <% end %>
   </div>
 
-  <div class="col-md-4 col-sm-5">
-    <%= render "grants/controls" %>
-  </div>
+  <% if @grant.persisted? %>
+    <div class="col-md-4 col-sm-5">
+      <%= render "grants/controls" %>
+    </div>
+  <% end %>
 </div>
