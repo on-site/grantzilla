@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20160129011756) do
   create_table "data_import_history_logs", force: :cascade do |t|
     t.integer  "ehf_records_processed"
     t.integer  "ehf_records_imported"
-    t.text     "errors"
+    t.text     "error_encountered"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
