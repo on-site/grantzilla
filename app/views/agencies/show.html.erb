@@ -31,9 +31,7 @@
                   <td><%= user.full_name.presence || "-" %></td>
                   <td><%= user.email %></td>
                   <td>
-                    <%= form_for(user, url: "/users", format: :patch,  remote: true) do |f| %>
-                      <%= f.check_box :approved, :onchange => "$(this.form).submit();" %>
-                    <% end %>
+                    <%= render partial: "shared/approved_form", locals: { user: user } %>
                   </td>
                 </tr>
               <% end %>

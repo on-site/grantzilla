@@ -1,0 +1,3 @@
+<%= form_for(user, url: user_path(user.id), format: :patch,  remote: true) do |f| %>
+  <%= f.check_box :approved, :onchange => "$(this.form).submit();" %>
+<% end %>

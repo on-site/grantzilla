@@ -21,9 +21,7 @@
           <td><%= user.email %></td>
           <td><%= user.agency.try(:name) %></td>
           <td>
-            <%= form_for(user, url: user_path(user.id), format: :patch,  remote: true) do |f| %>
-              <%= f.check_box :approved, :onchange => "$(this.form).submit();" %>
-            <% end %>
+            <%= render partial: "shared/approved_form", locals: { user: user } %>
           </td>
           <td>
             <%= link_to 'Edit', edit_user_registration_path(user), class: 'btn btn-default' %>

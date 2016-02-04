@@ -22,7 +22,7 @@ class RegistrationsController < Devise::RegistrationsController
       :agency_id,
       :password,
       :password_confirmation,
-      :current_password,
+      :current_password
     )
     params.require(:user).permit(:approved) if current_user.admin?
   end
