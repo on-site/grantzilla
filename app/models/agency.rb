@@ -5,6 +5,10 @@ class Agency < ActiveRecord::Base
     find_by_name("HIF")
   end
 
+  def self.ordered_agencies
+    all.order(:name)
+  end
+
   def full_address
     "#{address}, #{city}, #{state} #{zip}"
   end
