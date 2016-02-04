@@ -3,14 +3,14 @@ class RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     params.require(:user).permit(
-      :first_name,
-      :last_name,
-      :email,
-      :agency_id,
-      :password,
-      :password_confirmation
+      :first_name, :last_name,
+      :email, :agency_id,
+      :password, :password_confirmation
     ).tap do |params|
-      params[:role] = 'admin' if params[:email].include?("hifinfo.org")
+      if params[:email].include?("hifinfo.org")
+        params[:role] = 'admin'
+        params[:agency_id] = Agency.find_hif.id
+      end
     end
   end
 
@@ -24,5 +24,6 @@ class RegistrationsController < Devise::RegistrationsController
       :password_confirmation,
       :current_password
     )
+    params.require(:user).permit(:approved) if current_user.admin?
   end
 end

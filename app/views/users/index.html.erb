@@ -1,0 +1,41 @@
+<h1>Users</h1>
+
+<p>
+  Manage the users that HIF works with below.
+</p>
+
+<% if @users.count > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Agency</th>
+        <th>Approved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.full_name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.agency.try(:name) %></td>
+          <td>
+            <%= render partial: "shared/approved_form", locals: { user: user } %>
+          </td>
+          <td>
+            <%= link_to 'Edit', edit_user_registration_path(user), class: 'btn btn-default' %>
+            <%= link_to "Destroy", user_path(user.id), method: :delete, data: { confirm: "You sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+    <%= link_to '<span class="glyphicon glyphicon-plus"></span> New User'.html_safe, "/", class: 'btn btn-primary btn-block-xs' %>
+  </p>
+<% else %>
+  <div class="alert alert-warning">
+    No users have been added yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New User'.html_safe, "/", class: 'btn btn-default' %>
+  </div>
+<% end %>
