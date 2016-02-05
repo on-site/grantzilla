@@ -43,7 +43,7 @@ class Grant < ActiveRecord::Base
   end
 
   def primary_applicant_name
-    primary_applicant.full_name
+    primary_applicant.full_name if primary_applicant.present?
   end
 
   def agency_name
