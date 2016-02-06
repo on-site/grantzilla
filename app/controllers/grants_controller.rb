@@ -4,16 +4,7 @@ class GrantsController < ApplicationController
   before_action :set_controls_info, only: [:show, :edit]
 
   def index
-    # TODO: Return all Grants Info in ONE SQL query
-    @grants = Grant.order(application_date: :desc)
-                   .includes(user: :agency).includes(:people).all
-                   .to_json(only: [:id, :ehf_number, :application_date],
-                            methods: [
-                              :primary_applicant_name,
-                              :agency_name,
-                              :case_worker_name,
-                              :status_name
-                            ])
+    @grants = Grant.list
   end
 
   def show

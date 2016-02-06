@@ -28,6 +28,18 @@ class Grant < ActiveRecord::Base
 
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
+  def self.list
+    order(application_date: :desc)
+      .includes(user: :agency).includes(:people).all
+      .to_json(only: [:id, :ehf_number, :application_date],
+               methods: [
+                 :primary_applicant_name,
+                 :agency_name,
+                 :case_worker_name,
+                 :status_name
+               ])
+  end
+
   def status_name
     raise "Grant can not have blank grant status" if status.blank?
     status.description
