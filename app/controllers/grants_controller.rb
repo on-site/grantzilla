@@ -6,9 +6,7 @@ class GrantsController < ApplicationController
   def index
     # TODO: Return all Grants Info in ONE SQL query
     @grants = Grant.order(application_date: :desc)
-                   .includes(user: :agency)
-                   .includes(:people)
-                   .all
+                   .includes(user: :agency).includes(:people).all
                    .to_json(only: [:id, :application_date],
                             methods: [
                               :primary_applicant_name,
