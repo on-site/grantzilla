@@ -154,9 +154,19 @@ class GrantsList extends React.Component {
         rowHeight={50}
         rowsCount={sortedDataList.getSize()}
         headerHeight={50}
-        width={1000}
+        width={1080}
         height={500}
         {...this.props}>
+        <Column
+          columnKey="ehf_number"
+          header={
+            <SortHeaderCell onSortChange={this._onSortChange} sortDir={colSortDirs.ehf_number}>
+              EHF#
+            </SortHeaderCell>
+          }
+          cell={<TextCell data={sortedDataList} />}
+          width={80}
+        />
         <Column
           columnKey="primary_applicant_name"
           header={
