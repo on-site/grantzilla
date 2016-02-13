@@ -1,0 +1,17 @@
+<%= breadcrumbs %>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h2>Upload Grant Documents</h2>
+      <%= form_for(@upload, multipart: true) do |f| %>
+        <div class="field">
+          <%= f.label :file %>
+          <%= f.file_field :file %>
+       </div>
+       <div class="actions">
+         <%= f.submit 'Upload Document' %>
+         <%= link_to 'Nevermind', class: 'button' %>
+       </div>
+      <% end %>
+    </div>
+</div>
