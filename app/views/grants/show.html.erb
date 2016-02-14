@@ -1,4 +1,27 @@
 <div class="row">
+  <div class="col-md-5 col-sm-5">
+    <p>
+      <label class="control-label">Agency:</label>
+      <%= link_to @grant.user.agency.name, agency_path(@grant.user.agency), class: "btn btn-link" %>
+    </p>
+    <p>
+      <label class="control-label">Case Worker:</label>
+      <%= @grant.user.full_name %>
+    </p>
+  </div>
+  <div class="col-md-7 col-sm-7">
+    <p>
+      <label class="control-label">Phone:</label>
+      <%= @grant.user.agency.phone unless @grant.user.agency.phone.length < 2 %>
+    </p>
+    <p>
+      <label class="control-label">Email:</label>
+      <%= mail_to @grant.user.email %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-8 col-sm-7">
     <% if notice %>
     <p id="notice" class="alert alert-default">
@@ -29,7 +52,7 @@
 
               <p>
                 <label class="control-label">Email:</label>
-                <%= person.email %>
+                <%= mail_to person.email %>
               </p>
 
               <p>
@@ -64,7 +87,50 @@
       </div>
     <% end %>
 
+    <h2>Resident Information</h2>
+    <p>
+      <label class="control-label">Resident Type:</label>
+      <%= @grant.residence.residence_type.description %>
+    </p>
+
+    <p>
+      <label class="control-label">Address:</label>
+        <%= @grant.residence.address %>,
+        <%= @grant.residence.city %>, <%= @grant.residence.state %>  <%= @grant.residence.zip %>
+    </p>
+
+    <p>
+      <label class="control-label">Move In Date:</label>
+        <%= @grant.residence.move_in_date %>
+    </p>
+
+    <p>
+      <label class="control-label">Move Out Date:</label>
+        <%= @grant.residence.move_out_date %>
+    </p>
+
+    <p>
+      <label class="control-label">Deposit:</label>
+      <%= @grant.residence.rent %>
+    </p>
+
+    <p>
+      <label class="control-label">Rent:</label>
+        <%= @grant.residence.deposit %>
+    </p>
+
+
     <h2>Grant Information</h2>
+
+    <p>
+      <label class="control-label">EHF Number:</label>
+      <%= @grant.ehf_number %>
+    </p>
+
+    <p>
+      <label class="control-label">Grant Reasons:</label>
+      <%= @grant.grants_reason_types.map(&:reason_type).map(&:description).join(",") unless @grant.grants_reason_types.empty? %>
+    </p>
 
     <p>
       <label class="control-label">Grant Amount:</label>
@@ -77,9 +143,10 @@
     </p>
 
     <p>
-      <label class="control-label">EHF Number:</label>
-      <%= @grant.ehf_number %>
+      <label class="control-label">Subsidy Type:</label>
+      <%= @grant.subsidy_type.try(:description) %>
     </p>
+
 
     <div class="form-group">
       <%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %>
