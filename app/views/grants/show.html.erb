@@ -90,7 +90,7 @@
     <h2>Resident Information</h2>
     <p>
       <label class="control-label">Resident Type:</label>
-      <%= @grant.residence.residence_type.description %>
+      <%= @grant.residence.residence_type.try(:description) %>
     </p>
 
     <p>
