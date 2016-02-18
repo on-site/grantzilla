@@ -24,7 +24,7 @@ class EhfDataRecord
 
   def application_date
     application_date = value("Date")
-    valid_date_string?(application_date) ? application_date : nil
+    valid_date_string?(application_date) ? Date.strptime(application_date, '%m/%d/%Y') : nil
   end
 
   def agency_name
