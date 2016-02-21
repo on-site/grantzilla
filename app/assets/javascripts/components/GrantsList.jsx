@@ -158,9 +158,9 @@ class GrantsList extends React.Component {
         height={500}
         {...this.props}>
         <Column
-          columnKey="ehf_number"
+          columnKey="grant_ehf_number"
           header={
-            <SortHeaderCell onSortChange={this._onSortChange} sortDir={colSortDirs.ehf_number}>
+            <SortHeaderCell onSortChange={this._onSortChange} sortDir={colSortDirs.grant_ehf_number}>
               EHF#
             </SortHeaderCell>
           }
