@@ -105,11 +105,6 @@
     </p>
 
     <p>
-      <label class="control-label">Move Out Date:</label>
-        <%= @grant.residence.move_out_date %>
-    </p>
-
-    <p>
       <label class="control-label">Deposit:</label>
       <%= @grant.residence.rent %>
     </p>
@@ -128,7 +123,7 @@
     </p>
 
     <p>
-      <label class="control-label">Grant Reasons:</label>
+      <label class="control-label">Qualifying Criteria:</label>
       <%= @grant.grants_reason_types.map(&:reason_type).map(&:description).join(",") unless @grant.grants_reason_types.empty? %>
     </p>
 
