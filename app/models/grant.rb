@@ -31,7 +31,7 @@ class Grant < ActiveRecord::Base
   def self.list
     order(application_date: :desc)
       .includes(user: :agency).includes(:people, :status).all
-      .to_json(only: [:id, :ehf_number, :application_date],
+      .to_json(only: [:id, :application_date],
                methods: [
                  :primary_applicant_name,
                  :agency_name,

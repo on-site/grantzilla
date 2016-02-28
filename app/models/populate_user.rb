@@ -1,7 +1,7 @@
 # This class populates the user data model from an EHF data record.
 class PopulateUser
   def self.populate(ehf_data_record, agency)
-    Rails.logger.info "populating user for #{ehf_data_record.ehf_number}: #{ehf_data_record.agent_full_name}"
+    Rails.logger.info "populating user for #{ehf_data_record.grant_number}: #{ehf_data_record.agent_full_name}"
     user = get_user ehf_data_record, agency
     user = create_user(ehf_data_record, agency) unless user.present?
     user

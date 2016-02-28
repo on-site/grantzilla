@@ -1,7 +1,7 @@
 # This class populates the people data model from an EHF data record.
 class PopulatePerson
   def self.populate(ehf_data_record, grant)
-    Rails.logger.info "populating person for #{ehf_data_record.ehf_number}: #{client1_full_name(ehf_data_record)}"
+    Rails.logger.info "populating person for #{ehf_data_record.grant_number}: #{client1_full_name(ehf_data_record)}"
     person1 = create_person1 ehf_data_record, grant
     create_person2(ehf_data_record, grant) if person1.present? && ehf_data_record.adults > 1
     person1

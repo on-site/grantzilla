@@ -52,7 +52,7 @@ class DataImportManager
 
   # Consider this a new record is the EHF Number is not associated with an existing grant.
   def new_ehf_data_record?(ehf_data_record)
-    grants = Grant.where(ehf_number: ehf_data_record.ehf_number)
+    grants = Grant.where(id: ehf_data_record.grant_number)
     grants.empty?
   end
 
@@ -75,36 +75,36 @@ class DataImportManager
   def import_agency(ehf_data_record)
     agency = PopulateAgency.populate ehf_data_record
     return agency if agency.present? && agency.id.present?
-    raise StandardError, "Import agency failed for #{ehf_data_record.ehf_number}."
+    raise StandardError, "Import agency failed for #{ehf_data_record.grant_number}."
   end
 
   def import_residence(ehf_data_record)
     residence = PopulateResidence.populate ehf_data_record
     return residence if residence.present?
-    raise StandardError, "Import residence failed for #{ehf_data_record.ehf_number}."
+    raise StandardError, "Import residence failed for #{ehf_data_record.grant_number}."
   end
 
   def import_user(ehf_data_record, agency)
     user = PopulateUser.populate ehf_data_record, agency
     return user if user.present?
-    raise StandardError, "Import user failed for #{ehf_data_record.ehf_number}."
+    raise StandardError, "Import user failed for #{ehf_data_record.grant_number}."
   end
 
   def import_payee(ehf_data_record)
     payee = PopulatePayee.populate ehf_data_record
     return payee if payee.present?
-    raise StandardError, "Import payee failed for #{ehf_data_record.ehf_number}."
+    raise StandardError, "Import payee failed for #{ehf_data_record.grant_number}."
   end
 
   def import_grant(ehf_data_record, residence, user, payee)
     grant = PopulateGrant.populate ehf_data_record, residence, user, payee
     return grant if grant.present?
-    raise StandardError, "Import grant failed for #{ehf_data_record.ehf_number}."
+    raise StandardError, "Import grant failed for #{ehf_data_record.grant_number}."
   end
 
   def import_person(ehf_data_record, grant)
     person = PopulatePerson.populate ehf_data_record, grant
     return person if person.present?
-    raise StandardError, "Import person failed for #{ehf_data_record.ehf_number}."
+    raise StandardError, "Import person failed for #{ehf_data_record.grant_number}."
   end
 end
