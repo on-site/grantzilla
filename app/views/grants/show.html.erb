@@ -12,7 +12,9 @@
   <div class="col-md-7 col-sm-7">
     <p>
       <label class="control-label">Phone:</label>
-      <%= @grant.user.agency.phone unless @grant.user.agency.phone.length < 2 %>
+      <% if @grant.user.agency.phone.present? %>
+        <%= @grant.user.agency.phone unless @grant.user.agency.phone.length < 2 %>
+      <% end %>
     </p>
     <p>
       <label class="control-label">Email:</label>
@@ -106,7 +108,7 @@
 
     <p>
       <label class="control-label">Deposit:</label>
-      <%= @grant.residence.rent %>
+        <%= @grant.residence.rent %>
     </p>
 
     <p>
@@ -119,7 +121,7 @@
 
     <p>
       <label class="control-label">EHF Number:</label>
-      <%= @grant.ehf_number %>
+      <%= @grant.id %>
     </p>
 
     <p>

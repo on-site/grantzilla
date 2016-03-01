@@ -18,7 +18,7 @@ class EhfDataRecord
     raise StandardError, "Record skipped because no Client Last Name found." if value("Client 1 LN").blank?
   end
 
-  def ehf_number
+  def grant_number
     value("EHF.")
   end
 
@@ -49,12 +49,12 @@ class EhfDataRecord
   end
 
   def agent_fake_password
-    "password_#{agent_full_name}_#{ehf_number}"
+    "password_#{agent_full_name}_#{grant_number}"
   end
 
   def agent_fake_email
     user_name = agent_full_name.strip.downcase.gsub(/[^a-z ]/, '').tr(' ', '_').downcase
-    "imported_user_#{user_name}_#{ehf_number}@no_email.com"
+    "imported_user_#{user_name}_#{grant_number}@no_email.com"
   end
 
   def agency_city

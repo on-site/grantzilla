@@ -1,7 +1,7 @@
 # This class populates the agency data model from an EHF data record.
 class PopulateAgency
   def self.populate(ehf_data_record)
-    Rails.logger.info "populating agency for #{ehf_data_record.ehf_number}: #{ehf_data_record.agency_name}"
+    Rails.logger.info "populating agency for #{ehf_data_record.grant_number}: #{ehf_data_record.agency_name}"
     agency = get_agency ehf_data_record
     agency = create_agency(ehf_data_record) unless agency.present?
     agency

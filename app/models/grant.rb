@@ -31,9 +31,8 @@ class Grant < ActiveRecord::Base
   def self.list
     order(application_date: :desc)
       .includes(user: :agency).includes(:people, :status).all
-      .to_json(only: [:id, :ehf_number, :application_date],
+      .to_json(only: [:id, :application_date],
                methods: [
-                 :grant_ehf_number,
                  :primary_applicant_name,
                  :agency_name,
                  :case_worker_name,
@@ -57,10 +56,6 @@ class Grant < ActiveRecord::Base
 
   def primary_applicant_name
     primary_applicant.full_name if primary_applicant.present?
-  end
-
-  def grant_ehf_number
-    ehf_number.to_i if ehf_number.present?
   end
 
   def agency_name

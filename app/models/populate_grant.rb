@@ -1,7 +1,7 @@
 # This class populates the grant data model from an EHF data record.,
 class PopulateGrant
   def self.populate(ehf_data_record, residence, user, payee)
-    Rails.logger.info "populating grant for #{ehf_data_record.ehf_number}"
+    Rails.logger.info "populating grant for #{ehf_data_record.grant_number}"
     grant = create_grant ehf_data_record, residence, user
     if grant.present?
       add_coverage_type grant, ehf_data_record.coverage_type
@@ -27,9 +27,9 @@ class PopulateGrant
   private_class_method :add_payee
 
   def self.create_grant(ehf_data_record, residence, user)
-    Grant.create!(application_date: ehf_data_record.application_date,
+    Grant.create!(id: ehf_data_record.grant_number.to_i,
+                  application_date: ehf_data_record.application_date,
                   details: ehf_data_record.description,
-                  ehf_number: ehf_data_record.ehf_number,
                   subsidy_type_id: ehf_data_record.subsidy_type_id,
                   grant_amount: ehf_data_record.full_amount,
                   grant_status_id: ehf_data_record.approved_status_id,
