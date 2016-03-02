@@ -1,7 +1,7 @@
 # This class populates the residence data model from an EHF data record.
 class PopulateResidence
   def self.populate(ehf_data_record)
-    Rails.logger.info "populating residence for #{ehf_data_record.ehf_number}"
+    Rails.logger.info "populating residence for #{ehf_data_record.grant_number}"
     residence = get_residence ehf_data_record
     residence = create_residence(ehf_data_record) unless residence.present?
     residence

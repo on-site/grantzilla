@@ -1,7 +1,7 @@
 # This class populates the payee data model from an EHF data record.
 class PopulatePayee
   def self.populate(ehf_data_record)
-    Rails.logger.info "populating payee for #{ehf_data_record.ehf_number}: #{payee_full_name(ehf_data_record)}"
+    Rails.logger.info "populating payee for #{ehf_data_record.grant_number}: #{payee_full_name(ehf_data_record)}"
     payee = get_payee ehf_data_record
     payee = create_payee(ehf_data_record) unless payee.present?
     payee
