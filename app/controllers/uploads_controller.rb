@@ -8,8 +8,8 @@ class UploadsController < ApplicationController
 
     if @upload.save
       redirect_to @upload, notice: 'Document was successfully uploaded.'
-     else
-       render action: 'new'
+    else
+      render action: 'new'
     end
   end
 
