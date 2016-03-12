@@ -32,7 +32,8 @@ class FormsController < ApplicationController
   end
 
   def form_params
-    params.require(:grant).permit([:details, reason_type_ids: []], people_attributes, payees_attributes)
+    params.require(:grant).permit([:residence, :details, reason_type_ids: []],
+                                  people_attributes, payees_attributes, residence_attributes)
   end
 
   def people_attributes
@@ -43,6 +44,11 @@ class FormsController < ApplicationController
   def payees_attributes
     { payees_attributes: [:id, :name, :attention, :street_address, :unit_number,
                           :city, :state, :zip, :email, :phone, :_destroy] }
+  end
+
+  def residence_attributes
+    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city,
+                             :state, :zip, :_destroy] }
   end
 
   def finish_wizard_path
