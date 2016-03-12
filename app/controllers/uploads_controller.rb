@@ -1,6 +1,8 @@
 class UploadsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
-    @upload = Upload.new(user_id: current_user.id).tap(&:save).upload
+    @upload = Upload.new(user_id: current_user.id, user_type: "User").tap(&:save)
   end
 
   def create
@@ -16,6 +18,6 @@ class UploadsController < ApplicationController
   private
 
   def upload_params
-    params.require(:upload).permit(:file)
+    params.require(:upload).permit(:file, :file_file_name, :user_id, :user_type)
   end
 end

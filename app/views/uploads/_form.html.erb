@@ -1,0 +1,28 @@
+<%= form_for(@upload, multipart: true) do |f| %>
+  <% if @upload.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@upload.errors.count, "error") %> prohibited this upload from being saved:</h2>
+
+      <ul>
+      <% @upload.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :file_file_name %>
+    <%= f.text_field :file_file_name %>
+    <%= hidden_field(:upload, :user_id) %>
+    <%= hidden_field(:upload, :user_type) %>
+  </div>
+  <div class="field">
+    <%= f.label :file %>
+    <%= f.file_field :file %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Upload Doc' %>
+    <%= link_to 'Nevermind', uploads_path, class: 'button' %>
+  </div>
+<% end %>
