@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @upload.name %></h2>
+  <%= image_tag @upload.file.url(:medium) %>
+
+<div class="show actions">
+  <%= link_to 'Edit', edit_upload_path(@upload) %>
+  <%= link_to 'Remove', @upload, data: { confirm: 'Are you sure you want to delete upload?' }, method: :delete, class: 'destroy' %>
+  <%= link_to 'Back to all my uploads', uploads_path %>
+</div>

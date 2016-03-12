@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :agencies
+  resources :uploads
 
   resources :grants do
     member do

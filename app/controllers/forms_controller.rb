@@ -3,7 +3,7 @@ class FormsController < ApplicationController
   before_action :find_grant
 
   include Wicked::Wizard
-  steps :applicants, :criteria, :ask, :properties, :payee, :employment
+  steps :applicants, :criteria, :ask, :properties, :payee, :employment, :uploads
 
   # applicants: Full applicants info (Applicants Basic Info + Additional person information)
   # criteria: Qualifying Criteria
@@ -27,6 +27,7 @@ class FormsController < ApplicationController
     @grant = Grant.find(params[:grant_id])
     @grant_statuses = GrantStatus.all
     @grant.payees.build if @grant.payees.empty?
+    @upload = Upload.new(user_id: current_user.id)
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end

@@ -22,6 +22,7 @@ class Grant < ActiveRecord::Base
   has_many :other_payments
   has_many :comments
   has_many :grants_reason_types
+  has_many :uploads
   has_many :reason_types, through: :grants_reason_types
 
   delegate :agency, to: :user
