@@ -27,7 +27,7 @@ class FormsController < ApplicationController
     @grant = Grant.find(params[:grant_id])
     @grant_statuses = GrantStatus.all
     @grant.payees.build if @grant.payees.empty?
-    @upload = Upload.new(user_id: current_user.id)
+    @upload = Upload.new(user_id: @grant.id, user_type: "Grant")
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
