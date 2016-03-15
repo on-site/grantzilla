@@ -3,6 +3,8 @@ class Person < ActiveRecord::Base
   has_many :incomes
   belongs_to :grant
 
+  accepts_nested_attributes_for(:incomes, reject_if: :all_blank, allow_destroy: true)
+
   def current_earned_income
     incomes.select(&:current).reject(&:disabled).map(&:monthly_income).sum
   end

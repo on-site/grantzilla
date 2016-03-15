@@ -3,7 +3,7 @@ class FormsController < ApplicationController
   before_action :find_grant
 
   include Wicked::Wizard
-  steps :applicants, :criteria, :ask, :properties, :payee, :employment
+  steps :applicants, :criteria, :ask, :properties, :payee#, :employment
 
   # applicants: Full applicants info (Applicants Basic Info + Additional person information)
   # criteria: Qualifying Criteria
@@ -35,9 +35,14 @@ class FormsController < ApplicationController
     params.require(:grant).permit([:details, reason_type_ids: []], people_attributes, payees_attributes)
   end
 
+  def incomes_attributes
+    { incomes_attributes: [:id, :employer, :occupation, :monthly_income, :start_date, :end_date,
+                          :_destroy] }
+  end
+
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
-                          :email, :veteran, :student, :full_time_student, :_destroy] }
+                          :email, :veteran, :student, :full_time_student, :_destroy, incomes_attributes] }
   end
 
   def payees_attributes

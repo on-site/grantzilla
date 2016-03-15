@@ -1,3 +1,5 @@
+ <% income_fields = 'forms/fields/income_fields' %>
+
 <div class="nested-fields">
 
   <div class="row">
@@ -7,6 +9,7 @@
       <%= f.input :birth_date, start_year: 1910, order: [:month, :day, :year], required: true %>
       <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
       <%= f.input :email, input_html: { data: { guard: "email" } } %>
+
     </div>
 
     <div class="col-sm-2 text-right">
@@ -30,5 +33,13 @@
       <%= f.input :full_time_student %>
     </div>
   </div>
+
+  <div class="links">
+    <%= link_to_add_association f, :incomes, partial: income_fields, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Add Employment
+    <% end %>
+  </div>
+
   <hr/>
 </div>

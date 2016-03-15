@@ -1,0 +1,20 @@
+<div class="nested-fields">
+
+  <div class="row">
+    <div class="col-sm-10">
+      <%= f.input :employer, required: true, input_html: { data: { guard: "required" } } %>
+      <%= f.input :occupation %>
+      <%= f.input :monthly_income %>
+      <%= f.input :start_date %>
+      <%= f.input :end_date %>
+    </div>
+  </div>
+
+  <div class="col-sm-2 text-right">
+    <%= link_to_remove_association f, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-trash"></span>
+      Remove
+    <% end %>
+  </div>
+
+</div>
