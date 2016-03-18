@@ -79,11 +79,15 @@ class GrantsController < ApplicationController
   end
 
   def grant_params
-    params.require(:grant).permit(people_attributes)
+    params.require(:grant).permit(people_attributes, residence_attributes, :residence)
   end
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :email] }
+  end
+
+  def residence_attributes
+    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city, :state, :zip] }
   end
 
   def grant_admin_params
