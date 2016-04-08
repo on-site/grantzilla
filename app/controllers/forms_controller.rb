@@ -27,12 +27,13 @@ class FormsController < ApplicationController
     @grant = Grant.find(params[:grant_id])
     @grant_statuses = GrantStatus.all
     @grant.payees.build if @grant.payees.empty?
+    @grant.build_residence unless @grant.residence.present?
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def form_params
-    params.require(:grant).permit([:residence, :details, reason_type_ids: []],
+    params.require(:grant).permit([:details, reason_type_ids: []],
                                   people_attributes, payees_attributes, residence_attributes)
   end
 

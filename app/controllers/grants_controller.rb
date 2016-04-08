@@ -79,7 +79,7 @@ class GrantsController < ApplicationController
   end
 
   def grant_params
-    params.require(:grant).permit(people_attributes, residence_attributes, :residence)
+    params.require(:grant).permit(:residence, people_attributes, residence_attributes)
   end
 
   def people_attributes
