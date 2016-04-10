@@ -1,7 +1,7 @@
 <%= react_component('GrantControls', {
       grant: @grant,
       payee: @grant_payee,
-      statuses: @grant_statuses
+      statuses: GrantStatus.all
 }) if current_user.admin? %>
 
 <%= react_component('CommentsSection', grant: @grant, current_comments: @comments) %>

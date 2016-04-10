@@ -72,7 +72,6 @@ class GrantsController < ApplicationController
   end
 
   def set_controls_info
-    @grant_statuses = GrantStatus.all
     @grant_payee = @grant.payees.last || {}
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")

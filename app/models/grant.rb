@@ -29,6 +29,13 @@ class Grant < ActiveRecord::Base
 
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
+  def intialize_defaults(options = {})
+    self.user_id = options[:user_id] if user_id.nil?
+    people.build if people.empty?
+    payees.build if payees.empty?
+    build_residence unless residence.present?
+  end
+
   def self.list
     order(application_date: :desc)
       .includes(user: :agency).includes(:people, :status).all
