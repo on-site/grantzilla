@@ -25,15 +25,15 @@ class FormsController < ApplicationController
 
   def find_grant
     @grant = Grant.find(params[:grant_id])
-    @grant_statuses = GrantStatus.all
-    @grant.payees.build if @grant.payees.empty?
-    @upload = Upload.new(user_id: @grant.id, user_type: "Grant")
+    @grant.intialize_defaults(user_id: current_user.id)
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
+    @upload = Upload.new(user_id: @grant.id, user_type: "Grant")
   end
 
   def form_params
-    params.require(:grant).permit([:details, reason_type_ids: []], people_attributes, payees_attributes)
+    params.require(:grant).permit([:details, reason_type_ids: []],
+                                  people_attributes, payees_attributes, residence_attributes)
   end
 
   def people_attributes
@@ -44,6 +44,11 @@ class FormsController < ApplicationController
   def payees_attributes
     { payees_attributes: [:id, :name, :attention, :street_address, :unit_number,
                           :city, :state, :zip, :email, :phone, :_destroy] }
+  end
+
+  def residence_attributes
+    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city,
+                             :state, :zip, :_destroy] }
   end
 
   def finish_wizard_path
