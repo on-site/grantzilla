@@ -1,5 +1,5 @@
 class Grant < ActiveRecord::Base
-  COMPONENTS = [:grants_reason_types, :people, :payees].freeze
+  COMPONENTS = [:grants_reason_types, :people, :residence, :payees].freeze
 
   before_save :set_application_date
 
@@ -22,11 +22,19 @@ class Grant < ActiveRecord::Base
   has_many :other_payments
   has_many :comments
   has_many :grants_reason_types
+  has_many :uploads
   has_many :reason_types, through: :grants_reason_types
 
   delegate :agency, to: :user
 
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
+
+  def intialize_defaults(options = {})
+    self.user_id = options[:user_id] if user_id.nil?
+    people.build if people.empty?
+    payees.build if payees.empty?
+    build_residence unless residence.present?
+  end
 
   def self.list
     order(application_date: :desc)

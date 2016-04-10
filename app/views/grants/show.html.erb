@@ -1,27 +1,33 @@
-<div class="row">
-  <div class="col-md-5 col-sm-5">
-    <p>
-      <label class="control-label">Agency:</label>
-      <%= link_to @grant.user.agency.name, agency_path(@grant.user.agency), class: "btn btn-link" %>
-    </p>
-    <p>
-      <label class="control-label">Case Worker:</label>
-      <%= @grant.user.full_name %>
-    </p>
-  </div>
-  <div class="col-md-7 col-sm-7">
-    <p>
-      <label class="control-label">Phone:</label>
-      <% if @grant.user.agency.phone.present? %>
-        <%= @grant.user.agency.phone unless @grant.user.agency.phone.length < 2 %>
+<% if @grant.user.present? %>
+  <div class="row">
+    <div class="col-md-5 col-sm-5">
+      <% if @grant.user.agency.present? %>
+        <p>
+          <label class="control-label">Agency:</label>
+          <%= link_to @grant.user.agency.name, agency_path(@grant.user.agency), class: "btn btn-link" %>
+        </p>
       <% end %>
-    </p>
-    <p>
-      <label class="control-label">Email:</label>
-      <%= mail_to @grant.user.email %>
-    </p>
+      <p>
+        <label class="control-label">Case Worker:</label>
+        <%= @grant.user.full_name %>
+      </p>
+    </div>
+    <div class="col-md-7 col-sm-7">
+      <% if @grant.user.agency.present? %>
+        <p>
+          <label class="control-label">Phone:</label>
+          <% if @grant.user.agency.phone.present? %>
+            <%= @grant.user.agency.phone unless @grant.user.agency.phone.length < 2 %>
+          <% end %>
+        </p>
+      <% end %>
+      <p>
+        <label class="control-label">Email:</label>
+        <%= mail_to @grant.user.email %>
+      </p>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="row">
   <div class="col-md-8 col-sm-7">
@@ -90,31 +96,33 @@
     <% end %>
 
     <h2>Resident Information</h2>
-    <p>
-      <label class="control-label">Resident Type:</label>
-      <%= @grant.residence.residence_type.try(:description) %>
-    </p>
+    <% if @grant.residence.present? %>
+      <p>
+        <label class="control-label">Resident Type:</label>
+        <%= @grant.residence.residence_type.try(:description) %>
+      </p>
 
-    <p>
-      <label class="control-label">Address:</label>
-        <%= @grant.residence.address %>,
-        <%= @grant.residence.city %>, <%= @grant.residence.state %>  <%= @grant.residence.zip %>
-    </p>
+      <p>
+        <label class="control-label">Address:</label>
+          <%= @grant.residence.address %>,
+          <%= @grant.residence.city %>, <%= @grant.residence.state %>  <%= @grant.residence.zip %>
+      </p>
 
-    <p>
-      <label class="control-label">Move In Date:</label>
-        <%= @grant.residence.move_in_date %>
-    </p>
+      <p>
+        <label class="control-label">Move In Date:</label>
+          <%= @grant.residence.move_in_date %>
+      </p>
 
-    <p>
-      <label class="control-label">Deposit:</label>
-        <%= @grant.residence.rent %>
-    </p>
+      <p>
+        <label class="control-label">Deposit:</label>
+          <%= @grant.residence.rent %>
+      </p>
 
-    <p>
-      <label class="control-label">Rent:</label>
-        <%= @grant.residence.deposit %>
-    </p>
+      <p>
+        <label class="control-label">Rent:</label>
+          <%= @grant.residence.deposit %>
+      </p>
+    <% end %>
 
 
     <h2>Grant Information</h2>
