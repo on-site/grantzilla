@@ -17,18 +17,24 @@ body {
   position: relative;
 }
 
-.text-bold {
-  font-weight: bold;
-}
-
 .navbar-brand {
-  background: url(/images/hif_logo.png) 16px 6px no-repeat;
+  background: url(/images/hif_logo.png) 16px 4px no-repeat;
   background-size: 40px;
   display: inline-block;
+  font-weight: 900;
+  font-size: 22px;
   height: 55px;
   margin-bottom: -3px;
-  padding-left: 65px;
+  padding-left: 75px;
   width: auto;
+}
+
+.navbar-fixed-top {
+  background-image: url(/images/scales.png);
+}
+
+.text-bold {
+  font-weight: bold;
 }
 
 #footer-icon {
@@ -39,4 +45,3 @@ body {
   margin-bottom: -3px;
   width: 16px;
 }
-
