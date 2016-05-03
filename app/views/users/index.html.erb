@@ -1,6 +1,6 @@
 <h1>Users</h1>
 
-<p>
+<p class="alert alert-info">
   Manage the users that HIF works with below.
 </p>
 
@@ -11,7 +11,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Agency</th>
-        <th>Approved</th>
+        <th class="text-center">Approved</th>
       </tr>
     </thead>
     <tbody>
@@ -20,12 +20,19 @@
           <td><%= user.full_name %></td>
           <td><%= user.email %></td>
           <td><%= user.agency.try(:name) %></td>
-          <td>
+          <td class="text-center">
             <%= render partial: "shared/approved_form", locals: { user: user } %>
           </td>
           <td>
-            <%= link_to 'Edit', edit_user_registration_path(user), class: 'btn btn-default' %>
-            <%= link_to "Destroy", user_path(user.id), method: :delete, data: { confirm: "You sure?" } %>
+            <div class="btn-group">
+              <%= link_to edit_user_registration_path(user), class: 'btn btn-sm btn-default' do %>
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+              <% end %>
+              <%= link_to user_path(user.id), class: "btn btn-sm btn-danger", method: :delete,
+                  data: { confirm: "You sure?" } do %>
+                <span class="glyphicon glyphicon-trash"></span> Remove
+              <% end %>
+            </div>
           </td>
         </tr>
       <% end %>
