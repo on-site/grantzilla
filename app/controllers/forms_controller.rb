@@ -1,6 +1,7 @@
 class FormsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_grant
+  before_action :initialize_grant
 
   include Wicked::Wizard
   steps :applicants, :criteria, :ask, :properties, :payee, :employment, :uploads
@@ -17,14 +18,25 @@ class FormsController < ApplicationController
   end
 
   def update
-    @grant.assign_attributes(form_params)
-    render_wizard @grant
+    if @grant.persisted?
+      @grant.assign_attributes(form_params)
+    else
+      @grant = Grant.create(form_params)
+    end
+    redirect_to wizard_path(@next_step, grant_id: @grant.id)
   end
 
   private
 
   def find_grant
-    @grant = Grant.find(params[:grant_id])
+    @grant = if params[:grant_id].to_i.zero?
+               Grant.new
+             else
+               Grant.find(params[:grant_id])
+             end
+  end
+
+  def initialize_grant
     @grant.intialize_defaults(user_id: current_user.id)
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")

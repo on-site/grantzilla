@@ -11,8 +11,7 @@ class GrantsController < ApplicationController
   end
 
   def new
-    @grant = CreatesGrants.new(user_id: current_user.id).tap(&:save).grant
-    redirect_to grant_forms_path(@grant, :applicants)
+    redirect_to grant_forms_path(0, :applicants)
   end
 
   def edit
@@ -20,10 +19,9 @@ class GrantsController < ApplicationController
   end
 
   def create
-    creates_grants = CreatesGrants.new(grant_params.merge(user_id: current_user.id))
-    @grant = creates_grants.grant
-    if creates_grants.save
-      redirect_to grant_forms_path(@grant, :applicants)
+    @grant = Grant.new(grant_params.merge(user_id: current_user.id))
+    if @grant.save
+      redirect_to @grant
     else
       render :new
     end

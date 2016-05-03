@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Budget, type: :model do
   describe "#create" do
-    let(:grant) { Grant.create total_rent: 1000.0 }
+    let(:status) { GrantStatus.create id: 1, description: "Incomplete" }
+    let(:grant) { Grant.create total_rent: 1000.0, status: status }
     let(:person) { grant.people.build }
     let(:person2) { grant.people.build }
     let(:person3) { grant.people.build }
