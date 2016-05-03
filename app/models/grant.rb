@@ -2,6 +2,7 @@ class Grant < ActiveRecord::Base
   COMPONENTS = [:grants_reason_types, :people, :residence, :payees].freeze
 
   before_save :set_application_date
+  before_create :set_initial_status
 
   # rubocop:disable Rails/HasAndBelongsToMany
   has_and_belongs_to_many :coverage_types
@@ -38,7 +39,7 @@ class Grant < ActiveRecord::Base
 
   def self.list
     order(application_date: :desc)
-      .includes(user: :agency).includes(:people, :status).all
+      .includes(user: :agency).includes(:people, :status).order(id: :desc).all
       .to_json(only: [:id, :application_date],
                methods: [
                  :primary_applicant_name,
@@ -53,11 +54,6 @@ class Grant < ActiveRecord::Base
     status.description
   end
 
-  def set_application_date
-    return if application_date.present?
-    self.application_date = Time.zone.today
-  end
-
   def primary_applicant
     people.first
   end
@@ -67,7 +63,7 @@ class Grant < ActiveRecord::Base
   end
 
   def agency_name
-    return "" unless agency.present?
+    return "" unless user.present? && agency.present?
     agency.name
   end
 
@@ -78,5 +74,17 @@ class Grant < ActiveRecord::Base
 
   def grant_amount=(value)
     self[:grant_amount] = value.to_s.delete("$,")
+  end
+
+  private
+
+  def set_application_date
+    return if application_date.present?
+    self.application_date = Time.zone.today
+  end
+
+  def set_initial_status
+    return if status.present?
+    self.status = GrantStatus.initial
   end
 end
