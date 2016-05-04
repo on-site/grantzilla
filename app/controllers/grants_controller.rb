@@ -4,7 +4,7 @@ class GrantsController < ApplicationController
   before_action :set_controls_info, only: [:show, :edit]
 
   def index
-    @grants = Grant.list
+    @grants = Grant.list(current_user)
   end
 
   def show

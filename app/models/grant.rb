@@ -37,16 +37,13 @@ class Grant < ActiveRecord::Base
     build_residence unless residence.present?
   end
 
-  def self.list
-    order(application_date: :desc)
-      .includes(user: :agency).includes(:people, :status).order(id: :desc).all
-      .to_json(only: [:id, :application_date],
-               methods: [
-                 :primary_applicant_name,
-                 :agency_name,
-                 :case_worker_name,
-                 :status_name
-               ])
+  def self.list(current_user, options = {})
+    grants = joins(user: :agency).includes(:people, :status).order(id: :desc)
+    if current_user.admin?
+      filter_by_options(grants, options)
+    else
+      filter_for_worker(grants, current_user, options)
+    end
   end
 
   def status_name
@@ -87,4 +84,34 @@ class Grant < ActiveRecord::Base
     return if status.present?
     self.status = GrantStatus.initial
   end
+
+  def self.filter_by_user_id(grants, user_id)
+    grants = grants.where(user_id: user_id) if user_id.present?
+    grants
+  end
+  private_class_method :filter_by_user_id
+
+  def self.filter_by_agency_id(grants, agency_id)
+    grants = grants.where(users: { agency_id: agency_id }) if agency_id.present?
+    grants
+  end
+  private_class_method :filter_by_agency_id
+
+  def self.filter_by_options(grants, options)
+    grants = filter_by_user_id(grants, options[:user_id])
+    grants = filter_by_agency_id(grants, options[:agency_id])
+    grants
+  end
+  private_class_method :filter_by_options
+
+  def self.filter_for_worker(grants, current_user, options)
+    if current_user.approved?
+      grants = filter_by_agency_id(grants, current_user.agency_id)
+      grants = filter_by_user_id(grants, options[:user_id])
+    else
+      grants = grants.where(user_id: current_user.id)
+    end
+    grants
+  end
+  private_class_method :filter_for_worker
 end
