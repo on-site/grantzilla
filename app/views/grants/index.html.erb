@@ -1,15 +1,70 @@
 <h1>Grant Applications</h1>
 
-<% if @grants %>
-  <%= react_component('GrantsList', grants: @grants) %>
+<form action="<%= grants_path %>" class="table-filters">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="input-group">
+        <%= text_field_tag "search", params[:search], class: "form-control", placeholder: "Search" %>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-3">
+      <% if current_user.admin? %>
+        <%= select_tag "agency_id", options_from_collection_for_select(Agency.all, "id", "name", params[:agency_id]),
+            class: "form-control agency-filter" , include_blank: "All Agencies" %>
+      <% end %>
+    </div>
+    <div class="col-sm-3">
+      <% if current_user.admin? || current_user.approved %>
+        <%= select_tag "user_id", options_from_collection_for_select(case_workers, "id", "full_name", params[:user_id]),
+            class: "form-control worker-filter" , include_blank: "All Workers" %>
+      <% end %>
+    </div>
+  </div>
+</form>
 
-  <p>
-    <a href="<%= new_grant_path %>" class="btn btn-primary">
-      <span class="glyphicon glyphicon-plus"></span> New Application
-    </a>
-  </p>
+<% if @grants.present? %>
+  <table class="table table-striped">
+    <thead>
+      <th>EHF#</th>
+      <th>Applicants</th>
+      <th>Application Date</th>
+      <th>Agency</th>
+      <th>Case Worker</th>
+      <th>Status</th>
+      <th></th>
+    </thead>
+    <% @grants.each do |grant| %>
+      <tr>
+        <td><%= grant.id %></td>
+        <td>
+          <% grant.people.each do |person| %>
+            <div><%= person.first_name %> <%= person.last_name %></div>
+          <% end %>
+        </td>
+        <td><%= grant.application_date %></td>
+        <td><%= grant.agency_name %></td>
+        <td><%= grant.case_worker_name %></td>
+        <td><%= grant.status_name %></td>
+        <td>
+          <%= link_to grant, class: "btn btn-sm btn-default" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Edit
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <% else %>
   <div class="alert alert-warning">
-    No applications have been submitted yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Application'.html_safe, new_grant_path, class: 'btn btn-default' %>
+    No matching applications found.
   </div>
 <% end %>
+<p>
+  <a href="<%= new_grant_path %>" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> New Application
+  </a>
+</p>

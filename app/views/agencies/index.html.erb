@@ -1,6 +1,6 @@
 <h1>Agencies</h1>
 
-<p>
+<p class="alert alert-info">
   Manage the different agencies that HIF works with below.
 </p>
 
@@ -25,7 +25,7 @@
           <td><%= agency.fax.presence || '-' %></td>
           <td class="hidden-xs hidden-sm"><%= agency.full_address %></td>
           <td>
-            <%= link_to agency_path(agency), class: 'btn btn-default' do %>
+            <%= link_to agency_path(agency), class: 'btn btn-sm btn-default' do %>
               <span class="glyphicon glyphicon-pencil"></span> Edit
             <% end %>
           </td>
