@@ -13,9 +13,9 @@ RSpec.describe Grant, type: :model do
     let(:grant2) { Grant.create total_rent: 1000.0, status: status, user_id: worker2.id }
     let(:grant3) { Grant.create total_rent: 1000.0, status: status, user_id: worker3.id }
     before do
-      grant1
-      grant2
-      grant3
+      grant1.people.create first_name: "Smelly", last_name: "Cat"
+      grant2.people.create first_name: "Sammy", last_name: "Smith"
+      grant3.people.create first_name: "Frank", last_name: "Furter"
     end
     context "when the user is an admin" do
       it "includes applications from all agencies" do
@@ -36,6 +36,12 @@ RSpec.describe Grant, type: :model do
         expect(grants).to_not include(grant2)
         expect(grants).to_not include(grant3)
       end
+      it "allows searching" do
+        grants = Grant.list(admin, search: "smel").all
+        expect(grants).to include(grant1)
+        expect(grants).to_not include(grant2)
+        expect(grants).to_not include(grant3)
+      end
     end
     context "when the user is a case worker" do
       context "when the user's account is approved" do
@@ -50,6 +56,12 @@ RSpec.describe Grant, type: :model do
           grants = Grant.list(worker1, user_id: worker2.id)
           expect(grants).to_not include(grant1)
           expect(grants).to include(grant2)
+          expect(grants).to_not include(grant3)
+        end
+        it "allows searching" do
+          grants = Grant.list(worker1, search: "smel").all
+          expect(grants).to include(grant1)
+          expect(grants).to_not include(grant2)
           expect(grants).to_not include(grant3)
         end
       end

@@ -30,6 +30,25 @@ class Grant < ActiveRecord::Base
 
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
+  scope :by_agency_id, -> (agency_id) { joins(:user).where(users: { agency_id: agency_id }) if agency_id.present? }
+  scope :by_user_id, -> (user_id) { where(user_id: user_id) if user_id.present? }
+  scope :search, (lambda do |search|
+    if search.present?
+      joins(:people)
+        .where("LOWER(people.first_name || ' ' || people.last_name) LIKE ?",
+               "%#{search.downcase}%")
+    end
+  end)
+  scope :visible_for_user, (lambda do |user|
+    unless user.admin?
+      if user.approved
+        joins(:user).where(users: { agency_id: user.agency_id })
+      else
+        where(user_id: user.id)
+      end
+    end
+  end)
+
   def intialize_defaults(options = {})
     self.user_id = options[:user_id] if user_id.nil?
     people.build if people.empty?
@@ -38,12 +57,12 @@ class Grant < ActiveRecord::Base
   end
 
   def self.list(current_user, options = {})
-    grants = joins(user: :agency).includes(:people, :status).order(id: :desc)
-    if current_user.admin?
-      filter_by_options(grants, options)
-    else
-      filter_for_worker(grants, current_user, options)
-    end
+    joins(:people, :status, user: :agency)
+      .search(options[:search])
+      .by_agency_id(options[:agency_id])
+      .by_user_id(options[:user_id])
+      .visible_for_user(current_user)
+      .order(id: :desc)
   end
 
   def status_name
@@ -84,34 +103,4 @@ class Grant < ActiveRecord::Base
     return if status.present?
     self.status = GrantStatus.initial
   end
-
-  def self.filter_by_user_id(grants, user_id)
-    grants = grants.where(user_id: user_id) if user_id.present?
-    grants
-  end
-  private_class_method :filter_by_user_id
-
-  def self.filter_by_agency_id(grants, agency_id)
-    grants = grants.where(users: { agency_id: agency_id }) if agency_id.present?
-    grants
-  end
-  private_class_method :filter_by_agency_id
-
-  def self.filter_by_options(grants, options)
-    grants = filter_by_user_id(grants, options[:user_id])
-    grants = filter_by_agency_id(grants, options[:agency_id])
-    grants
-  end
-  private_class_method :filter_by_options
-
-  def self.filter_for_worker(grants, current_user, options)
-    if current_user.approved?
-      grants = filter_by_agency_id(grants, current_user.agency_id)
-      grants = filter_by_user_id(grants, options[:user_id])
-    else
-      grants = grants.where(user_id: current_user.id)
-    end
-    grants
-  end
-  private_class_method :filter_for_worker
 end

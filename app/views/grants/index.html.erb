@@ -2,7 +2,17 @@
 
 <form action="<%= grants_path %>">
   <div class="row">
-    <div class="col-sm-offset-6 col-sm-3">
+    <div class="col-sm-4">
+      <div class="input-group">
+        <%= text_field_tag "search", params[:search], class: "form-control", placeholder: "Search" %>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-3">
       <% if current_user.admin? %>
         <%= select_tag "agency_id", options_from_collection_for_select(Agency.all, "id", "name", params[:agency_id]),
             class: "form-control agency-filter" , include_blank: "All Agencies" %>

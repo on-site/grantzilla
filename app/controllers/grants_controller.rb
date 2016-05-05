@@ -96,6 +96,6 @@ class GrantsController < ApplicationController
   end
 
   def grant_index_params
-    params.permit(:agency_id, :status, :user_id)
+    params.permit(:agency_id, :search, :status, :user_id)
   end
 end
