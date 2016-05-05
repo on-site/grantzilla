@@ -4,7 +4,7 @@ class GrantsController < ApplicationController
   before_action :set_controls_info, only: [:show, :edit]
 
   def index
-    @grants = Grant.list(current_user)
+    @grants = Grant.list(current_user, grant_index_params)
   end
 
   def show
@@ -93,5 +93,9 @@ class GrantsController < ApplicationController
 
   def grant_payee_params
     params.require(:payee).permit(:name, :check_number)
+  end
+
+  def grant_index_params
+    params.permit(:agency_id, :status, :user_id)
   end
 end

@@ -1,6 +1,23 @@
 <h1>Grant Applications</h1>
 
-<% if @grants %>
+<form action="<%= grants_path %>">
+  <div class="row">
+    <div class="col-sm-offset-6 col-sm-3">
+      <% if current_user.admin? %>
+        <%= select_tag "agency_id", options_from_collection_for_select(Agency.all, "id", "name", params[:agency_id]),
+            class: "form-control agency-filter" , include_blank: "All Agencies" %>
+      <% end %>
+    </div>
+    <div class="col-sm-3">
+      <% if current_user.admin? || current_user.approved %>
+        <%= select_tag "user_id", options_from_collection_for_select(case_workers, "id", "full_name", params[:user_id]),
+            class: "form-control worker-filter" , include_blank: "All Workers" %>
+      <% end %>
+    </div>
+  </div>
+</form>
+
+<% if @grants.present? %>
   <table class="table table-striped">
     <thead>
       <th>EHF#</th>
@@ -31,14 +48,13 @@
       </tr>
     <% end %>
   </table>
-
-  <p>
-    <a href="<%= new_grant_path %>" class="btn btn-primary">
-      <span class="glyphicon glyphicon-plus"></span> New Application
-    </a>
-  </p>
 <% else %>
   <div class="alert alert-warning">
-    No applications have been submitted yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Application'.html_safe, new_grant_path, class: 'btn btn-default' %>
+    No matching applications found.
   </div>
 <% end %>
+<p>
+  <a href="<%= new_grant_path %>" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> New Application
+  </a>
+</p>
