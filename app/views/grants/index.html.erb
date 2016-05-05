@@ -1,6 +1,6 @@
 <h1>Grant Applications</h1>
 
-<form action="<%= grants_path %>">
+<form action="<%= grants_path %>" class="table-filters">
   <div class="row">
     <div class="col-sm-4">
       <div class="input-group">
@@ -51,7 +51,7 @@
         <td><%= grant.case_worker_name %></td>
         <td><%= grant.status_name %></td>
         <td>
-          <%= link_to grant, class: "btn btn-small btn-default" do %>
+          <%= link_to grant, class: "btn btn-sm btn-default" do %>
             <span class="glyphicon glyphicon-pencil"></span> Edit
           <% end %>
         </td>

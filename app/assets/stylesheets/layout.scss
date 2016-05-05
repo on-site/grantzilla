@@ -33,6 +33,17 @@ body {
   background-image: url(/images/scales.png);
 }
 
+.table {
+  thead {
+    background-color: #ccd6cc;
+  }
+}
+.table-filters {
+  background-color: #dde7dd;
+  display: block;
+  padding: 5px;
+}
+
 .text-bold {
   font-weight: bold;
 }
