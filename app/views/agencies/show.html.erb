@@ -41,7 +41,9 @@
       </div>
     </div>
     <p>
-      <%= link_to 'Remove Agency...', '', method: 'delete', class: 'btn btn-danger btn-sm btn-block-xs', data: { confirm: 'Are you sure you wish to delete this agency? All users will also be removed.', disable_with: 'Loading...' } %>
+      <%= link_to '', method: 'delete', class: 'btn btn-danger btn-sm btn-block-xs', data: { confirm: 'Are you sure you wish to delete this agency? All users will also be removed.', disable_with: 'Loading...' } do %>
+        <span class="glyphicon glyphicon-trash"></span> Remove Agency...
+      <% end %>
     </p>
   </div>
 </div>
