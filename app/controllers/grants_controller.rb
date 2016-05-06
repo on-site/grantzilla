@@ -4,15 +4,14 @@ class GrantsController < ApplicationController
   before_action :set_controls_info, only: [:show, :edit]
 
   def index
-    @grants = Grant.list
+    @grants = Grant.list(current_user, grant_index_params)
   end
 
   def show
   end
 
   def new
-    @grant = CreatesGrants.new(user_id: current_user.id).tap(&:save).grant
-    redirect_to grant_forms_path(@grant, :applicants)
+    redirect_to grant_forms_path(0, :applicants)
   end
 
   def edit
@@ -20,10 +19,9 @@ class GrantsController < ApplicationController
   end
 
   def create
-    creates_grants = CreatesGrants.new(grant_params.merge(user_id: current_user.id))
-    @grant = creates_grants.grant
-    if creates_grants.save
-      redirect_to grant_forms_path(@grant, :applicants)
+    @grant = Grant.new(grant_params.merge(user_id: current_user.id))
+    if @grant.save
+      redirect_to @grant
     else
       render :new
     end
@@ -72,18 +70,21 @@ class GrantsController < ApplicationController
   end
 
   def set_controls_info
-    @grant_statuses = GrantStatus.all
     @grant_payee = @grant.payees.last || {}
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def grant_params
-    params.require(:grant).permit(people_attributes)
+    params.require(:grant).permit(:residence, people_attributes, residence_attributes)
   end
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :email] }
+  end
+
+  def residence_attributes
+    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city, :state, :zip] }
   end
 
   def grant_admin_params
@@ -92,5 +93,9 @@ class GrantsController < ApplicationController
 
   def grant_payee_params
     params.require(:payee).permit(:name, :check_number)
+  end
+
+  def grant_index_params
+    params.permit(:agency_id, :search, :status, :user_id)
   end
 end

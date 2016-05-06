@@ -4,14 +4,15 @@
   <div class="col-sm-6">
     <h2>Upload Grant Documents</h2>
       <%= form_for(@upload, multipart: true) do |f| %>
+        <%= hidden_field(:upload, :user_id) %>
+        <%= hidden_field(:upload, :user_type) %>
         <div class="field">
-          <%= f.label :file %>
           <%= f.file_field :file %>
-       </div>
-       <div class="actions">
-         <%= f.submit 'Upload Document' %>
-         <%= link_to 'Nevermind', class: 'button' %>
-       </div>
+        </div>
+        <div class="actions">
+          <%= f.submit 'Upload Document' %>
+          <%= link_to 'Nevermind', class: 'button' %>
+        </div>
       <% end %>
     </div>
 </div>

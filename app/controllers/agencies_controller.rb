@@ -21,6 +21,7 @@ class AgenciesController < ApplicationController
     @agency = Agency.new(agency_params)
 
     if @agency.save
+      flash[:notice] = "Agency successfully created."
       redirect_to @agency
     else
       render :new
@@ -29,6 +30,7 @@ class AgenciesController < ApplicationController
 
   def update
     if @agency.update(agency_params)
+      flash[:notice] = "Agency successfully updated."
       redirect_to @agency
     else
       render :edit
