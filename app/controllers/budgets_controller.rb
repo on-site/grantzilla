@@ -1,10 +1,7 @@
 class BudgetsController < ApplicationController
   def index
     @grant = Grant.find params[:grant_id]
-    @grant.create_last_month_budget if @grant.last_month_budget.nil?
-    @grant.create_current_month_budget if @grant.current_month_budget.nil?
-    @grant.create_next_month_budget if @grant.next_month_budget.nil?
-    @grant.save if @grant.changed?
+    initialize_budgets_if_needed
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
@@ -46,6 +43,13 @@ class BudgetsController < ApplicationController
     value = params[:grant][:last_month_budget][field]
     params[:grant][:current_month_budget][field] = value
     params[:grant][:next_month_budget][field] = value
+  end
+
+  def initialize_budgets_if_needed
+    @grant.create_last_month_budget if @grant.last_month_budget.nil?
+    @grant.create_current_month_budget if @grant.current_month_budget.nil?
+    @grant.create_next_month_budget if @grant.next_month_budget.nil?
+    @grant.save if @grant.changed?
   end
 
   def strip_symbols_from_money_params(attributes)
