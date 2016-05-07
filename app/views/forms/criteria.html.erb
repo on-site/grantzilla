@@ -2,13 +2,21 @@
 
 <h2>Qualifying Criteria</h2>
 
-<%= simple_form_for(@grant, url: wizard_path, method: :put, html: {data: {live_guarded: true}}) do |f| %>
+<div class="row">
+  <div class="col-md-8 col-sm-7">
+    <%= simple_form_for(@grant, url: wizard_path, method: :put, html: {data: {live_guarded: true}}) do |f| %>
+      <div class="alert alert-info">
+        Please select the reason(s) that this grant is being submitted.
+        Select all that apply.
+      </div>
 
-  <div class="alert alert-info">
-    Please select the reason(s) that this grant is being submitted.
-    Select all that apply.
+      <%= f.association :reason_types, multiple: true, label: "Qualifying Criteria", html: {class: "select2"} %>
+      <%= f.input :details, label: "Detailed Description of Crisis", required: true, class: "form-control", input_html: {data: {guard: "required"}} %>
+      <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+    <% end %>
   </div>
-  <%= f.association :reason_types, multiple: true, label: "Qualifying Criteria", html: {class: "select2"} %>
-  <%= f.input :details, label: "Detailed Description of Crisis", required: true, class: "form-control", input_html: {data: {guard: "required"}} %>
-  <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
-<% end %>
+
+  <div class="col-md-4 col-sm-5">
+    <%= render "grants/controls" %>
+  </div>
+</div>
