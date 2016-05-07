@@ -5,6 +5,8 @@ class BudgetsController < ApplicationController
     @grant.create_current_month_budget if @grant.current_month_budget.nil?
     @grant.create_next_month_budget if @grant.next_month_budget.nil?
     @grant.save if @grant.changed?
+    @comments = @grant.comments.joins(:user)
+                      .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
   end
 
   def bulk_update
