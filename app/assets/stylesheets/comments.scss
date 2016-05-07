@@ -7,4 +7,9 @@
   border-bottom: $gray-lighter 2px solid;
   padding-bottom: 5px;
   margin-bottom: 5px;
+  &:last-of-type {
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
 }
