@@ -65,9 +65,9 @@
 <% end %>
 <div class="row">
   <div class="col-sm-6">
-    <a href="<%= new_grant_path %>" class="btn btn-primary btn-block-xs">
+    <%= link_to new_grant_path, class: 'btn btn-primary btn-block-xs' do %>
       <span class="glyphicon glyphicon-plus"></span> New Application
-    </a>
+    <% end %>
   </div>
   <div class="col-sm-6 text-right-sm padding-top-xs-5">
     <%= will_paginate @grants, renderer: BootstrapPagination::Rails %>
