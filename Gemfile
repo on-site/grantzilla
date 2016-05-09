@@ -38,6 +38,8 @@ gem "paperclip", github: "thoughtbot/paperclip"
 gem "rmagick"
 gem "puma"
 gem "rack-timeout"
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
