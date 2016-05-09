@@ -54,8 +54,14 @@ RSpec.describe User, type: :model do
   describe "User.list" do
     let(:agency1) { Agency.create }
     let(:agency2) { Agency.create }
-    let(:worker1) { User.create first_name: "Fred", last_name: "Flintstone", email: "test1@test.com", password: "testtest", agency: agency1 }
-    let(:worker2) { User.create first_name: "Betty", last_name: "Rubble", email: "test2@test.com", password: "testtest", agency: agency2 }
+    let(:worker1) do
+      User.create first_name: "Fred", last_name: "Flintstone",
+                  email: "test1@test.com", password: "testtest", agency: agency1
+    end
+    let(:worker2) do
+      User.create first_name: "Betty", last_name: "Rubble",
+                  email: "test2@test.com", password: "testtest", agency: agency2
+    end
     before do
       worker1
       worker2

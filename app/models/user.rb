@@ -21,10 +21,9 @@ class User < ActiveRecord::Base
     end
   end)
 
-
   self.per_page = 20
 
-  def self.list(options={})
+  def self.list(options = {})
     order(:last_name)
       .search(options[:search])
       .by_agency_id(options[:agency_id])
