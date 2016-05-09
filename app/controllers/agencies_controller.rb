@@ -3,7 +3,7 @@ class AgenciesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @agencies = Agency.order(:name)
+    @agencies = Agency.order(:name).paginate(page: params[:page])
   end
 
   def show
