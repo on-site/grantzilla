@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.order(:last_name).paginate(page: params[:page]).all
+    @users = User.list user_index_params
   end
 
   def update
@@ -29,5 +29,9 @@ class UsersController < ApplicationController
       :current_password
     )
     params.require(:user).permit(:approved) if current_user.admin?
+  end
+
+  def user_index_params
+    params.permit(:agency_id, :search, :page)
   end
 end
