@@ -63,8 +63,13 @@
     No matching applications found.
   </div>
 <% end %>
-<p>
-  <a href="<%= new_grant_path %>" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus"></span> New Application
-  </a>
-</p>
+<div class="row">
+  <div class="col-sm-6">
+    <%= link_to new_grant_path, class: 'btn btn-primary btn-block-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span> New Application
+    <% end %>
+  </div>
+  <div class="col-sm-6 text-right-sm padding-top-xs-5">
+    <%= will_paginate @grants, renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

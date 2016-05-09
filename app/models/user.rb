@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   belongs_to :agency
 
+  self.per_page = 20
+
   def self.case_workers_by_agency(agency = nil)
     case_workers.where(agency: agency)
   end

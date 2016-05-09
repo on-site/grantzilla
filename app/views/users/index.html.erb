@@ -39,11 +39,11 @@
       <% end %>
     </tbody>
   </table>
-  <p>
-    <%= link_to '<span class="glyphicon glyphicon-plus"></span> New User'.html_safe, "/", class: 'btn btn-primary btn-block-xs' %>
-  </p>
+  <div class="text-right-sm">
+    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+  </div>
 <% else %>
   <div class="alert alert-warning">
-    No users have been added yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New User'.html_safe, "/", class: 'btn btn-default' %>
+    No users have been added yet.
   </div>
 <% end %>
