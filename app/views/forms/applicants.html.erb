@@ -2,11 +2,13 @@
 
 <%= breadcrumbs %>
 
-<h2>Applicant Details</h2>
+<h2>Applicants</h2>
 
 <div class="row">
   <div class="col-md-8 col-sm-7">
-    <%= simple_form_for(@grant, url: wizard_path,  method: :put, html: { data: { live_guarded: true } }) do |f| %>
+    <%= simple_form_for(@grant, url: wizard_path,  method: :put,
+        wrapper: :horizontal_form,
+        html: { class: 'form-horizontal', data: { live_guarded: true } }) do |f| %>
       <%= f.simple_fields_for :people, @grant.people do |pf| %>
         <%= render partial: person_fields, locals: { f: pf } %>
       <% end %>

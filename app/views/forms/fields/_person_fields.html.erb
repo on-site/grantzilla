@@ -4,7 +4,8 @@
     <div class="col-sm-10">
       <%= f.input :first_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :last_name, required: true, input_html: { data: { guard: "required" } } %>
-      <%= f.input :birth_date, start_year: 1910, order: [:month, :day, :year], required: true %>
+      <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
+          required: true, input_html: { data: { guard: "required" }, type: "date" } %>
       <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
       <%= f.input :email, input_html: { data: { guard: "email" } } %>
     </div>
