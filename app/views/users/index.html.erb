@@ -1,9 +1,23 @@
 <h1>Users</h1>
 
-<p class="alert alert-info">
-  Manage the users that HIF works with below.
-</p>
-
+<form action="<%= users_path %>" class="table-filters">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="input-group">
+        <%= text_field_tag "search", params[:search], class: "form-control", placeholder: "Search" %>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-offset-5 col-sm-3">
+      <%= select_tag "agency_id", options_from_collection_for_select(Agency.all, "id", "name", params[:agency_id]),
+          class: "form-control agency-filter" , include_blank: "All Agencies" %>
+    </div>
+  </div>
+</form>
 <% if @users.count > 0 %>
   <table class="table table-striped">
     <thead>
@@ -39,11 +53,11 @@
       <% end %>
     </tbody>
   </table>
-  <p>
-    <%= link_to '<span class="glyphicon glyphicon-plus"></span> New User'.html_safe, "/", class: 'btn btn-primary btn-block-xs' %>
-  </p>
+  <div class="text-right-sm">
+    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+  </div>
 <% else %>
   <div class="alert alert-warning">
-    No users have been added yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New User'.html_safe, "/", class: 'btn btn-default' %>
+    No matching users found.
   </div>
 <% end %>

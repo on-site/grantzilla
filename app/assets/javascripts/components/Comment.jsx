@@ -5,6 +5,6 @@ let Comment = (props) => (
     </div>
 
     <span className="comment-date">{moment(props.created_at).fromNow()}</span>
-    <span className="comment-author"> By {props.first_name} {props.last_name}</span>
+    <span className="comment-author"> by {props.first_name} {props.last_name}</span>
   </div>
 );

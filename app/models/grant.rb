@@ -30,6 +30,8 @@ class Grant < ActiveRecord::Base
 
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
+  self.per_page = 10
+
   scope :by_agency_id, -> (agency_id) { joins(:user).where(users: { agency_id: agency_id }) if agency_id.present? }
   scope :by_user_id, -> (user_id) { where(user_id: user_id) if user_id.present? }
   scope :search, (lambda do |search|
@@ -62,6 +64,7 @@ class Grant < ActiveRecord::Base
       .by_agency_id(options[:agency_id])
       .by_user_id(options[:user_id])
       .visible_for_user(current_user)
+      .paginate(page: options[:page])
       .order(id: :desc)
   end
 

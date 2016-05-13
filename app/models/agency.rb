@@ -1,6 +1,8 @@
 class Agency < ActiveRecord::Base
   has_many :users
 
+  self.per_page = 20
+
   def self.find_hif
     find_by_name("HIF")
   end
