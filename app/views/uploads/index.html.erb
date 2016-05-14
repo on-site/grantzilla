@@ -1,0 +1,28 @@
+<h1>Uploads</h1>
+
+<p class="alert alert-info">
+  Manage the different uploads for a specific HIF grant.
+</p>
+
+<% if @uploads.count > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Uploaded Document</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @uploads.each do |upload| %>
+        <tr>
+          <td><%= upload.file_file_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= link_to new_agency_path, class: 'btn btn-primary btn-block-xs' do %>
+        <span class="glyphicon glyphicon-plus"></span> New Upload
+      <% end %>
+    </div>
+<% end %>
