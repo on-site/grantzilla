@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :requires_admin
 
   def index
     @users = User.list user_index_params
