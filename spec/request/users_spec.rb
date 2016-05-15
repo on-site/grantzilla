@@ -27,4 +27,11 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  context "when a user is not logged in" do
+    it "redirects them to sign in" do
+      get "/admin/users"
+      expect(response).to redirect_to("/users/sign_in")
+    end
+  end
 end
