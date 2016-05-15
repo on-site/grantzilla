@@ -1,5 +1,5 @@
 class BudgetsController < ApplicationController
-  before_filter :set_grant
+  before_action :set_grant
 
   def index
     initialize_budgets_if_needed
