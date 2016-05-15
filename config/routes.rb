@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   scope "/admin" do
-    resources :users, only: [:index, :update, :destroy]
+    resources :users, only: [:index, :edit, :update, :destroy]
   end
 
   resources :agencies

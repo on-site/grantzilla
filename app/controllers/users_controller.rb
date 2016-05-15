@@ -6,10 +6,19 @@ class UsersController < ApplicationController
     @users = User.list user_index_params
   end
 
+  def edit
+    @user = User.find params[:id]
+  end
+
   def update
-    user = User.find params[:id]
-    user.update_attributes user_update_params
-    redirect_to root_path if user.save
+    @user = User.find params[:id]
+    @user.update_attributes user_update_params
+    if @user.save
+      flash[:notice] = "User updated successfully."
+      redirect_to users_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -20,16 +29,7 @@ class UsersController < ApplicationController
   private
 
   def user_update_params
-    params.require(:user).permit(
-      :first_name,
-      :last_name,
-      :email,
-      :agency_id,
-      :password,
-      :password_confirmation,
-      :current_password
-    )
-    params.require(:user).permit(:approved) if current_user.admin?
+    params.require(:user).permit(:first_name, :last_name, :email, :agency_id, :approved)
   end
 
   def user_index_params
