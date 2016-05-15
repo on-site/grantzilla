@@ -2,18 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "Agencies", type: :request do
   context "when the user is logged in" do
-    let(:user) do
-      User.create email: "test1@test.com", password: "testtest", role: role,
-                  confirmed_at: Time.zone.now, approved: true
-    end
-    let(:agency) { Agency.create }
+    let(:agency) { create(:agency) }
 
     before do
       sign_in user
     end
 
     context "when the user is an admin" do
-      let(:role) { "admin" }
+      let(:user) { create(:user, :admin) }
       it "allows the user view the list of agencies" do
         get "/agencies"
         expect(response).to have_http_status(:success)
@@ -25,7 +21,7 @@ RSpec.describe "Agencies", type: :request do
     end
 
     context "when the user is not an admin" do
-      let(:role) { "case_worker" }
+      let(:user) { create(:user, :case_worker) }
       it "gives a permission denied error when they attempt to view agencies" do
         get "/agencies"
         expect(response).to have_http_status(403)

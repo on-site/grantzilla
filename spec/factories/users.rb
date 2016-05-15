@@ -7,9 +7,15 @@ FactoryGirl.define do
     last_name  "Doe"
     password "password"
     role "case_worker"
+    association :agency
 
     trait :admin do
       role "admin"
+      association :agency, factory: [:agency, :admin]
+    end
+
+    trait :case_worker do
+      role "case_worker"
     end
 
     trait :unapproved do

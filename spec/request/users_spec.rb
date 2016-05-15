@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
   context "when the user is logged in" do
-    let(:worker) { create(:user) }
+    let(:worker) { create(:user, :case_worker) }
     before do
       sign_in user
     end
@@ -20,7 +20,7 @@ RSpec.describe "Users", type: :request do
     end
 
     context "when the user is not an admin" do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, :case_worker) }
       it "gives a permission denied error when they attempt to view users" do
         get "/admin/users"
         expect(response).to have_http_status(403)
