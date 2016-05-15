@@ -1,6 +1,7 @@
 class BudgetsController < ApplicationController
+  before_filter :set_grant
+
   def index
-    @grant = Grant.find params[:grant_id]
     initialize_budgets_if_needed
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
@@ -50,6 +51,11 @@ class BudgetsController < ApplicationController
     @grant.create_current_month_budget if @grant.current_month_budget.nil?
     @grant.create_next_month_budget if @grant.next_month_budget.nil?
     @grant.save if @grant.changed?
+  end
+
+  def set_grant
+    @grant = Grant.visible_for_user(current_user).where(id: params[:grant_id]).first
+    not_found_error if @grant.nil?
   end
 
   def strip_symbols_from_money_params(attributes)

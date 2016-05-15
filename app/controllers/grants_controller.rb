@@ -66,7 +66,8 @@ class GrantsController < ApplicationController
   private
 
   def set_grant
-    @grant = Grant.find(params[:id])
+    @grant = Grant.visible_for_user(current_user).where(id: params[:id]).first
+    not_found_error if @grant.nil?
   end
 
   def set_controls_info
