@@ -19,7 +19,7 @@ class FormsController < ApplicationController
 
   def update
     if @grant.persisted?
-      @grant.assign_attributes(form_params)
+      @grant.update_attributes(form_params)
     else
       @grant = Grant.create(form_params)
     end
@@ -50,7 +50,7 @@ class FormsController < ApplicationController
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
-                          :email, :veteran, :student, :full_time_student, :_destroy] }
+                          :email, :veteran, :student_status, :_destroy] }
   end
 
   def payees_attributes
