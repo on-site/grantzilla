@@ -1,5 +1,4 @@
 <div class="nested-fields">
-
   <div class="row">
     <div class="col-sm-10">
       <%= f.input :first_name, required: true, input_html: { data: { guard: "required" } } %>
@@ -8,6 +7,8 @@
           required: true, input_html: { data: { guard: "required" }, type: "date" } %>
       <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
       <%= f.input :email, input_html: { data: { guard: "email" } } %>
+      <%= f.input :student_status, collection: Person::STUDENT_STATUSES %>
+      <%= f.input :veteran, wrapper: :horizontal_boolean %>
     </div>
 
     <div class="col-sm-2 text-right">
@@ -17,19 +18,4 @@
       <% end %>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-sm-4">
-      <%= f.input :veteran %>
-    </div>
-
-    <div class="col-sm-4">
-      <%= f.input :student %>
-    </div>
-
-    <div class="col-sm-4">
-      <%= f.input :full_time_student %>
-    </div>
-  </div>
-  <hr/>
 </div>

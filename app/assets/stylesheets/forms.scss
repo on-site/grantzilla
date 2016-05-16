@@ -1,3 +1,16 @@
 // Place all the styles related to the forms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.nested-fields {
+  border-bottom: solid 1px $gray-lighter;
+  margin-bottom: 10px;
+
+  .form-group:last-of-type {
+    margin-bottom: 10px;
+  }
+
+  &:last-of-type {
+    border-bottom: none 0px;
+  }
+}

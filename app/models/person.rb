@@ -3,6 +3,10 @@ class Person < ActiveRecord::Base
   has_many :incomes
   belongs_to :grant
 
+  FULL_TIME_STUDENT = "Full-Time"
+  PART_TIME_STUDENT = "Part-Time"
+  STUDENT_STATUSES = [PART_TIME_STUDENT, FULL_TIME_STUDENT]
+
   def current_earned_income
     incomes.select(&:current).reject(&:disabled).map(&:monthly_income).sum
   end
@@ -17,11 +21,5 @@ class Person < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}"
-  end
-
-  def student_status
-    return "Full Time Student" if student && full_time_student
-    return "Part Time Student" if student
-    "None"
   end
 end
