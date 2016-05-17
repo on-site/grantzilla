@@ -22,7 +22,7 @@ RSpec.describe "Forms", type: :request do
         let(:user) { create(:user, :case_worker) }
         it "gives a not found error when they attempt to edit other users" do
           get "/grants/#{grant.id}/forms/applicants"
-          expect(response).to have_http_status(404)
+          expect(response).to have_http_status(:not_found)
         end
       end
       context "when the user is from the same agency" do

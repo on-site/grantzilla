@@ -23,11 +23,11 @@ RSpec.describe "Users", type: :request do
       let(:user) { create(:user, :case_worker) }
       it "gives a permission denied error when they attempt to view users" do
         get "/admin/users"
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:unauthorized)
       end
       it "gives a permission denied error when they attempt to edit other users" do
         get "/admin/users/#{worker.id}/edit"
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

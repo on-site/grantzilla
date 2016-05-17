@@ -24,11 +24,11 @@ RSpec.describe "Agencies", type: :request do
       let(:user) { create(:user, :case_worker) }
       it "gives a permission denied error when they attempt to view agencies" do
         get "/agencies"
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:unauthorized)
       end
       it "gives a permission denied error when they attempt to edit other users" do
         get "/agencies/#{agency.id}"
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

@@ -9,7 +9,6 @@ class BudgetsController < ApplicationController
 
   def bulk_update
     copy_descriptions
-    @grant = Grant.find params[:grant_id]
     if update_budgets
       flash[:notice] = "Budget updated successfully."
       redirect_to grant_path(@grant)
@@ -54,8 +53,7 @@ class BudgetsController < ApplicationController
   end
 
   def set_grant
-    @grant = Grant.visible_for_user(current_user).where(id: params[:grant_id]).first
-    not_found_error if @grant.nil?
+    @grant = Grant.find_if_visible(params[:grant_id], current_user)
   end
 
   def strip_symbols_from_money_params(attributes)

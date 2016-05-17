@@ -58,6 +58,13 @@ class Grant < ActiveRecord::Base
     build_residence unless residence.present?
   end
 
+  def self.find_if_visible(id, current_user)
+    return Grant.new if id.to_i == 0
+    grant = visible_for_user(current_user).find_by_id(id)
+    raise Errors::NotFoundError unless grant.present?
+    grant
+  end
+
   def self.list(current_user, options = {})
     joins(:people, :status, user: :agency)
       .search(options[:search])
