@@ -12,7 +12,7 @@ module FormsHelper
   end
 
   def breadcrumb(every_step)
-    if step == every_step
+    if step == every_step || !@grant.persisted?
       I18n.t(every_step)
     else
       link_to I18n.t(every_step), wizard_path(every_step)
