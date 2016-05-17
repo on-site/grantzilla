@@ -22,5 +22,12 @@ Rails.application.routes.draw do
     resources :forms
   end
 
+  match "/401", to: "errors#unauthorized", via: :all
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+  get 'errors/internal_server_error'
+  get 'errors/not_found'
+  get 'errors/unauthorized'
+
   root 'grants#index'
 end
