@@ -8,8 +8,6 @@ class Grant < ActiveRecord::Base
   has_and_belongs_to_many :coverage_types
   has_and_belongs_to_many :payees
 
-  default_scope -> { order(application_date: :desc) }
-
   belongs_to :user
   belongs_to :subsidy_type
   belongs_to :status, class_name: "GrantStatus", foreign_key: :grant_status_id
@@ -31,25 +29,6 @@ class Grant < ActiveRecord::Base
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
   self.per_page = 10
-
-  scope :by_agency_id, -> (agency_id) { joins(:user).where(users: { agency_id: agency_id }) if agency_id.present? }
-  scope :by_user_id, -> (user_id) { where(user_id: user_id) if user_id.present? }
-  scope :search, (lambda do |search|
-    if search.present?
-      joins(:people)
-        .where("LOWER(people.first_name || ' ' || people.last_name) LIKE ?",
-               "%#{search.downcase}%")
-    end
-  end)
-  scope :visible_for_user, (lambda do |user|
-    unless user.admin?
-      if user.approved
-        joins(:user).where(users: { agency_id: user.agency_id })
-      else
-        where(user_id: user.id)
-      end
-    end
-  end)
 
   def self.default_scope
     order(application_date: :desc)
