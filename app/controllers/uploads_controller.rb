@@ -22,7 +22,7 @@ class UploadsController < ApplicationController
   def download
     @upload = Upload.find(params[:id].to_i)
     extension = File.extname(@upload.file_file_name)
-    send_data open("#{@upload.file.expiring_url(3600, :original)}").read,
+    send_data open(@upload.file.expiring_url(3600, :original).to_s).read,
               filename: "original_#{@upload.id}#{extension}",
               type: @upload.file_content_type
   end
@@ -34,8 +34,8 @@ class UploadsController < ApplicationController
   end
 end
 
-#s3 = Aws::S3::Resource.new
-#bucket = s3.bucket('grants.hifinfo.org')
-#bucket.objects({prefix: 'uploads/files/000/000/009/original/'}).each do |obj|
-#  puts "#{obj.presigned_url(:get, expires_in: 3600)}"
-#end
+# s3 = Aws::S3::Resource.new
+# bucket = s3.bucket('grants.hifinfo.org')
+# bucket.objects({prefix: 'uploads/files/000/000/009/original/'}).each do |obj|
+#   puts "#{obj.presigned_url(:get, expires_in: 3600)}"
+# end
