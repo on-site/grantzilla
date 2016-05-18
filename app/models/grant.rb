@@ -51,11 +51,8 @@ class Grant < ActiveRecord::Base
     end
   end)
 
-  def intialize_defaults(options = {})
-    self.user_id = options[:user_id] if user_id.nil?
-    people.build if people.empty?
-    payees.build if payees.empty?
-    build_residence unless residence.present?
+  def self.default_scope
+    order(application_date: :desc)
   end
 
   def self.list(current_user, options = {})
@@ -66,6 +63,45 @@ class Grant < ActiveRecord::Base
       .visible_for_user(current_user)
       .paginate(page: options[:page])
       .order(id: :desc)
+  end
+
+  def self.search(q)
+    return all unless q.present?
+    joins(:people).where("LOWER(people.first_name || ' ' || people.last_name) LIKE ?", "%#{q.downcase}%")
+  end
+
+  def self.by_agency_id(agency_id)
+    return all unless agency_id.present?
+    joins(:user).where(users: { agency_id: agency_id })
+  end
+
+  def self.by_user_id(user_id)
+    return all unless user_id.present?
+    where(user_id: user_id)
+  end
+
+  def self.visible_for_user(user)
+    return all if user.admin?
+    if user.approved
+      joins(:user).where(users: { agency_id: user.agency_id })
+    else
+      where(user_id: user.id)
+    end
+  end
+
+  def intialize_defaults(options = {})
+    self.user_id = options[:user_id] if user_id.nil?
+    people.build if people.empty?
+    payees.build if payees.empty?
+    build_residence unless residence.present?
+  end
+
+
+  def intialize_defaults(options = {})
+    self.user_id = options[:user_id] if user_id.nil?
+    people.build if people.empty?
+    payees.build if payees.empty?
+    build_residence unless residence.present?
   end
 
   def status_name
