@@ -28,7 +28,7 @@ class GrantsController < ApplicationController
   end
 
   def update
-    if @grant.update(grant_params.merge(user_id: current_user.id))
+    if @grant.update(grant_params)
       redirect_to @grant
     else
       render :edit
@@ -66,7 +66,7 @@ class GrantsController < ApplicationController
   private
 
   def set_grant
-    @grant = Grant.find(params[:id])
+    @grant = Grant.find_if_visible(params[:id], current_user)
   end
 
   def set_controls_info

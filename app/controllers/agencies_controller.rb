@@ -1,6 +1,7 @@
 class AgenciesController < ApplicationController
   before_action :set_agency, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :requires_admin
 
   def index
     @agencies = Agency.order(:name).paginate(page: params[:page])

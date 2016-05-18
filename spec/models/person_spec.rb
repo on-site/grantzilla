@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Person, type: :model do
-  let(:person) { Person.new }
+  let(:person) { build(:person) }
   context "current income methods" do
     before do
-      person.incomes.build(current: false, disabled: false, monthly_income: 1000)
-      person.incomes.build(current: true, disabled: false, monthly_income: 2000)
-      person.incomes.build(current: true, disabled: true, monthly_income: 3000)
+      person.incomes = [build(:income, :previous, monthly_income: 1000),
+                        build(:income, monthly_income: 2000),
+                        build(:income, :disability, monthly_income: 3000)]
     end
     describe "#current_earned_income" do
       it "calculates correctly" do

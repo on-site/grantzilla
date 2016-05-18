@@ -40,7 +40,7 @@
           </td>
           <td>
             <div class="btn-group">
-              <%= link_to edit_user_registration_path(user), class: 'btn btn-sm btn-default' do %>
+              <%= link_to edit_user_path(user), class: 'btn btn-sm btn-default' do %>
                 <span class="glyphicon glyphicon-pencil"></span> Edit
               <% end %>
               <%= link_to user_path(user.id), class: "btn btn-sm btn-danger", method: :delete,

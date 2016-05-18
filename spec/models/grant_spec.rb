@@ -2,16 +2,13 @@ require "rails_helper"
 
 RSpec.describe Grant, type: :model do
   describe "Grant.list" do
-    let(:status) { GrantStatus.create id: 1, description: "Incomplete" }
-    let(:agency1) { Agency.create }
-    let(:agency2) { Agency.create }
-    let(:admin) { User.create role: "admin" }
-    let(:worker1) { User.create email: "test1@test.com", password: "testtest", agency: agency1 }
-    let(:worker2) { User.create email: "test2@test.com", password: "testtest", agency: agency1 }
-    let(:worker3) { User.create email: "test3@test.com", password: "testtest", agency: agency2 }
-    let(:grant1) { Grant.create total_rent: 1000.0, status: status, user_id: worker1.id }
-    let(:grant2) { Grant.create total_rent: 1000.0, status: status, user_id: worker2.id }
-    let(:grant3) { Grant.create total_rent: 1000.0, status: status, user_id: worker3.id }
+    let(:admin) { create(:user, :admin) }
+    let(:worker1) { create(:user, :case_worker) }
+    let(:worker2) { create(:user, :case_worker, agency: worker1.agency) }
+    let(:worker3) { create(:user, :case_worker) }
+    let(:grant1) { create(:grant, user: worker1) }
+    let(:grant2) { create(:grant, user: worker2) }
+    let(:grant3) { create(:grant, user: worker3) }
     before do
       grant1.people.create first_name: "Smelly", last_name: "Cat"
       grant2.people.create first_name: "Sammy", last_name: "Smith"
@@ -25,7 +22,7 @@ RSpec.describe Grant, type: :model do
         expect(grants).to include(grant3)
       end
       it "allows filtering by agency" do
-        grants = Grant.list(admin, agency_id: agency1.id).all
+        grants = Grant.list(admin, agency_id: grant1.user.agency_id).all
         expect(grants).to include(grant1)
         expect(grants).to include(grant2)
         expect(grants).to_not include(grant3)
@@ -45,7 +42,7 @@ RSpec.describe Grant, type: :model do
     end
     context "when the user is a case worker" do
       context "when the user's account is approved" do
-        let(:worker1) { User.create email: "test1@test.com", password: "testtest", agency: agency1, approved: true }
+        let(:worker1) { create(:user, :case_worker, approved: true) }
         it "includes only applications from their agency" do
           grants = Grant.list(worker1)
           expect(grants).to include(grant1)
@@ -66,6 +63,7 @@ RSpec.describe Grant, type: :model do
         end
       end
       context "when the user's account is not approved" do
+        let(:worker1) { create(:user, :case_worker, approved: false) }
         it "includes only applications filed by them" do
           grants = Grant.list(worker1)
           expect(grants).to include(grant1)
@@ -74,7 +72,7 @@ RSpec.describe Grant, type: :model do
         end
       end
       it "does not allow filtering by agency" do
-        grants = Grant.list(worker1, agency_id: agency2.id)
+        grants = Grant.list(worker1, agency_id: grant3.user.agency.id)
         expect(grants).to_not include(grant3)
       end
     end
