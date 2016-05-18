@@ -4,15 +4,32 @@
 
 <div class="row">
   <div class="col-md-8 col-sm-7">
-    <%= simple_form_for(@grant, url: wizard_path, method: :put, html: {data: {live_guarded: true}}) do |f| %>
+    <%= simple_form_for(@grant, url: wizard_path, method: :put,
+        wrapper: :horizontal_form,
+        html: {class: 'form-horizontal', data: {live_guarded: true}}) do |f| %>
       <div class="alert alert-info">
-        Please select the reason(s) that this grant is being submitted.
-        Select all that apply.
+        Please select the reason(s) that this grant is being
+        submitted.  Select all that apply.  Also, please provide an
+        overview of the amount of money being requested.
       </div>
 
-      <%= f.association :reason_types, multiple: true, label: "Qualifying Criteria", html: {class: "select2"} %>
-      <%= f.input :details, label: "Detailed Description of Crisis", required: true, class: "form-control", input_html: {data: {guard: "required"}} %>
-      <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+      <%= f.association :reason_types, multiple: true, label: "Qualifying Criteria",
+          html: {class: "select2"} %>
+      <%= f.input :details, label: "Detailed Description of Crisis", required: true,
+          input_html: {rows: 5, data: {guard: "required"}} %>
+      <hr/>
+      <%= f.input :total_rent, required: true, as: :string,
+          input_html: {class: "money", data: {guard: "required moneyUS"},
+          value: number_to_currency(@grant.total_rent) } %>
+      <%= f.input :adjusted_rent, label: "Applicant Rent", required: true, as: :string,
+          input_html: {class: "money", data: {guard: "required moneyUS"},
+          value: number_to_currency(@grant.adjusted_rent)} %>
+      <%= f.association :subsidy_type, label: "Voucher/Subsidy", html: {class: "select2"} %>
+      <div class="row">
+        <div class="col-sm-offset-4 col-sm-8">
+          <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+        </div>
+      </div>
     <% end %>
   </div>
 
