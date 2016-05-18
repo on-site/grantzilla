@@ -54,5 +54,4 @@ Rails.application.configure do
     s3_permissions: :private,
     s3_protocol: ""
   }
-
 end
