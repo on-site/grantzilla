@@ -1,6 +1,14 @@
-// Place all the styles related to the forms controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.breadcrumb {
+  .active {
+    font-weight: bold;
+  }
+  .future {
+    font-weight: 100;
+    a {
+      font-weight: normal;
+    }
+  }
+}
 
 .nested-fields {
   border-bottom: solid 1px $gray-lighter;
