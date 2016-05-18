@@ -4,14 +4,7 @@ class FormsController < ApplicationController
   before_action :initialize_grant
 
   include Wicked::Wizard
-  steps :applicants, :criteria, :ask, :properties, :payee, :employment, :uploads
-
-  # applicants: Full applicants info (Applicants Basic Info + Additional person information)
-  # criteria: Qualifying Criteria
-  # ask: Grant request details
-  # properties: Property + Previous residence Info
-  # payee: Payee Info
-  # employment: Applicants Employment/Unemployment
+  steps :applicants, :overview, :properties, :payee, :employment, :uploads
 
   def show
     render_wizard
