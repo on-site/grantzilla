@@ -37,7 +37,7 @@ class FormsController < ApplicationController
   end
 
   def initialize_grant
-    @grant.intialize_defaults(user_id: current_user.id)
+    @grant.initialize_defaults(user_id: current_user.id)
     @comments = @grant.comments.joins(:user)
                       .select("users.first_name, users.last_name, comments.id, comments.body, comments.created_at")
     @upload = Upload.new(user_id: @grant.id, user_type: "Grant")

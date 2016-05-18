@@ -68,15 +68,7 @@ class Grant < ActiveRecord::Base
     end
   end
 
-  def intialize_defaults(options = {})
-    self.user_id = options[:user_id] if user_id.nil?
-    people.build if people.empty?
-    payees.build if payees.empty?
-    build_residence unless residence.present?
-  end
-
-
-  def intialize_defaults(options = {})
+  def initialize_defaults(options = {})
     self.user_id = options[:user_id] if user_id.nil?
     people.build if people.empty?
     payees.build if payees.empty?
