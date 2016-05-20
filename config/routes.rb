@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   scope "/admin" do
-    resources :users, only: [:index, :update, :destroy]
+    resources :users, only: [:index, :edit, :update, :destroy]
   end
 
   resources :agencies
@@ -21,6 +21,13 @@ Rails.application.routes.draw do
     end
     resources :forms
   end
+
+  match "/401", to: "errors#unauthorized", via: :all
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+  get 'errors/internal_server_error'
+  get 'errors/not_found'
+  get 'errors/unauthorized'
 
   root 'grants#index'
 end

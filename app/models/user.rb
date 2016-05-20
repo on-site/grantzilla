@@ -76,6 +76,10 @@ class User < ActiveRecord::Base
     role == 'case_worker'
   end
 
+  def to_s
+    "#{first_name} #{last_name}"
+  end
+
   after_commit :send_pending_notifications
 
   protected

@@ -36,5 +36,6 @@ module Grantzilla
       require "environment_setup"
       EnvironmentSetup.check_setup
     end
+    config.exceptions_app = routes
   end
 end

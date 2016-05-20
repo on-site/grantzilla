@@ -22,11 +22,7 @@ class FormsController < ApplicationController
   private
 
   def find_grant
-    @grant = if params[:grant_id].to_i.zero?
-               Grant.new
-             else
-               Grant.find(params[:grant_id])
-             end
+    @grant = Grant.find_if_visible(params[:grant_id], current_user)
   end
 
   def initialize_grant
