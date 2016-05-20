@@ -1,4 +1,5 @@
 class BudgetsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_grant
 
   def index
@@ -29,8 +30,6 @@ class BudgetsController < ApplicationController
     budget_attributes = Budget.attribute_names.map(&:to_sym)
     budget_attributes.delete(:created_at)
     budget_attributes.delete(:updated_at)
-    strip_symbols_from_money_params(budget_attributes)
-
     params[:grant].require(type).permit(budget_attributes)
   end
 
@@ -54,15 +53,5 @@ class BudgetsController < ApplicationController
 
   def set_grant
     @grant = Grant.find_if_visible(params[:grant_id], current_user)
-  end
-
-  def strip_symbols_from_money_params(attributes)
-    [:last_month_budget, :current_month_budget, :next_month_budget].each do |set|
-      attributes.each do |attr|
-        value = params[:grant][set][attr]
-        next unless value.present?
-        params[:grant][set][attr] = value.gsub(/[\$,\,]/, "")
-      end
-    end
   end
 end
