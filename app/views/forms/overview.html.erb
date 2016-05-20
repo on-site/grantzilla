@@ -18,16 +18,20 @@
       <%= f.input :details, label: "Detailed Description of Crisis", required: true,
           input_html: {rows: 5, data: {guard: "required"}} %>
       <hr/>
-      <%= f.input :total_rent, required: true, as: :string,
-          input_html: {class: "money", data: {guard: "required moneyUS"},
-          value: number_to_currency(@grant.total_rent) } %>
-      <%= f.input :adjusted_rent, label: "Applicant Rent", required: true, as: :string,
-          input_html: {class: "money", data: {guard: "required moneyUS"},
+      <%= f.input :total_rent, required: true, as: :money,
+          input_html: {data: {guard: "required moneyUS"}} %>
+      <%= f.input :adjusted_rent, label: "Applicant Rent", required: true, as: :money,
+          input_html: {data: {guard: "required moneyUS"},
           value: number_to_currency(@grant.adjusted_rent)} %>
       <%= f.association :subsidy_type, label: "Voucher/Subsidy", html: {class: "select2"} %>
+      <%= f.input :total_owed, as: :money, label: "Total Amount Owed", required: true %>
+      <%= f.input :grant_amount_requested, as: :money, label: "Grant Amount Requested", required: true %>
       <div class="row">
         <div class="col-sm-offset-4 col-sm-8">
           <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+          <%= link_to grant_budgets_path(@grant), class: "btn btn-default" do %>
+            <span class="glyphicon glyphicon-th"></span> Budget Worksheet
+          <% end %>
         </div>
       </div>
     <% end %>

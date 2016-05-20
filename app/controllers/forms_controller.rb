@@ -37,11 +37,9 @@ class FormsController < ApplicationController
   end
 
   def form_params
-    params.require(:grant).permit([:details, :subsidy_type_id, reason_type_ids: []],
-                                  people_attributes, payees_attributes, residence_attributes).tap do |whitelisted|
-      whitelisted[:adjusted_rent] = strip_money(params[:grant][:adjusted_rent])
-      whitelisted[:total_rent] = strip_money(params[:grant][:total_rent])
-    end
+    params.require(:grant).permit([:adjusted_rent, :details, :grant_amount_requested,
+                                   :subsidy_type_id, :total_rent, :total_owed, reason_type_ids: []],
+                                  people_attributes, payees_attributes, residence_attributes)
   end
 
   def people_attributes
