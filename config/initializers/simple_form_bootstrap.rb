@@ -83,7 +83,7 @@ SimpleForm.setup do |config|
     end
   end
 
-    config.wrappers :horizontal_form_8 do |b|
+  config.wrappers :horizontal_form_8 do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
