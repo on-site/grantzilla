@@ -16,8 +16,8 @@
         <div class="form-group">
           <%= rf.input :state, wrapper: "horizontal_form_8", required: true,
               collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>
-          <%= rf.input :zip, label: "ZIP", wrapper: "horizontal_form_4", required: true,
-              input_html: { data: { guard: "int" }, maxlength: 5 } %>
+          <%= rf.input :zip, wrapper: "horizontal_form_4", required: true,
+              input_html: { data: { guard: "required int" }, maxlength: 5 } %>
         </div>
         <%= rf.input :move_in_date, as: :string, start_year: 1910, order: [:month, :day, :year],
             required: true, input_html: { data: { guard: "required" }, type: "date" } %>
@@ -36,10 +36,10 @@
         <div class="form-group">
           <%= pf.input :state, wrapper: "horizontal_form_8", required: true,
               collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>
-          <%= pf.input :zip, label: "ZIP", wrapper: "horizontal_form_4", required: true,
-              input_html: { data: { guard: "int" }, maxlength: 5 } %>
+          <%= pf.input :zip, wrapper: "horizontal_form_4", required: true,
+              input_html: { data: { guard: "required int" }, maxlength: 5 } %>
         </div>
-        <%= pf.input :phone, required: true, input_html: { data: { guard: "phoneUS" } } %>
+        <%= pf.input :phone, required: true, input_html: { data: { guard: "required phoneUS" } } %>
         <%= pf.input :email, type: "email", input_html: { data: { guard: "email" } }%>
       <% end %>
 
