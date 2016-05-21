@@ -22,6 +22,10 @@ h2 + hr, h3 + hr, h4 + hr, h5 + hr {
   margin-bottom: 10px;
 }
 
+h3 {
+  font-weight: normal;
+}
+
 h1, h2, h3, h4, h5 {
   .light {
     font-weight: normal;
@@ -33,6 +37,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .glyphicon {
+  color: #555;
   padding-right: 3px;
 }
 
