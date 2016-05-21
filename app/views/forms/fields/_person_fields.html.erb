@@ -20,22 +20,4 @@
       <% end %>
     </div>
   </div>
-  <div class="incomes">
-    <%= f.simple_fields_for :incomes do |inf| %>
-      <%= render partial: income_fields, locals: { f: inf } %>
-    <% end %>
-  </div>
-  <div class="row">
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-sm-offset-4 col-sm-8">
-          <%= link_to_add_association f, :incomes, partial: income_fields, class: 'btn btn-default',
-              data: { association_insertion_node: ".incomes", association_insertion_method: "append" } do %>
-            <span class="glyphicon glyphicon-plus"></span>
-            Add Employment
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

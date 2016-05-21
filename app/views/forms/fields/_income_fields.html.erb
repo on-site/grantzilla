@@ -1,17 +1,34 @@
-<div class="row employment">
+<div class="row nested-fields">
   <div class="col-sm-10">
-    <div>
-      <%= f.input :employer, required: true, input_html: { data: { guard: "required" } } %>
-      <%= f.input :occupation %>
-      <%= f.input :monthly_income %>
-      <%= f.input :start_date, as: :string, start_year: 1910, order: [:month, :day, :year], input_html: { type: "date" } %>
-      <%= f.input :end_date, as: :string, start_year: 1910, order: [:month, :day, :year], input_html: { type: "date" } %>
+    <%= f.input :employer, required: true, input_html: { data: { guard: "required" } } %>
+    <%= f.input :occupation %>
+    <%= f.input :monthly_income, as: :money, required: true, input_html: {data: {guard: "required moneyUS"}} %>
+    <div class="form-group">
+      <label class="col-sm-3 col-md-3 control-label text-nowrap">
+        Start/End Date
+      </label>
+      <div class="col-sm-9 col-md-4">
+        <%= f.input :start_date, wrapper: "none", as: :string, start_year: 1910,
+            order: [:month, :day, :year], input_html: { type: "date" } %>
+      </div>
+      <label class="col-md-1 col-sm-3 control-label">
+        <div class="hidden-sm hidden-xs">
+          /
+        </div>
+        <div class="visible-sm visible-xs">
+          End Date
+        </div>
+      </label>
+      <div class="col-sm-9 col-md-4">
+        <%= f.input :end_date, wrapper: "none", as: :string, start_year: 1910,
+            order: [:month, :day, :year], input_html: { type: "date" } %>
+      </div>
     </div>
   </div>
   <div class="col-sm-2 text-right">
-    <%= link_to_remove_association f, class: 'btn btn-default' do %>
+    <%= link_to_remove_association f, class: 'btn btn-default btn-block' do %>
       <span class="glyphicon glyphicon-trash"></span>
-      Remove
+      <span class="hidden-sm hidden-xs">Remove</span>
     <% end %>
   </div>
 </div>

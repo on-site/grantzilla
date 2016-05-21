@@ -17,7 +17,7 @@ footer {
   padding-top: 25px;
 }
 
-h2 + hr {
+h2 + hr, h3 + hr, h4 + hr, h5 + hr {
   margin-top: -10px;
 }
 
