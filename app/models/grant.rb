@@ -45,9 +45,11 @@ class Grant < ActiveRecord::Base
       .order(id: :desc)
   end
 
-  def self.search(q)
-    return all unless q.present?
-    where("#{self.table_name}.id IN (SELECT grant_id FROM people WHERE LOWER(people.first_name || ' ' || people.last_name) LIKE ?)", "%#{q.downcase}%")
+  def self.search(search)
+    return all unless search.present?
+    where("#{table_name}.id IN (
+      SELECT grant_id FROM people
+      WHERE LOWER(people.first_name || ' ' || people.last_name) LIKE ?)", "%#{search.downcase}%")
   end
 
   def self.by_agency_id(agency_id)
