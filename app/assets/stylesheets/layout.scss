@@ -19,10 +19,25 @@ footer {
 
 h2 + hr, h3 + hr, h4 + hr, h5 + hr {
   margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+h1, h2, h3, h4, h5 {
+  .light {
+    font-weight: normal;
+  }
 }
 
 .form-group {
   position: relative;
+}
+
+.glyphicon {
+  padding-right: 3px;
+}
+
+.light {
+  font-weight: 100;
 }
 
 .pagination {
@@ -43,6 +58,12 @@ h2 + hr, h3 + hr, h4 + hr, h5 + hr {
 
 .navbar-fixed-top {
   background-image: url(/images/scales.png);
+}
+
+.row {
+  h1, h2, h3, h4, h5 {
+    margin-top: 0px;
+  }
 }
 
 .table {

@@ -8,19 +8,26 @@
         wrapper: :horizontal_form,
         html: { class: 'form-horizontal', data: { live_guarded: true } }) do |f| %>
       <%= f.simple_fields_for :people, @grant.people do |pf| %>
-        <h3><%= pf.object %></h3>
+
+        <div class="row">
+          <div class="col-xs-9">
+            <h3><%= pf.object %></h3>
+            <hr/>
+          </div>
+          <div class="col-xs-3">
+            <%= link_to_add_association pf, :incomes, partial: "forms/fields/income_fields",
+                class: "btn btn-default btn-block btn-xs",
+                data: { association_insertion_node: ".incomes-#{pf.object.id}", association_insertion_method: "append" } do %>
+            <span class="glyphicon glyphicon-plus"></span>
+            Add <span class="hidden-xs hidden-sm">Employment</span>
+            <% end %>
+          </div>
+        </div>
         <div class="incomes-<%= pf.object.id %>">
           <%= pf.simple_fields_for :incomes do |inf| %>
           <%= render partial: "forms/fields/income_fields", locals: { f: inf } %>
           <% end %>
         </div>
-        <p>
-          <%= link_to_add_association pf, :incomes, partial: "forms/fields/income_fields", class: "btn btn-default btn-xs",
-              data: { association_insertion_node: ".incomes-#{pf.object.id}", association_insertion_method: "append" } do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          Add Employment
-          <% end %>
-        </p>
       <% end %>
       <div class="row">
         <div class="col-sm-10">
