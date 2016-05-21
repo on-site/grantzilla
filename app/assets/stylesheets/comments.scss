@@ -1,0 +1,15 @@
+.comment-date, .comment-author {
+  color: $gray-light;
+  font-size: 90%;
+  font-weight: 100;
+}
+.one-comment {
+  border-bottom: $gray-lighter 2px solid;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  &:last-of-type {
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+}

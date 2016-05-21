@@ -1,13 +1,12 @@
 class Grant < ActiveRecord::Base
-  COMPONENTS = [:grants_reason_types, :people, :payees].freeze
+  COMPONENTS = [:grants_reason_types, :people, :residence, :payees].freeze
 
   before_save :set_application_date
+  before_create :set_initial_status
 
   # rubocop:disable Rails/HasAndBelongsToMany
   has_and_belongs_to_many :coverage_types
   has_and_belongs_to_many :payees
-
-  default_scope -> { order(application_date: :desc) }
 
   belongs_to :user
   belongs_to :subsidy_type
@@ -22,32 +21,70 @@ class Grant < ActiveRecord::Base
   has_many :other_payments
   has_many :comments
   has_many :grants_reason_types
+  has_many :uploads
   has_many :reason_types, through: :grants_reason_types
 
   delegate :agency, to: :user
 
   accepts_nested_attributes_for(*COMPONENTS, reject_if: :all_blank, allow_destroy: true)
 
-  def self.list
+  self.per_page = 10
+
+  def self.default_scope
     order(application_date: :desc)
-      .includes(user: :agency).includes(:people, :status).all
-      .to_json(only: [:id, :application_date],
-               methods: [
-                 :primary_applicant_name,
-                 :agency_name,
-                 :case_worker_name,
-                 :status_name
-               ])
+  end
+
+  def self.list(current_user, options = {})
+    joins(:people, :status, user: :agency)
+      .search(options[:search])
+      .by_agency_id(options[:agency_id])
+      .by_user_id(options[:user_id])
+      .visible_for_user(current_user)
+      .paginate(page: options[:page])
+      .order(id: :desc)
+  end
+
+  def self.search(q)
+    return all unless q.present?
+    joins(:people).where("LOWER(people.first_name || ' ' || people.last_name) LIKE ?", "%#{q.downcase}%")
+  end
+
+  def self.by_agency_id(agency_id)
+    return all unless agency_id.present?
+    joins(:user).where(users: { agency_id: agency_id })
+  end
+
+  def self.by_user_id(user_id)
+    return all unless user_id.present?
+    where(user_id: user_id)
+  end
+
+  def self.visible_for_user(user)
+    return all if user.admin?
+    if user.approved
+      joins(:user).where(users: { agency_id: user.agency_id })
+    else
+      where(user_id: user.id)
+    end
+  end
+
+  def self.find_if_visible(id, current_user)
+    return Grant.new if id.to_i == 0
+    grant = visible_for_user(current_user).find_by_id(id)
+    raise Errors::NotFoundError unless grant.present?
+    grant
+  end
+
+  def intialize_defaults(options = {})
+    self.user_id = options[:user_id] if user_id.nil?
+    people.build if people.empty?
+    payees.build if payees.empty?
+    build_residence unless residence.present?
   end
 
   def status_name
     raise "Grant can not have blank grant status" if status.blank?
     status.description
-  end
-
-  def set_application_date
-    return if application_date.present?
-    self.application_date = Time.zone.today
   end
 
   def primary_applicant
@@ -59,7 +96,7 @@ class Grant < ActiveRecord::Base
   end
 
   def agency_name
-    return "" unless agency.present?
+    return "" unless user.present? && agency.present?
     agency.name
   end
 
@@ -70,5 +107,17 @@ class Grant < ActiveRecord::Base
 
   def grant_amount=(value)
     self[:grant_amount] = value.to_s.delete("$,")
+  end
+
+  private
+
+  def set_application_date
+    return if application_date.present?
+    self.application_date = Time.zone.today
+  end
+
+  def set_initial_status
+    return if status.present?
+    self.status = GrantStatus.initial
   end
 end

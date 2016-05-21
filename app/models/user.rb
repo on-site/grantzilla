@@ -13,6 +13,23 @@ class User < ActiveRecord::Base
 
   belongs_to :agency
 
+  scope :by_agency_id, -> (agency_id) { where(agency_id: agency_id) if agency_id.present? }
+  scope :search, (lambda do |search|
+    if search.present?
+      where("LOWER(first_name || ' ' || last_name) LIKE ?",
+            "%#{search.downcase}%")
+    end
+  end)
+
+  self.per_page = 20
+
+  def self.list(options = {})
+    order(:last_name)
+      .search(options[:search])
+      .by_agency_id(options[:agency_id])
+      .paginate(page: options[:page])
+  end
+
   def self.case_workers_by_agency(agency = nil)
     case_workers.where(agency: agency)
   end
@@ -57,6 +74,10 @@ class User < ActiveRecord::Base
 
   def case_worker?
     role == 'case_worker'
+  end
+
+  def to_s
+    "#{first_name} #{last_name}"
   end
 
   after_commit :send_pending_notifications

@@ -20,9 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  applicants: Applicant Details
+  applicants: Applicants
   criteria: Qualifying Criteria
   ask: Grant Request
   properties: Property Information
   payee: Payee Information
   employment: Source of Income
+  uploads: Document Uploads

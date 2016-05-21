@@ -25,21 +25,21 @@
         <%= f.text_field :address, class: "form-control", data: { guard: "required", guard_required_message: "A street address is required." } %>
       </div>
       <div class="row">
-        <div class="col-sm-4 col-xs-12">
+        <div class="col-sm-6 col-xs-12">
           <div class="form-group">
             <%= f.label :city, "City" %> <span class="text-danger">*</span>
             <%= f.text_field :city, class: "form-control", data: { guard: "required", guard_required_message: "A city is required." } %>
           </div>
         </div>
-        <div class="col-sm-4 col-xs-6">
+        <div class="col-sm-3 col-xs-6">
           <div class="form-group">
             <%= f.label :state, "State" %> <span class="text-danger">*</span>
             <%= f.text_field :state, class: "form-control", data: { guard: "required", guard_required_message: "A state is required." } %>
           </div>
         </div>
-        <div class="col-sm-4 col-xs-6">
+        <div class="col-sm-3 col-xs-6">
           <div class="form-group">
-            <%= f.label :zip, "ZIP Code" %> <span class="text-danger">*</span>
+            <%= f.label :zip, "ZIP" %> <span class="text-danger">*</span>
             <%= f.text_field :zip, class: "form-control", data: { guard: "required", guard_required_message: "A ZIP code is required." } %>
           </div>
         </div>

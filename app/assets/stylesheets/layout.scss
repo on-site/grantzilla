@@ -13,22 +13,48 @@ body {
   padding-top: 70px;
 }
 
+footer {
+  padding-top: 25px;
+}
+
 .form-group {
   position: relative;
 }
 
-.text-bold {
-  font-weight: bold;
+.pagination {
+  margin: 0;
 }
 
 .navbar-brand {
-  background: url(/images/hif_logo.png) 16px 6px no-repeat;
+  background: url(/images/hif_logo.png) 16px 4px no-repeat;
   background-size: 40px;
   display: inline-block;
+  font-weight: 900;
+  font-size: 22px;
   height: 55px;
   margin-bottom: -3px;
-  padding-left: 65px;
+  padding-left: 75px;
   width: auto;
+}
+
+.navbar-fixed-top {
+  background-image: url(/images/scales.png);
+}
+
+.table {
+  thead {
+    background-color: #ccd6cc;
+  }
+}
+
+.table-filters {
+  background-color: #dde7dd;
+  display: block;
+  padding: 5px;
+}
+
+.text-bold {
+  font-weight: bold;
 }
 
 #footer-icon {
@@ -40,3 +66,14 @@ body {
   width: 16px;
 }
 
+@media (max-width: $screen-sm-min - 1) {
+  .padding-top-xs-5 {
+    padding-top: 5px;
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .text-right-sm {
+    text-align: right;
+  }
+}

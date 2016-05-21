@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228022054) do
+ActiveRecord::Schema.define(version: 20160515232138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,11 +184,10 @@ ActiveRecord::Schema.define(version: 20160228022054) do
     t.string   "phone"
     t.date     "birth_date"
     t.boolean  "veteran"
-    t.boolean  "student"
-    t.boolean  "full_time_student"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cell"
+    t.string   "student_status", limit: 15
   end
 
   create_table "reason_types", force: :cascade do |t|
@@ -233,8 +232,10 @@ ActiveRecord::Schema.define(version: 20160228022054) do
     t.datetime "file_updated_at",   null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "grant_id"
   end
 
+  add_index "uploads", ["grant_id"], name: "index_uploads_on_grant_id", using: :btree
   add_index "uploads", ["user_type", "user_id"], name: "index_uploads_on_user_type_and_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -288,5 +289,6 @@ ActiveRecord::Schema.define(version: 20160228022054) do
   add_foreign_key "other_payments", "grants", on_delete: :cascade
   add_foreign_key "people", "grants", on_delete: :cascade
   add_foreign_key "residences", "residence_types"
+  add_foreign_key "uploads", "grants"
   add_foreign_key "users", "agencies"
 end

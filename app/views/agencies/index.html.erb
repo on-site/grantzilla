@@ -1,6 +1,6 @@
 <h1>Agencies</h1>
 
-<p>
+<p class="alert alert-info">
   Manage the different agencies that HIF works with below.
 </p>
 
@@ -12,7 +12,7 @@
         <th>Email</th>
         <th>Phone Number</th>
         <th>Fax Number</th>
-        <th>Address</th>
+        <th class="hidden-xs hidden-sm">Address</th>
         <th></th>
       </tr>
     </thead>
@@ -23,19 +23,33 @@
           <td><%= agency.email.presence || '-' %></td>
           <td><%= agency.phone.presence || '-' %></td>
           <td><%= agency.fax.presence || '-' %></td>
-          <td><%= agency.full_address %></td>
+          <td class="hidden-xs hidden-sm"><%= agency.full_address %></td>
           <td>
-            <%= link_to 'Edit', agency_path(agency), class: 'btn btn-default' %>
+            <%= link_to agency_path(agency), class: 'btn btn-sm btn-default' do %>
+              <span class="glyphicon glyphicon-pencil"></span> Edit
+            <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <p>
-    <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Agency'.html_safe, new_agency_path, class: 'btn btn-primary btn-block-xs' %>
-  </p>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= link_to new_agency_path, class: 'btn btn-primary btn-block-xs' do %>
+        <span class="glyphicon glyphicon-plus"></span> New Agency
+      <% end %>
+    </div>
+    <div class="col-sm-6 text-right-sm padding-top-xs-5">
+      <%= will_paginate @agencies, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
 <% else %>
   <div class="alert alert-warning">
-    No agencies have been added yet. <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Agency'.html_safe, new_agency_path, class: 'btn btn-default' %>
+    No agencies have been added yet.
+    <div>
+      <%= link_to new_agency_path, class: 'btn btn-primary btn-block-xs' do %>
+        <span class="glyphicon glyphicon-plus"></span> New Agency
+      <% end %>
+    </div>
   </div>
 <% end %>

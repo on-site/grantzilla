@@ -3,3 +3,15 @@
  * Variables that can be overridden can be found at:
  * https://github.com/twbs/bootstrap-sass/blob/v3.3.6/assets/stylesheets/bootstrap/_variables.scss
  */
+
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:100,400,400italic,700,900);
+
+$font-family-sans-serif:            "Alegreya Sans", sans-serif;
+$headings-font-weight:              900;
+$navbar-default-color:              #444;
+$navbar-default-bg:                 #ccd6cc;
+$navbar-default-link-color:         #444;
+$navbar-default-link-hover-color:   #222;
+$navbar-default-link-active-color:  #222;
+$state-info-bg:                     #e8eff2;
+$table-border-color:                #dde7dd;
