@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/on-site/Grantzilla.svg?branch=master)](https://travis-ci.org/on-site/Grantzilla)
+[![Build Status](https://travis-ci.org/on-site/grantzilla.svg?branch=master)](https://travis-ci.org/on-site/grantzilla)
 
 ## Development Environment
 
