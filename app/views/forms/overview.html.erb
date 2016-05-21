@@ -7,12 +7,6 @@
     <%= simple_form_for(@grant, url: wizard_path, method: :put,
         wrapper: :horizontal_form,
         html: {class: 'form-horizontal', data: {live_guarded: true}}) do |f| %>
-      <div class="alert alert-info">
-        Please select the reason(s) that this grant is being
-        submitted.  Select all that apply.  Also, please provide an
-        overview of the amount of money being requested.
-      </div>
-
       <%= f.association :reason_types, multiple: true, label: "Qualifying Criteria",
           html: {class: "select2"} %>
       <%= f.input :details, label: "Description of Crisis", required: true,
