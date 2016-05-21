@@ -17,6 +17,10 @@ footer {
   padding-top: 25px;
 }
 
+h2 + hr {
+  margin-top: -10px;
+}
+
 .form-group {
   position: relative;
 }

@@ -4,7 +4,7 @@ class FormsController < ApplicationController
   before_action :initialize_grant
 
   include Wicked::Wizard
-  steps :applicants, :overview, :properties, :payee, :employment, :uploads
+  steps :applicants, :overview, :properties, :employment, :uploads
 
   def show
     render_wizard
@@ -50,7 +50,7 @@ class FormsController < ApplicationController
 
   def residence_attributes
     { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city,
-                             :state, :zip, :_destroy] }
+                             :state, :zip, :move_in_date, :_destroy] }
   end
 
   def finish_wizard_path

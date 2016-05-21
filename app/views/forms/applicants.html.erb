@@ -2,10 +2,10 @@
 
 <%= breadcrumbs %>
 
-<h2>Applicants</h2>
-
 <div class="row">
   <div class="col-md-8 col-sm-7">
+    <h2>Applicants</h2>
+    <hr/>
     <%= simple_form_for(@grant, url: wizard_path,  method: :put,
         wrapper: :horizontal_form,
         html: { class: 'form-horizontal', data: { live_guarded: true } }) do |f| %>
@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-sm-10">
           <div class="row">
-            <div class="col-sm-offset-4">
+            <div class="col-sm-offset-3 col-sm-9">
               <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
               <%= link_to_add_association f, :people, partial: person_fields, class: 'btn btn-default',
                   data: { association_insertion_node: ".people", association_insertion_method: "append" } do %>
