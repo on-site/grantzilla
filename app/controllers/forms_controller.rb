@@ -46,7 +46,7 @@ class FormsController < ApplicationController
 
   def incomes_attributes
     { incomes_attributes: [:id, :employer, :occupation, :monthly_income, :start_date, :end_date,
-                          :_destroy] }
+                           :_destroy] }
   end
 
   def people_attributes
