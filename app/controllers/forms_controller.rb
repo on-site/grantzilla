@@ -34,7 +34,8 @@ class FormsController < ApplicationController
 
   def form_params
     params.require(:grant).permit([:adjusted_rent, :details, :grant_amount_requested,
-                                   :subsidy_type_id, :total_rent, :total_owed, reason_type_ids: []],
+                                   :subsidy_type_id, :total_rent, :total_owed,
+                                   coverage_type_ids: [], reason_type_ids: []],
                                   people_attributes, payees_attributes, residence_attributes)
   end
 
