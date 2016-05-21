@@ -51,7 +51,7 @@ class FormsController < ApplicationController
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
-                          :email, :veteran, :student_status, :_destroy, income_attributes] }
+                          :email, :veteran, :student_status, :_destroy, incomes_attributes] }
   end
 
   def payees_attributes
