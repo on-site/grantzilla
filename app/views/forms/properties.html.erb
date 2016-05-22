@@ -2,17 +2,53 @@
 <div class="row">
   <div class="col-md-8 col-sm-7">
     <h2>Property Information</h2>
-    <%= simple_form_for(@grant, url: wizard_path,  method: :put, html: { data: { live_guarded: true } }) do |f| %>
-
+    <hr/>
+    <%= simple_form_for(@grant, url: wizard_path, method: :put, wrapper: :horizontal_form,
+        html: { class: 'form-horizontal', data: { live_guarded: true } }) do |f| %>
       <%= f.simple_fields_for :residence, @grant.residence do |rf| %>
-        <%= rf.input :residence_type_id, label_method: :description, collection: ResidenceType.all %>
-        <%= rf.input :address, required: true, input_html: { data: { guard: "required" } } %>
-        <%= rf.input :unit_number, required: false %>
+      <%= rf.input :residence_type_id, label_method: :description, collection: ResidenceType.all,
+          required: true, input_html: { data: { guard: "required" } } %>
+        <div class="form-group">
+          <%= rf.input :address, label: "Street Address", wrapper: "horizontal_form_8",
+              required: true, input_html: { data: { guard: "required" } } %>
+          <%= rf.input :unit_number, label: "Unit", wrapper: "horizontal_form_4", required: false %>
+        </div>
         <%= rf.input :city, required: true, input_html: { data: { guard: "required" } } %>
-        <%= rf.input :state, required: true, collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>
-        <%= rf.input :zip, required: true, input_html: { data: { guard: "int" }, maxlength: 5 } %>
+        <div class="form-group">
+          <%= rf.input :state, wrapper: "horizontal_form_8", required: true,
+              collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>
+          <%= rf.input :zip, wrapper: "horizontal_form_4", required: true,
+              input_html: { data: { guard: "required int" }, maxlength: 5 } %>
+        </div>
+        <%= rf.input :move_in_date, as: :string, start_year: 1910, order: [:month, :day, :year],
+            required: true, input_html: { data: { guard: "required" }, type: "date" } %>
       <% end %>
-      <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+
+      <h2>Payee Information</h2>
+      <hr/>
+      <%= f.simple_fields_for :payees, @grant.payees do |pf| %>
+        <%= pf.input :name, required: true, input_html: { data: { guard: "required" } } %>
+        <%= pf.input :attention %>
+        <div class="form-group">
+          <%= pf.input :street_address, wrapper: "horizontal_form_8", required: true, input_html: { data: { guard: "required" } } %>
+          <%= pf.input :unit_number, label: "Unit", wrapper: "horizontal_form_4", required: false %>
+        </div>
+        <%= pf.input :city, required: true, input_html: { data: { guard: "required" } } %>
+        <div class="form-group">
+          <%= pf.input :state, wrapper: "horizontal_form_8", required: true,
+              collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>
+          <%= pf.input :zip, wrapper: "horizontal_form_4", required: true,
+              input_html: { data: { guard: "required int" }, maxlength: 5 } %>
+        </div>
+        <%= pf.input :phone, required: true, input_html: { data: { guard: "required phoneUS" } } %>
+        <%= pf.input :email, type: "email", input_html: { data: { guard: "email" } }%>
+      <% end %>
+
+      <div class="row">
+        <div class="col-sm-offset-3 col-sm-9">
+          <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+        </div>
+      </div>
     <% end %>
   </div>
   <div class="col-md-4 col-sm-5">

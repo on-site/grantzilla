@@ -11,8 +11,11 @@ let GrantControlsForm = (props) => (
 
     <div className="form-group">
       <label className="control-label" htmlFor="gcf-grantAmount">Grant Amount</label>
-      <input className="form-control" id="gcf-grantAmount" name="number" type="text"
-             defaultValue={props.grant.grant_amount} />
+      <div className="input-group">
+        <div className="input-group-addon">$</div>
+        <input className="form-control" id="gcf-grantAmount" name="number" type="text"
+               defaultValue={accounting.formatNumber(props.grant.grant_amount, 2, "")} />
+      </div>
     </div>
 
     <div className="form-group">

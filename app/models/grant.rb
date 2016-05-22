@@ -35,7 +35,8 @@ class Grant < ActiveRecord::Base
   end
 
   def self.list(current_user, options = {})
-    joins(:people, :status, user: :agency)
+    joins(:status, user: :agency)
+      .includes(:people)
       .search(options[:search])
       .by_agency_id(options[:agency_id])
       .by_user_id(options[:user_id])
@@ -44,9 +45,11 @@ class Grant < ActiveRecord::Base
       .order(id: :desc)
   end
 
-  def self.search(q)
-    return all unless q.present?
-    joins(:people).where("LOWER(people.first_name || ' ' || people.last_name) LIKE ?", "%#{q.downcase}%")
+  def self.search(search)
+    return all unless search.present?
+    where("#{table_name}.id IN (
+      SELECT grant_id FROM people
+      WHERE LOWER(people.first_name || ' ' || people.last_name) LIKE ?)", "%#{search.downcase}%")
   end
 
   def self.by_agency_id(agency_id)

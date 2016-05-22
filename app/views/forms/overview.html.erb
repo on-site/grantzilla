@@ -1,0 +1,43 @@
+<%= breadcrumbs %>
+
+<div class="row">
+  <div class="col-md-8 col-sm-7">
+    <h2>Crisis Description</h2>
+    <hr/>
+    <%= simple_form_for(@grant, url: wizard_path, method: :put,
+        wrapper: :horizontal_form,
+        html: {class: 'form-horizontal', data: {live_guarded: true}}) do |f| %>
+      <%= f.association :reason_types, multiple: true, label: "Qualifying Criteria",
+          html: {class: "select2"} %>
+      <%= f.input :details, label: "Description of Crisis", required: true,
+          hint: "Please provide a detailed description of the crisis.",
+          input_html: {rows: 5, data: {guard: "required"}} %>
+
+      <h2>Grant Request</h2>
+      <hr/>
+      <%= f.input :total_rent, required: true, as: :money,
+          input_html: {data: {guard: "required moneyUS"}} %>
+      <%= f.input :adjusted_rent, label: "Applicant Rent", required: true, as: :money,
+          input_html: {data: {guard: "required moneyUS"},
+          value: number_to_currency(@grant.adjusted_rent)} %>
+      <%= f.association :subsidy_type, label: "Voucher/Subsidy", html: {class: "select2"} %>
+      <%= f.input :total_owed, as: :money, label: "Total Amount Owed", required: true %>
+      <%= f.input :grant_amount_requested, label: "Grant Requested", as: :money, required: true %>
+      <%= f.association :coverage_types, label: "Grant Usage", multiple: true, required: true,
+          hint: "Please indicate all of the intended uses of the grant.",
+          input_html: { data: { guard: "required" } }%>
+      <div class="row">
+        <div class="col-sm-offset-3 col-sm-9">
+          <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
+          <%= link_to grant_budgets_path(@grant), class: "btn btn-default" do %>
+            <span class="glyphicon glyphicon-th"></span> Budget Worksheet
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-4 col-sm-5">
+    <%= render "grants/controls" %>
+  </div>
+</div>

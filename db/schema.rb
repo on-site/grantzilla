@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160515232138) do
+ActiveRecord::Schema.define(version: 20160520001116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(version: 20160515232138) do
     t.integer  "current_month_budget_id"
     t.integer  "next_month_budget_id"
     t.string   "step"
+    t.float    "total_owed"
+    t.float    "grant_amount_requested"
   end
 
   create_table "grants_payees", force: :cascade do |t|
