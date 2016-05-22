@@ -55,9 +55,11 @@
           <div class="col-md-6">
             <div class="well">
               <h4 class="light"><%= person.full_name %></h4>
-              <div>
-                <%= time_ago_in_words(person.birth_date) %> old
-              </div>
+              <% if person.birth_date.present? %>
+                <div>
+                  <%= time_ago_in_words(person.birth_date) %> old
+                </div>
+              <% end %>
               <% if person.phone.present? %>
                 <div>
                   <span class="glyphicon glyphicon-earphone"></span>
