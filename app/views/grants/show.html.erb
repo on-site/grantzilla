@@ -8,14 +8,13 @@
     <div class="well">
       <div class="row">
         <div class="col-md-6">
-          <h4 class="light">
-            <% if current_user.admin? && @grant.user.agency.present? %>
+          <% if current_user.admin? && @grant.user.agency.present? %>
+            <h4 class="light">
               From <%= link_to @grant.user.agency.name, agency_path(@grant.user.agency) %>
-            <% elsif @grant.user.agency.present? %>
-              From <%= @grant.user.agency.name %>
-            <% end %>
-          </h4>
-
+            </h4>
+          <% elsif @grant.user.agency.present? %>
+            <h4 class="light">From <%= @grant.user.agency.name %></h4>
+          <% end %>
           <div>
             Submitted <%= @grant.application_date.try(:strftime, '%m/%d/%Y') %>
           </div>
@@ -24,12 +23,12 @@
           <h4 class="light">
             <%= @grant.user.full_name %>
           </h4>
-          <div>
-            <span class="glyphicon glyphicon-earphone"></span>
-            <% if @grant.user.agency.present? && @grant.user.agency.phone.present? %>
+          <% if @grant.user.agency.present? && @grant.user.agency.phone.present? %>
+            <div>
+              <span class="glyphicon glyphicon-earphone"></span>
               <%= @grant.user.agency.phone unless @grant.user.agency.phone.length < 2 %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
           <div>
             <span class="glyphicon glyphicon-envelope"></span>
             <%= mail_to @grant.user.email %>
