@@ -7,9 +7,11 @@ There has been a new comment added to the grant application for
 To view this grant, please visit the following URL:
 <%= grant_url(@comment.grant) %>
 
+<% if @comment.context.present? %>
 Previous comments:
 <% @comment.context.each do |comment| %>
 
 From <%= comment.user %>
 <%= comment.body %>
+<% end %>
 <% end %>

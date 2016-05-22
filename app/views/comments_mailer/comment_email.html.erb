@@ -49,16 +49,17 @@
 
  <!-- END CENTERED BUTTON -->
 
-<p style="font-size: 17px; font-family: Calibri, sans-serif, 'Open Sans';">
-  <b>Previous Comments:</b>
-</p>
-
-<% @comment.context.each do |comment| %>
-  <hr>
-  <p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans'; color: #666666;">
-    by <%= comment.user %>
+<% if @comment.context.present? %>
+  <p style="font-size: 17px; font-family: Calibri, sans-serif, 'Open Sans';">
+    <b>Previous Comments:</b>
   </p>
-  <p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans'; color: #333333;">
-    <%= comment.body %>
-  </p>
+  <% @comment.context.each do |comment| %>
+    <hr>
+    <p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans'; color: #666666;">
+      by <%= comment.user %>
+    </p>
+    <p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans'; color: #333333;">
+      <%= comment.body %>
+    </p>
+  <% end %>
 <% end %>

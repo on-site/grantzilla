@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Comment, type: :model do
-  let(:case_worker) { create(:user, :case_worker) }
   let(:admin) { create(:user, :admin) }
-  let(:grant) { create(:grant, user: case_worker) }
+  let(:case_worker) { create(:user, :case_worker) }
   let(:comments_mail) { double("comment_mail", deliver: true) }
+  let(:grant) { create(:grant, user: case_worker) }
 
   describe "#create" do
     context "when the comment is created by the admin" do

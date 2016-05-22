@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   default_scope { order(id: :desc) }
 
   def context
-    grant.comments.where("id < ?", id)
+    @context ||= grant.comments.where("id < ?", id)
   end
 
   def notify_users
