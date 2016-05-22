@@ -23,8 +23,9 @@
       <%= f.association :subsidy_type, label: "Voucher/Subsidy", html: {class: "select2"} %>
       <%= f.input :total_owed, as: :money, label: "Total Amount Owed", required: true %>
       <%= f.input :grant_amount_requested, label: "Grant Requested", as: :money, required: true %>
-      <%= f.association :coverage_types, label: "Grant Usage", multiple: true,
-          hint: "Please indicate all of the intended uses of the grant." %>
+      <%= f.association :coverage_types, label: "Grant Usage", multiple: true, required: true,
+          hint: "Please indicate all of the intended uses of the grant.",
+          input_html: { data: { guard: "required" } }%>
       <div class="row">
         <div class="col-sm-offset-3 col-sm-9">
           <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>

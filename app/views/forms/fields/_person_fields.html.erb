@@ -8,7 +8,7 @@
       <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
           required: true, input_html: { data: { guard: "required" }, type: "date" } %>
       <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
-      <%= f.input :email, input_html: { data: { guard: "email" } } %>
+      <%= f.input :email, required: true, input_html: { data: { guard: "email required" } } %>
       <%= f.input :student_status, collection: Person::STUDENT_STATUSES %>
       <%= f.input :veteran, wrapper: :horizontal_boolean %>
     </div>
