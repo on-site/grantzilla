@@ -8,6 +8,16 @@ class GrantsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Pdf::GrantApplication.new(@grant, view_context)
+        send_data pdf.render,
+                  filename: "grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf",
+                  type: "application/pdf",
+                  disposition: "inline"
+      end
+    end
   end
 
   def new
