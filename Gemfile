@@ -21,6 +21,7 @@ gem "newrelic_rpm"
 # has not been published yet but is on master as of 1/22/16.
 gem "paperclip", github: "thoughtbot/paperclip"
 gem "pg"
+gem "prawn"
 gem "puma"
 gem "rack-timeout"
 gem "rails", "~> 4.2"
