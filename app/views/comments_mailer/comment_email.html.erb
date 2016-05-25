@@ -1,0 +1,29 @@
+<p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans'; color: #333333;">
+  There has been a new comment added to the grant application for
+  <%= @comment.grant.people.to_sentence %>.
+</p>
+
+<p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans';">
+  <b><%= @comment.user %> says:</b>
+</p>
+
+<p style="font-size: 17px; font-family: Calibri, sans-serif, 'Open Sans';">
+  <%= @comment.body %>
+</p>
+
+<%= render partial: "/application/email_button", locals: { button_label: "View Grant", button_url: grant_url(@comment.grant) } %>
+
+<% if @comment.context.present? %>
+  <p style="font-size: 17px; font-family: Calibri, sans-serif, 'Open Sans';">
+    <b>Previous Comments:</b>
+  </p>
+  <% @comment.context.each do |comment| %>
+    <hr>
+    <p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans'; color: #666666;">
+      by <%= comment.user %>
+    </p>
+    <p style="font-size: 12px; font-family: Calibri, sans-serif, 'Open Sans'; color: #333333;">
+      <%= comment.body %>
+    </p>
+  <% end %>
+<% end %>
