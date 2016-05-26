@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
       .paginate(page: options[:page])
   end
 
+  def self.admins
+    where(role: :admin)
+  end
+
   def self.case_workers_by_agency(agency = nil)
     case_workers.where(agency: agency)
   end

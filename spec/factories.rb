@@ -7,6 +7,12 @@ FactoryGirl.define do
     end
   end
 
+  factory :comment do
+    body "This is a test."
+    association :grant
+    association :user
+  end
+
   factory :grant do
     application_date { Time.zone.now }
     status factory: :grant_status
