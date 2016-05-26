@@ -14,7 +14,7 @@ class FormsController < ApplicationController
     if @grant.persisted?
       @grant.update_attributes(form_params)
     else
-      @grant = Grant.create(form_params)
+      @grant = Grant.create(form_params.merge(user_id: current_user.id))
     end
     redirect_to wizard_path(@next_step, grant_id: @grant.id)
   end
