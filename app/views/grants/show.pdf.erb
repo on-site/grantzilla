@@ -1,0 +1,169 @@
+<div class="row">
+  <div class="col-xs-10 text-center">
+    <h1>Housing Industry Foundation</h1>
+    <h3>EMERGENCY HOUSING FUND APPLICATION</h3>
+  </div>
+  <div class="col-xs-2">
+    <%= wicked_pdf_image_tag "images/hif_logo_small.png" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-9">
+    <table class="table table-border">
+      <thead>
+        <tr>
+          <th colspan="2">
+            PARTNER AGENCY INFORMATION
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <dl>
+              <dt>Caseworker Name</dt>
+              <dd><%= @grant.user %></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt>Phone</dt>
+              <dd><%= @grant.user.agency.phone %></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <dl>
+              <dt>Referring Agency</dt>
+              <dd><%= @grant.user.agency %></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt>Email Address</dt>
+              <dd><%= @grant.user.email %></dd>
+            </dl>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xs-offset-1 col-xs-2">
+    <table class="table table-border">
+      <thead>
+        <tr>
+          <th>
+            For HIF Use
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <dl>
+              <dt>EHF #</dt>
+              <dd><%= @grant.id %></dd>
+            </dl>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h4>Instructions</h4>
+<ul>
+  <li>
+    Application MUST be filled out by staff member (not
+    client). Please provide as much information as possible.
+  </li>
+  <li>
+    Submit supportive documentation with every application, which must
+    always include a <u>three-month budget, relevant pages of a lease,
+    and a W-9 from landlord</u>, as well as verification of <u>owed costs,
+    income & crisis</u>.
+  </li>
+</ul>
+
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th>
+        GRANT REQUEST
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <dl>
+          <dt>Qualifying Criteria</dt>
+          <dd><%= @grant.reason_types.to_sentence %></dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <dl>
+          <dt>Detailed Description of Housing Crisis</dt>
+          <dd><%= @grant.details %></dd>
+        </dl>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th colspan="2">
+        APPLICANT GENERAL INFORMATION
+      </th>
+    </tr>
+  </thead>
+  <% @grant.people.each_with_index do |person, index| %>
+    <thead>
+      <tr>
+        <th colspan="2">
+          <% if index == 0 %>
+            Primary Applicant #1 (Head of Household)
+          <% else %>
+            Applicant #<%= index + 1 %>
+          <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <dl>
+            <dt>Name</dt>
+            <dd><%= person %></dd>
+          </dl>
+        </td>
+        <td>
+          <dl>
+            <dt>Birth Date</dt>
+            <dd><%= person.birth_date %></dd>
+          </dl>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <dl>
+            <dt>Phone Number</dt>
+            <dd><%= person.phone %></dd>
+          </dl>
+        </td>
+        <td>
+          <dl>
+            <dt>Email Address</dt>
+            <dd><%= person.email %></dd>
+          </dl>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>

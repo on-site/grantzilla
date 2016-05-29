@@ -1,0 +1,21 @@
+dl {
+  margin-bottom: 0px;
+}
+
+.table {
+  table-layout: fixed;
+
+  thead {
+    background-color: #ccd6cc;
+    font-style: italic;
+  }
+  &.table-border {
+    th {
+      padding-bottom: 4px;
+    }
+    td {
+      border: 1px solid $table-border-color;
+      padding-bottom: 4px;
+    }
+  }
+}

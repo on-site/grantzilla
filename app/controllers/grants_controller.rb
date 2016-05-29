@@ -11,11 +11,9 @@ class GrantsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = Pdf::GrantApplication.new(@grant, view_context)
-        send_data pdf.render,
-                  filename: "grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf",
-                  type: "application/pdf",
-                  disposition: "inline"
+        render pdf: "grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf",
+               layout: "pdf.pdf.erb",
+               show_as_html: params[:debug].presence
       end
     end
   end
