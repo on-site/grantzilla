@@ -13,6 +13,14 @@ class GrantsController < ApplicationController
       format.pdf do
         render pdf: "grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf",
                layout: "pdf.pdf.erb",
+               footer: { html: { template: "grants/footer.html.erb" } },
+               margin: {
+                 bottom: "0.5in",
+                 left:   "0.5in",
+                 right:  "0.5in",
+                 top:    "0.5in"
+               },
+               page_size: "Letter",
                show_as_html: params[:debug].presence
       end
     end
