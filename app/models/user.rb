@@ -24,7 +24,8 @@ class User < ActiveRecord::Base
   self.per_page = 20
 
   def self.list(options = {})
-    order(:last_name)
+    includes(:agency)
+      .order(:last_name)
       .search(options[:search])
       .by_agency_id(options[:agency_id])
       .paginate(page: options[:page])
