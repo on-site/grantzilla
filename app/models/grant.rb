@@ -36,7 +36,7 @@ class Grant < ActiveRecord::Base
 
   def self.list(current_user, options = {})
     joins(:status, user: :agency)
-      .includes(:people)
+      .includes(:people, :user, :status)
       .search(options[:search])
       .by_agency_id(options[:agency_id])
       .by_user_id(options[:user_id])
