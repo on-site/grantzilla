@@ -49,7 +49,7 @@ module BudgetsHelper
   end
 
   def append_description(field)
-    "#{field.to_s}_description".to_sym
+    "#{field}_description".to_sym
   end
 
   private
