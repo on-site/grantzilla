@@ -3,6 +3,8 @@ class GrantsController < ApplicationController
   before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :destroy]
   before_action :set_controls_info, only: [:show, :edit]
 
+  include PdfOptions
+
   def index
     @grants = Grant.list(current_user, grant_index_params)
   end
@@ -11,17 +13,8 @@ class GrantsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf",
-               layout: "pdf.pdf.erb",
-               footer: { html: { template: "grants/footer.html.erb" } },
-               margin: {
-                 bottom: "0.5in",
-                 left:   "0.5in",
-                 right:  "0.5in",
-                 top:    "0.5in"
-               },
-               page_size: "Letter",
-               show_as_html: params[:debug].presence
+        render pdf_options(file_name: "grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}",
+                           debug: params[:debug].presence)
       end
     end
   end
@@ -95,23 +88,23 @@ class GrantsController < ApplicationController
     params.require(:grant).permit(:residence, people_attributes, residence_attributes)
   end
 
-  def people_attributes
-    { people_attributes: [:id, :first_name, :last_name, :birth_date, :email] }
-  end
-
-  def residence_attributes
-    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city, :state, :zip] }
-  end
-
   def grant_admin_params
     params.require(:grant).permit(:grant_status_id, :grant_amount)
+  end
+
+  def grant_index_params
+    params.permit(:agency_id, :search, :status, :user_id, :page)
   end
 
   def grant_payee_params
     params.require(:payee).permit(:name, :check_number)
   end
 
-  def grant_index_params
-    params.permit(:agency_id, :search, :status, :user_id, :page)
+  def people_attributes
+    { people_attributes: [:id, :first_name, :last_name, :birth_date, :email] }
+  end
+
+  def residence_attributes
+    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city, :state, :zip] }
   end
 end
