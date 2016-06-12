@@ -3,27 +3,55 @@
 <div class="row">
   <div class="col-md-8 col-sm-7">
     <%= form_for(@upload, html: { class: 'new-upload form-horizontal', multipart: true }) do |f| %>
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>Supportive Documentation</h2>
-          <hr />
+      <div class="col-xs-12">
+        <h2>Supportive Documentation</h2>
+        <hr />
+      </div>
+      <div class="col-xs-12">
+        <p>
+          The following supportive documentation is needed for every application:
+        </p>
+        <ul>
+          <li>
+            Three‐month budget that demonstrates cash crisis and sustainability in future
+            months
+          </li>
+          <li>
+            W‐9 from landlord
+          </li>
+          <li>
+            Relevant pages of lease (pages that show name of lessees, rental amount,
+            security deposit amount, rental dates, and signatures of lessees and payee). If
+            a lease has not been signed, an Acknowledgement to Rent can be submitted in lieu
+            of lease
+          </li>
+          <li>
+            Verification of owed costs (3‐Day Notice or other written verification of
+            exactly what lessee owes)
+          </li>
+          <li>
+            Verification of income for every adult (pay stubs, letter verifying employment,
+            benefits award letter, etc)
+          </li>
+          <li>
+            Verification of crisis (car repair bill, copy of no‐fault notice to vacate,
+            verification of illness)
+          </li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label" style="padding-top: 0;">
+          Upload a file
+        </label>
+        <div class="col-sm-9">
+          <%= hidden_field(:upload, :user_id) %>
+          <%= hidden_field(:upload, :user_type) %>
+          <%= f.file_field :file %>
         </div>
       </div>
-      <div class="row">
-        <div class="form-group">
-          <label class="col-sm-3 control-label" style="padding-top: 0;">
-            Upload a file
-          </label>
-          <div class="col-sm-9">
-            <%= hidden_field(:upload, :user_id) %>
-            <%= hidden_field(:upload, :user_type) %>
-            <%= f.file_field :file %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-9">
-            <%= f.submit 'Upload Document', class: 'btn btn-primary' %>
-          </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <%= f.submit 'Upload Document', class: 'btn btn-primary' %>
         </div>
       </div>
     <% end %>
