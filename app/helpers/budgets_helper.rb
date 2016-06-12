@@ -48,6 +48,10 @@ module BudgetsHelper
     }
   end
 
+  def append_description(field)
+    "#{field.to_s}_description".to_sym
+  end
+
   private
 
   def second_applicant_income_types
