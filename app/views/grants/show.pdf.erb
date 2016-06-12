@@ -118,7 +118,7 @@
 <table class="table table-border">
   <thead>
     <tr>
-      <th colspan="2">
+      <th colspan="12">
         APPLICANT GENERAL INFORMATION
       </th>
     </tr>
@@ -126,7 +126,7 @@
   <% @grant.people.each_with_index do |person, index| %>
     <thead>
       <tr>
-        <th colspan="2">
+        <th colspan="12">
           <% if index == 0 %>
             Primary Applicant #1 (Head of Household)
           <% else %>
@@ -137,35 +137,219 @@
     </thead>
     <tbody>
       <tr>
-        <td>
+        <td colspan="4">
           <dl>
             <dt>Name</dt>
             <dd><%= person %></dd>
           </dl>
         </td>
-        <td>
+        <td colspan="2">
           <dl>
             <dt>Birth Date</dt>
             <dd><%= person.birth_date %></dd>
           </dl>
         </td>
-      </tr>
-      <tr>
-        <td>
+        <td colspan="2">
           <dl>
             <dt>Phone Number</dt>
             <dd><%= person.phone %></dd>
           </dl>
         </td>
-        <td>
+        <td colspan="4">
           <dl>
             <dt>Email Address</dt>
             <dd><%= person.email %></dd>
           </dl>
         </td>
       </tr>
+      <% person.incomes.each do |income| %>
+        <tr>
+          <td colspan="4">
+            <dl>
+              <dt>Employer</dt>
+              <dd><%= income.employer %></dd>
+            </dl>
+          </td>
+          <td colspan="3">
+            <dl>
+              <dt>Occupation</dt>
+              <dd><%= income.occupation %></dd>
+            </dl>
+          </td>
+          <td colspan="2">
+            <dl>
+              <dt>Start Date</dt>
+              <dd><%= income.start_date %></dd>
+            </dl>
+          </td>
+          <td colspan="3">
+            <dl>
+              <dt>Monthly Take Home Pay</dt>
+              <dd><%= number_to_currency(income.monthly_income) %></dd>
+            </dl>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   <% end %>
+</table>
+
+<table class="table table-border keep-together">
+  <thead>
+    <tr>
+      <th colspan="12">
+        Information about Unit for Which Assistance is Being Requested (To be filled out for EVERY APPLICATION)
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Property Type</dt>
+          <dd>
+            <% if @grant.residence.present? %>
+              <%= @grant.residence.residence_type %>
+            <% end %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="6">
+        <dl>
+          <dt>Address</dt>
+          <dd>
+            <% if @grant.residence.present? %>
+              <%= @grant.residence.address %><%= @grant.residence.unit_number.present? ? " ##{@grant.residence.unit_number}," : "," %>
+              <%= @grant.residence.city %>, <%= @grant.residence.state %>  <%= @grant.residence.zip %>
+            <% end %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="2">
+        <dl>
+          <dt>Move-In Date</dt>
+          <dd>
+            <% if @grant.residence.present? %>
+              <%= @grant.residence.move_in_date %>
+            <% end %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <% @grant.payees.each do |payee| %>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Person/Company to whom check should be written</dt>
+          <dd>
+            <%= payee.name %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="8">
+        <dl>
+          <dt>Payee Address</dt>
+          <dd>
+            <%= payee.street_address %><%= payee.unit_number.present? ? " ##{payee.unit_number}," : "," %>
+            <%= payee.city %>, <%= payee.state %>  <%= payee.zip %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Person to whose attention check should be sent</dt>
+          <dd>
+            <%= payee.attention %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Payee phone</dt>
+          <dd>
+            <%= payee.phone %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Payee email address</dt>
+          <dd>
+            <%= payee.email %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="table table-border keep-together">
+  <thead>
+    <tr>
+      <th colspan="12">
+        Details of Housing Costs and Emergency Housing Grant
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Monthly Rent</dt>
+          <dd>
+            <%= number_to_currency @grant.total_rent %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Applicant Rent (if less than total)</dt>
+          <dd>
+            <%= number_to_currency @grant.adjusted_rent %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Voucher or Subsidy Type (if any)</dt>
+          <dd>
+            <%= @grant.subsidy_type %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Total Amount Owed</dt>
+          <dd>
+            <%= number_to_currency @grant.total_owed %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="8">
+        <dl>
+          <dt>Amount Requested from HIF (Maximum grant is always $2,500)</dt>
+          <dd>
+            <%= number_to_currency @grant.grant_amount_requested %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="12">
+        <dl>
+          <dt>Use of HIF Funds</dt>
+          <dd>
+            <%= @grant.coverage_types.to_sentence %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <div class="keep-together">
