@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520001116) do
+ActiveRecord::Schema.define(version: 20160612215930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20160520001116) do
     t.float    "television"
     t.float    "internet"
     t.float    "installment_payments"
-    t.string   "installment_payment_description"
+    t.string   "installment_payments_description"
     t.float    "miscellaneous_expenses"
     t.string   "miscellaneous_expenses_description"
     t.datetime "created_at",                         null: false
