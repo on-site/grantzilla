@@ -52,8 +52,8 @@
           <% budget_specified_expense_items.each_pair do |type, description| %>
             <tr>
               <td>
-                <%= f.fields_for type, @grant.last_month_budget do |b| %>
-                  <%= b.text_field type, class: "form-control", placeholder: "Specify" %>
+                <%= f.fields_for :last_month_budget, @grant.last_month_budget do |b| %>
+                  <%= b.text_field append_description(type), class: "form-control", placeholder: "Specify" %>
                 <% end %>
                 <span class="help-block"><%= description.html_safe %></span>
               </td>
