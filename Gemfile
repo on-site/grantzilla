@@ -33,6 +33,7 @@ gem "simple_form"
 gem "turbolinks"
 gem "uglifier", ">= 1.3.0"
 gem "wicked"
+gem "wicked_pdf"
 gem "will_paginate", "~> 3.1.0"
 gem "will_paginate-bootstrap"
 
@@ -52,6 +53,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
   gem "letter_opener"
+  gem "wkhtmltopdf-binary-edge"
 end
 
 group :production do
@@ -59,4 +61,5 @@ group :production do
   gem "mailgun_rails"
   gem "sidekiq"
   gem "rails_12factor"
+  gem "wkhtmltopdf-heroku"
 end

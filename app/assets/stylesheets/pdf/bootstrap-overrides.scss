@@ -1,0 +1,16 @@
+/*!
+ * Override default bootstrap variables in this file for use in the
+ * PDF rendering. Variables that can be overridden can be found at:
+ * https://github.com/twbs/bootstrap-sass/blob/v3.3.6/assets/stylesheets/bootstrap/_variables.scss
+ */
+
+$font-family-sans-serif:            "Helvetica", sans-serif;
+$headings-font-weight:              900;
+$font-size-base:                    11px;
+$navbar-default-color:              #444;
+$navbar-default-bg:                 #ccd6cc;
+$navbar-default-link-color:         #444;
+$navbar-default-link-hover-color:   #222;
+$navbar-default-link-active-color:  #222;
+$state-info-bg:                     #e8eff2;
+$table-border-color:                #dde7dd;

@@ -1,0 +1,407 @@
+<div class="row">
+  <div class="col-xs-10 text-center">
+    <h1>Housing Industry Foundation</h1>
+    <h3>EMERGENCY HOUSING FUND APPLICATION</h3>
+  </div>
+  <div class="col-xs-2 text-right">
+    <%= wicked_pdf_image_tag "images/hif_logo.png", width: 60 %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-9">
+    <table class="table table-border">
+      <thead>
+        <tr>
+          <th colspan="2">
+            PARTNER AGENCY INFORMATION
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <dl>
+              <dt>Caseworker Name</dt>
+              <dd><%= @grant.user %></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt>Phone</dt>
+              <dd><%= @grant.user.agency.phone %></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <dl>
+              <dt>Referring Agency</dt>
+              <dd><%= @grant.user.agency %></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt>Email Address</dt>
+              <dd><%= @grant.user.email %></dd>
+            </dl>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xs-offset-1 col-xs-2">
+    <table class="table table-border">
+      <thead>
+        <tr>
+          <th>
+            For HIF Use
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <dl>
+              <dt>EHF #</dt>
+              <dd><%= @grant.id %></dd>
+            </dl>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h4>Instructions</h4>
+<ul>
+  <li>
+    Application MUST be filled out by staff member (not
+    client). Please provide as much information as possible.
+  </li>
+  <li>
+    Submit supportive documentation with every application, which must
+    always include a <u>three-month budget, relevant pages of a lease,
+    and a W-9 from landlord</u>, as well as verification of <u>owed costs,
+    income & crisis</u>.
+  </li>
+</ul>
+
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th>
+        GRANT REQUEST
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <dl>
+          <dt>Qualifying Criteria</dt>
+          <dd><%= @grant.reason_types.to_sentence %></dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <dl>
+          <dt>Detailed Description of Housing Crisis</dt>
+          <dd><%= @grant.details %></dd>
+        </dl>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th colspan="12">
+        APPLICANT GENERAL INFORMATION
+      </th>
+    </tr>
+  </thead>
+  <% @grant.people.each_with_index do |person, index| %>
+    <thead>
+      <tr>
+        <th colspan="12">
+          <% if index == 0 %>
+            Primary Applicant #1 (Head of Household)
+          <% else %>
+            Applicant #<%= index + 1 %>
+          <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="4">
+          <dl>
+            <dt>Name</dt>
+            <dd><%= person %></dd>
+          </dl>
+        </td>
+        <td colspan="2">
+          <dl>
+            <dt>Birth Date</dt>
+            <dd><%= person.birth_date %></dd>
+          </dl>
+        </td>
+        <td colspan="2">
+          <dl>
+            <dt>Phone Number</dt>
+            <dd><%= person.phone %></dd>
+          </dl>
+        </td>
+        <td colspan="4">
+          <dl>
+            <dt>Email Address</dt>
+            <dd><%= person.email %></dd>
+          </dl>
+        </td>
+      </tr>
+      <% person.incomes.each do |income| %>
+        <tr>
+          <td colspan="4">
+            <dl>
+              <dt>Employer</dt>
+              <dd><%= income.employer %></dd>
+            </dl>
+          </td>
+          <td colspan="3">
+            <dl>
+              <dt>Occupation</dt>
+              <dd><%= income.occupation %></dd>
+            </dl>
+          </td>
+          <td colspan="2">
+            <dl>
+              <dt>Start Date</dt>
+              <dd><%= income.start_date %></dd>
+            </dl>
+          </td>
+          <td colspan="3">
+            <dl>
+              <dt>Monthly Take Home Pay</dt>
+              <dd><%= number_to_currency(income.monthly_income) %></dd>
+            </dl>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
+
+<table class="table table-border keep-together">
+  <thead>
+    <tr>
+      <th colspan="12">
+        Information about Unit for Which Assistance is Being Requested (To be filled out for EVERY APPLICATION)
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Property Type</dt>
+          <dd>
+            <% if @grant.residence.present? %>
+              <%= @grant.residence.residence_type %>
+            <% end %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="6">
+        <dl>
+          <dt>Address</dt>
+          <dd>
+            <% if @grant.residence.present? %>
+              <%= @grant.residence.address %><%= @grant.residence.unit_number.present? ? " ##{@grant.residence.unit_number}," : "," %>
+              <%= @grant.residence.city %>, <%= @grant.residence.state %>  <%= @grant.residence.zip %>
+            <% end %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="2">
+        <dl>
+          <dt>Move-In Date</dt>
+          <dd>
+            <% if @grant.residence.present? %>
+              <%= @grant.residence.move_in_date %>
+            <% end %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <% @grant.payees.each do |payee| %>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Person/Company to whom check should be written</dt>
+          <dd>
+            <%= payee.name %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="8">
+        <dl>
+          <dt>Payee Address</dt>
+          <dd>
+            <%= payee.street_address %><%= payee.unit_number.present? ? " ##{payee.unit_number}," : "," %>
+            <%= payee.city %>, <%= payee.state %>  <%= payee.zip %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Person to whose attention check should be sent</dt>
+          <dd>
+            <%= payee.attention %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Payee phone</dt>
+          <dd>
+            <%= payee.phone %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Payee email address</dt>
+          <dd>
+            <%= payee.email %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="table table-border keep-together">
+  <thead>
+    <tr>
+      <th colspan="12">
+        Details of Housing Costs and Emergency Housing Grant
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Monthly Rent</dt>
+          <dd>
+            <%= number_to_currency @grant.total_rent %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Applicant Rent (if less than total)</dt>
+          <dd>
+            <%= number_to_currency @grant.adjusted_rent %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="4">
+        <dl>
+          <dt>Voucher or Subsidy Type (if any)</dt>
+          <dd>
+            <%= @grant.subsidy_type %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <dl>
+          <dt>Total Amount Owed</dt>
+          <dd>
+            <%= number_to_currency @grant.total_owed %>
+          </dd>
+        </dl>
+      </td>
+      <td colspan="8">
+        <dl>
+          <dt>Amount Requested from HIF (Maximum grant is always $2,500)</dt>
+          <dd>
+            <%= number_to_currency @grant.grant_amount_requested %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="12">
+        <dl>
+          <dt>Use of HIF Funds</dt>
+          <dd>
+            <%= @grant.coverage_types.to_sentence %>
+          </dd>
+        </dl>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="keep-together">
+  <h4>SUPPORTIVE DOCUMENTATION NEEDED FOR EVERY APPLICATION (Please check box if included):</h4>
+
+  <div>
+    [X] Three-month budget that demonstrates cash crisis and sustainability in future months
+  </div>
+  <div>
+    [X] W-9 from landlord
+  </div>
+  <div>
+    [X] Relevant pages of lease (pages that show name of lessees, rental amount, security deposit amount, rental
+    dates, and signatures of lessees and payee). If a lease has not been signed, an Acknowledgement to Rent
+    can be submitted in lieu of lease
+  </div>
+  <div>
+    [X] Verification of owed costs (3-Day Notice or other written verification of exactly what lessee owes)
+  </div>
+  <div>
+    [X] Verification of income for every adult (pay stubs, letter verifying employment, benefits award letter, etc)
+  </div>
+  <div>
+    [X] Verification of crisis (car repair bill, copy of no-fault notice to vacate, verification of illness)
+  </div>
+</div>
+
+<div class="keep-together">
+  <h4>CLIENT CERTIFICATION</h4>
+  <p>
+    I hereby give my consent to the above-named agency to release
+    information necessary to receive assistance from the Housing Industry
+    Foundation (HIF) and I also give permission to said agency and to HIF
+    to contact any group or individual which would be helpful in
+    understanding or confirming my situation and need of assistance.  I
+    acknowledge that HIF may contact me to determine the effectiveness of
+    this grant in stabilizing my housing situation.  HIF may also
+    publicize my situation in general terms with no identifying
+    information in publications regarding this housing assistance program.
+  </p>
+
+  Signature_________________________________________________________________________Date________________
+</div>
+
+<div class="keep-together">
+  <h4>AGENCY APPROVAL</h4>
+  <p>
+    I hereby confirm that I have verified the information shown above to
+    the best of my ability and in keeping with my organization’s
+    standards of practice and that all relevant information has been
+    disclosed.
+  </p>
+
+  Caseworker___________________________________ Supervisor_____________________________________ Date _____________
+</div>

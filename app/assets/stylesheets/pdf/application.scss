@@ -1,0 +1,7 @@
+@import "bootstrap-sprockets";
+// We override bootstrap variables in a file a subdirectory
+// so that it's not pulled in twice with the @import "*" below
+@import "pdf/bootstrap-overrides";
+@import "bootstrap";
+@import "pdf/tables";
+@import "pdf/layout";
