@@ -51,7 +51,16 @@
         </div>
       </div>
     <% end %>
+    <h2>Uploaded Documentation</h2>
+    <% unless @grant.uploads.empty? %>
+      <ul>
+        <% @grant.uploads.each do |upload| %>
+          <li><%= link_to upload.file_file_name, upload.file.expiring_url(100) %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
+
   <div class="col-md-4 col-sm-5">
     <%= render "grants/controls" %>
   </div>
