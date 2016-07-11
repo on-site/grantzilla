@@ -9,9 +9,9 @@ class UploadsController < ApplicationController
     @upload = Upload.new(upload_params)
 
     if @upload.save
-      redirect_to @upload, notice: 'Document was successfully uploaded.'
+      redirect_to :back, notice: 'File was successfully uploaded.'
     else
-      render action: 'new'
+      redirect_to :back, alert: 'Failed to upload file.'
     end
   end
 
