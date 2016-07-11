@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   end
 
   resources :agencies
-  resources :uploads
+  resources :uploads do
+    member do
+      get 'download'
+    end
+  end
 
   resources :grants do
     member do
