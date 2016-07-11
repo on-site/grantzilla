@@ -16,8 +16,15 @@ class UploadsController < ApplicationController
   end
 
   def download
-    @upload = Upload.find(params[:id].to_i)
+    @upload = Upload.find(params[:id])
     redirect_to @upload.file.expiring_url(url_expire_in_seconds)
+  end
+
+  def destroy
+    @upload = Upload.find(params[:id])
+    @upload.destroy
+    flash[:notice] = "File has been deleted."
+    redirect_to(:back)
   end
 
   private

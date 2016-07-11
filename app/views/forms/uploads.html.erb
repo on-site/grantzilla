@@ -55,7 +55,10 @@
     <% unless @grant.uploads.empty? %>
       <ul>
         <% @grant.uploads.each do |upload| %>
-          <li><%= link_to upload.file_file_name, download_upload_path(upload) %></li>
+          <li>
+            <%= link_to upload.file_file_name, download_upload_path(upload) %>
+            <%= link_to '[X]', upload, confirm: 'Are you sure you want to delete this file?', method: :delete %>
+          </li>
         <% end %>
       </ul>
     <% end %>
