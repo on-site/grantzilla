@@ -1,4 +1,4 @@
-class Budget < ActiveRecord::Base
+class Budget < ApplicationRecord
   has_one :grant
   before_create :initialize_primary_applicant_income
   before_create :initialize_secondary_applicant_income

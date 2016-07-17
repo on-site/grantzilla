@@ -1,2 +1,2 @@
-class IncomeType < ActiveRecord::Base
+class IncomeType < ApplicationRecord
 end

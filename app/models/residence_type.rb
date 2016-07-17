@@ -1,4 +1,4 @@
-class ResidenceType < ActiveRecord::Base
+class ResidenceType < ApplicationRecord
   has_many :residences
 
   def to_s

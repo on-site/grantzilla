@@ -1,4 +1,4 @@
-class GrantStatus < ActiveRecord::Base
+class GrantStatus < ApplicationRecord
   has_many :grants
 
   def self.initial

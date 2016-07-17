@@ -1,4 +1,4 @@
-class ReasonType < ActiveRecord::Base
+class ReasonType < ApplicationRecord
   default_scope -> { order(description: :asc) }
 
   def to_s

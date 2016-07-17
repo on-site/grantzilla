@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Person < ActiveRecord::Base
+class Person < ApplicationRecord
   has_many :employments
   has_many :incomes
   belongs_to :grant

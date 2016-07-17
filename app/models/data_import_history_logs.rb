@@ -1,2 +1,2 @@
-class DataImportHistoryLogs < ActiveRecord::Base
+class DataImportHistoryLogs < ApplicationRecord
 end

@@ -1,4 +1,4 @@
-class SubsidyType < ActiveRecord::Base
+class SubsidyType < ApplicationRecord
   has_many :grants
 
   def to_s
