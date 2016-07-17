@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class populates the residence data model from an EHF data record.
 class PopulateResidence
   def self.populate(ehf_data_record)

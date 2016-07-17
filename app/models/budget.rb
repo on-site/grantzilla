@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Budget < ApplicationRecord
   has_one :grant
   before_create :initialize_primary_applicant_income

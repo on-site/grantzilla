@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CommentsMailer < ApplicationMailer
   def comment_email(comment, user)
     @comment = comment

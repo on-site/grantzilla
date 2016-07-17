@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CoverageType < ApplicationRecord
   has_many :grant_coverage_types
   has_many :grants, through: :grant_coverage_types

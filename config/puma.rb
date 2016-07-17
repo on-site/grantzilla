@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This file is copied from Heroku's recommendations at
 # https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server
 # with some small changes

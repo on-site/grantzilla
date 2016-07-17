@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FormsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_grant

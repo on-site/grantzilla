@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Grant < ApplicationRecord
   COMPONENTS = [:grants_reason_types, :people, :residence, :payees].freeze
 

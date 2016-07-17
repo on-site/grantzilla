@@ -4,10 +4,10 @@ class EnvironmentSetup
   # Increment this version if you change the setup such that everyone should re-run this
   VERSION = 2
   ENV_FILE = File.expand_path("../../.ruby-env", __FILE__).freeze
-  RED = "\e[31m".freeze
-  GREEN = "\e[32m".freeze
-  BOLD = "\e[1m".freeze
-  CLEAR = "\e[0m".freeze
+  RED = "\e[31m"
+  GREEN = "\e[32m"
+  BOLD = "\e[1m"
+  CLEAR = "\e[0m"
 
   attr_reader :changed
   alias changed? changed

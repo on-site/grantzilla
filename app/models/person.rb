@@ -6,8 +6,8 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for(:incomes, reject_if: :all_blank, allow_destroy: true)
 
-  FULL_TIME_STUDENT = "Full-Time".freeze
-  PART_TIME_STUDENT = "Part-Time".freeze
+  FULL_TIME_STUDENT = "Full-Time"
+  PART_TIME_STUDENT = "Part-Time"
   STUDENT_STATUSES = [PART_TIME_STUDENT, FULL_TIME_STUDENT].freeze
 
   def current_earned_income
