@@ -20,7 +20,7 @@ class Budget < ApplicationRecord
 
   def initialize_additional_applicant_income
     return unless grant.people.size > 2
-    self.other_household_income ||= grant.people.slice(2..-1).map(&:current_income).sum
+    self.other_household_income ||= grant.people.to_a.slice(2..-1).map(&:current_income).sum
   end
 
   def initialize_rent
