@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module FormsHelper
   def breadcrumbs
     content_tag(:ol, class: 'breadcrumb') do

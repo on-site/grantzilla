@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class populates the payee data model from an EHF data record.
 class PopulatePayee
   def self.populate(ehf_data_record)

@@ -100,7 +100,7 @@
       <td>
         <dl>
           <dt>Qualifying Criteria</dt>
-          <dd><%= @grant.reason_types.to_sentence %></dd>
+          <dd><%= @grant.reason_types.to_a.to_sentence %></dd>
         </dl>
       </td>
     </tr>
@@ -344,7 +344,7 @@
         <dl>
           <dt>Use of HIF Funds</dt>
           <dd>
-            <%= @grant.coverage_types.to_sentence %>
+            <%= @grant.coverage_types.to_a.to_sentence %>
           </dd>
         </dl>
       </td>

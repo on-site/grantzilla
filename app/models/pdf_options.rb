@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module PdfOptions
   def footer_options
     {

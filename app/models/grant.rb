@@ -1,4 +1,5 @@
-class Grant < ActiveRecord::Base
+# frozen_string_literal: true
+class Grant < ApplicationRecord
   COMPONENTS = [:grants_reason_types, :people, :residence, :payees].freeze
 
   before_save :set_application_date

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class provides read-only access to an EHF data record.  The data records native format
 # is a CSV row. The EHF data record is an array matching each column in the CVS file. The CVS
 # headings is an array matching the heading of each column.  The CVS headings are used as keys

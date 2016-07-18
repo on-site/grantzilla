@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class populates the agency data model from an EHF data record.
 class PopulateAgency
   def self.populate(ehf_data_record)

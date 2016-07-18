@@ -1,2 +1,3 @@
-class DataImportHistoryLogs < ActiveRecord::Base
+# frozen_string_literal: true
+class DataImportHistoryLogs < ApplicationRecord
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class stores the lookup values to avoid trips to the database.
 class LookupCache
   def income_type(description)

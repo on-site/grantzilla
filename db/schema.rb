@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -75,10 +74,9 @@ ActiveRecord::Schema.define(version: 20160612215930) do
   create_table "coverage_types_grants", force: :cascade do |t|
     t.integer "coverage_type_id"
     t.integer "grant_id"
+    t.index ["coverage_type_id"], name: "index_coverage_types_grants_on_coverage_type_id", using: :btree
+    t.index ["grant_id"], name: "index_coverage_types_grants_on_grant_id", using: :btree
   end
-
-  add_index "coverage_types_grants", ["coverage_type_id"], name: "index_coverage_types_grants_on_coverage_type_id", using: :btree
-  add_index "coverage_types_grants", ["grant_id"], name: "index_coverage_types_grants_on_grant_id", using: :btree
 
   create_table "data_import_history_logs", force: :cascade do |t|
     t.integer  "ehf_records_processed"
@@ -123,18 +121,16 @@ ActiveRecord::Schema.define(version: 20160612215930) do
   create_table "grants_payees", force: :cascade do |t|
     t.integer "grant_id"
     t.integer "payee_id"
+    t.index ["grant_id"], name: "index_grants_payees_on_grant_id", using: :btree
+    t.index ["payee_id"], name: "index_grants_payees_on_payee_id", using: :btree
   end
-
-  add_index "grants_payees", ["grant_id"], name: "index_grants_payees_on_grant_id", using: :btree
-  add_index "grants_payees", ["payee_id"], name: "index_grants_payees_on_payee_id", using: :btree
 
   create_table "grants_reason_types", force: :cascade do |t|
     t.integer "grant_id"
     t.integer "reason_type_id"
+    t.index ["grant_id"], name: "index_grants_reason_types_on_grant_id", using: :btree
+    t.index ["reason_type_id"], name: "index_grants_reason_types_on_reason_type_id", using: :btree
   end
-
-  add_index "grants_reason_types", ["grant_id"], name: "index_grants_reason_types_on_grant_id", using: :btree
-  add_index "grants_reason_types", ["reason_type_id"], name: "index_grants_reason_types_on_reason_type_id", using: :btree
 
   create_table "income_types", force: :cascade do |t|
     t.string "description"
@@ -235,10 +231,9 @@ ActiveRecord::Schema.define(version: 20160612215930) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "grant_id"
+    t.index ["grant_id"], name: "index_uploads_on_grant_id", using: :btree
+    t.index ["user_type", "user_id"], name: "index_uploads_on_user_type_and_user_id", using: :btree
   end
-
-  add_index "uploads", ["grant_id"], name: "index_uploads_on_grant_id", using: :btree
-  add_index "uploads", ["user_type", "user_id"], name: "index_uploads_on_user_type_and_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",            null: false
@@ -265,14 +260,13 @@ ActiveRecord::Schema.define(version: 20160612215930) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.boolean  "approved",               default: false
+    t.index ["agency_id"], name: "index_users_on_agency_id", using: :btree
+    t.index ["approved"], name: "index_users_on_approved", using: :btree
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
-
-  add_index "users", ["agency_id"], name: "index_users_on_agency_id", using: :btree
-  add_index "users", ["approved"], name: "index_users_on_approved", using: :btree
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   add_foreign_key "coverage_types_grants", "coverage_types"
   add_foreign_key "coverage_types_grants", "grants", on_delete: :cascade

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class populates the grant data model from an EHF data record.,
 class PopulateGrant
   def self.populate(ehf_data_record, residence, user, payee)

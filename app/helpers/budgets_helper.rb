@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module BudgetsHelper
   def budget_types
     [:last_month_budget,
