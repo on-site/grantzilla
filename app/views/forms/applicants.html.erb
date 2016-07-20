@@ -1,4 +1,5 @@
 <% person_fields = 'forms/fields/person_fields' %>
+<% dependent_fields = 'forms/fields/dependent_fields' %>
 
 <%= breadcrumbs %>
 
@@ -11,7 +12,13 @@
         html: { class: 'form-horizontal', data: { live_guarded: true } }) do |f| %>
       <div class="people">
         <%= f.simple_fields_for :people, @grant.people do |pf| %>
-          <%= render partial: person_fields, locals: { f: pf } %>
+          <% if pf.object.adult? %>
+            <%= render partial: person_fields, locals: { f: pf } %>
+          <% elsif pf.object.dependent? %>
+            <%= render partial: dependent_fields, locals: { f: pf } %>
+          <% else %>
+            <% raise "Undefined person type for person: #{pf.object}" %>
+          <% end %>
         <% end %>
       </div>
       <div class="row">
@@ -23,6 +30,11 @@
                   data: { association_insertion_node: ".people", association_insertion_method: "append" } do %>
                 <span class="glyphicon glyphicon-plus"></span>
                 Add Person
+              <% end %>
+              <%= link_to_add_association f, :people, partial: dependent_fields, class: 'btn btn-default',
+                  data: { association_insertion_node: ".people", association_insertion_method: "append" } do %>
+                <span class="glyphicon glyphicon-plus"></span>
+                Add Dependent
               <% end %>
             </div>
           </div>
