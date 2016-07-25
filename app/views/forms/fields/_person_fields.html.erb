@@ -1,6 +1,6 @@
 <div class="nested-fields">
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-md-10 col-sm-11">
       <%= f.input :first_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :last_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
@@ -11,10 +11,10 @@
       <%= f.input :veteran, wrapper: :horizontal_boolean %>
     </div>
 
-    <div class="col-sm-2 text-right">
+    <div class="col-md-2 col-sm-1 text-right">
       <%= link_to_remove_association f, class: 'btn btn-default' do %>
         <span class="glyphicon glyphicon-trash"></span>
-        Remove
+        <span class="hidden-sm">Remove</span>
       <% end %>
     </div>
   </div>
