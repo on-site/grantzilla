@@ -29,12 +29,12 @@
               <%= link_to_add_association f, :people, partial: person_fields, class: 'btn btn-default',
                   data: { association_insertion_node: ".people", association_insertion_method: "append" } do %>
                 <span class="glyphicon glyphicon-plus"></span>
-                Add Person
+                <span class="hidden-sm">Add</span> Person
               <% end %>
               <%= link_to_add_association f, :people, partial: dependent_fields, class: 'btn btn-default',
                   data: { association_insertion_node: ".people", association_insertion_method: "append" } do %>
                 <span class="glyphicon glyphicon-plus"></span>
-                Add Dependent
+                <span class="hidden-sm">Add</span> Dependent
               <% end %>
             </div>
           </div>
