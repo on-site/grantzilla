@@ -17,7 +17,6 @@ gem "jquery-rails"
 gem "jquery-turbolinks"
 gem "jbuilder", "~> 2.5"
 gem "momentjs-rails", ">= 2.9.0"
-gem "newrelic_rpm"
 # paperclip with support for S3 storage with aws-sdk v2
 # has not been published yet but is on master as of 1/22/16.
 gem "paperclip", github: "thoughtbot/paperclip"
@@ -58,6 +57,7 @@ end
 
 group :production do
   gem "aws-sdk"
+  gem "newrelic_rpm"
   gem "mailgun_rails"
   gem "sidekiq"
   gem "rails_12factor"
