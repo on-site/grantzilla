@@ -1,7 +1,7 @@
 <div class="nested-fields">
   <div class="row">
     <div class="col-md-10 col-sm-11">
-      <%= f.hidden_field :person_type, input_html: { value: Person::DEPENDENT } %>
+      <%= f.hidden_field :person_type, value: Person::DEPENDENT %>
       <%= f.input :first_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :last_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
