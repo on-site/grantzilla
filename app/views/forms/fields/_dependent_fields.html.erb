@@ -1,14 +1,12 @@
 <div class="nested-fields">
   <div class="row">
     <div class="col-md-10 col-sm-11">
+      <%= f.hidden_field :person_type, value: Person::DEPENDENT %>
       <%= f.input :first_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :last_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
           required: true, input_html: { data: { guard: "required" }, type: "date" } %>
-      <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
-      <%= f.input :email, required: true, input_html: { data: { guard: "email required" } } %>
-      <%= f.input :student_status, collection: Person::STUDENT_STATUSES %>
-      <%= f.input :veteran, wrapper: :horizontal_boolean %>
+      <%= f.input :student_status, label: "Daycare/School", collection: Person::DEPENDENT_STUDENT_STATUSES %>
     </div>
 
     <div class="col-md-2 col-sm-1 text-right">

@@ -4,11 +4,26 @@ class Person < ApplicationRecord
   has_many :incomes
   belongs_to :grant
 
+  after_initialize :initialize_person_type
+
   accepts_nested_attributes_for(:incomes, reject_if: :all_blank, allow_destroy: true)
 
-  FULL_TIME_STUDENT = "Full-Time"
-  PART_TIME_STUDENT = "Part-Time"
+  ADULT = "Adult"
+  DEPENDENT = "Dependent"
+
+  DAYCARE = "Daycare"
+  FULL_TIME_STUDENT = "Full-Time Student"
+  PART_TIME_STUDENT = "Part-Time Student"
+  DEPENDENT_STUDENT_STATUSES = [DAYCARE, PART_TIME_STUDENT, FULL_TIME_STUDENT].freeze
   STUDENT_STATUSES = [PART_TIME_STUDENT, FULL_TIME_STUDENT].freeze
+
+  def adult?
+    person_type == ADULT
+  end
+
+  def dependent?
+    person_type == DEPENDENT
+  end
 
   def current_earned_income
     incomes.select(&:current).reject(&:disabled).map(&:monthly_income).sum
@@ -28,5 +43,11 @@ class Person < ApplicationRecord
 
   def to_s
     full_name
+  end
+
+  private
+
+  def initialize_person_type
+    self.person_type = ADULT unless person_type.present?
   end
 end
