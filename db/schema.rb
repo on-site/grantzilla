@@ -231,8 +231,6 @@ ActiveRecord::Schema.define(version: 20160718110954) do
     t.datetime "file_updated_at",   null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "grant_id"
-    t.index ["grant_id"], name: "index_uploads_on_grant_id", using: :btree
     t.index ["user_type", "user_id"], name: "index_uploads_on_user_type_and_user_id", using: :btree
   end
 
@@ -286,6 +284,5 @@ ActiveRecord::Schema.define(version: 20160718110954) do
   add_foreign_key "other_payments", "grants", on_delete: :cascade
   add_foreign_key "people", "grants", on_delete: :cascade
   add_foreign_key "residences", "residence_types"
-  add_foreign_key "uploads", "grants"
   add_foreign_key "users", "agencies"
 end

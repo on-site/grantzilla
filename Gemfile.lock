@@ -219,7 +219,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rmagick (2.15.4)
+    rmagick (2.16.0)
     rspec-core (3.5.1)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -353,9 +353,6 @@ DEPENDENCIES
   will_paginate-bootstrap
   wkhtmltopdf-binary-edge
   wkhtmltopdf-heroku
-
-RUBY VERSION
-   ruby 2.3.0p0
 
 BUNDLED WITH
    1.12.5
