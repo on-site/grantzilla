@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module AddressHelper
   US_STATES = {
     "Alaska" => "AK",

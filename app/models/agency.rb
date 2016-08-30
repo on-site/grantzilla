@@ -1,4 +1,5 @@
-class Agency < ActiveRecord::Base
+# frozen_string_literal: true
+class Agency < ApplicationRecord
   has_many :users
 
   self.per_page = 20

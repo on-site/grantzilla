@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicationController < ActionController::Base
   rescue_from Errors::NotAuthorizedError, with: :permission_error
   rescue_from Errors::NotFoundError, with: :not_found_error

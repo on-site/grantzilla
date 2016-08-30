@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Upload < ActiveRecord::Base
+class Upload < ApplicationRecord
   VALID_CONTENT_TYPES = [
     "application/pdf",
     "application/vnd.ms-excel",

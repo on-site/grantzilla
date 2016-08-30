@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class manages the reading of the CSV file and population of the different models.
 class DataImportManager
   require 'csv'

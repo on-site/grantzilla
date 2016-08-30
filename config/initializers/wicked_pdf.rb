@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # WickedPDF Global Configuration
 #
 # To learn more, check out the README:

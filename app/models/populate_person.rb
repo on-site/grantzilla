@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This class populates the people data model from an EHF data record.
 class PopulatePerson
   def self.populate(ehf_data_record, grant)

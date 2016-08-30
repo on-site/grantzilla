@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module GrantsHelper
   def case_workers
     if current_user.admin?

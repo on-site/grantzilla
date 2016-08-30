@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 unless Rails.env.production?
   require "rubocop/rake_task"
   require "rspec/core/rake_task"

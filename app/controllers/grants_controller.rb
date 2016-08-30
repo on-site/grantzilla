@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class GrantsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :destroy]

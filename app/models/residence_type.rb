@@ -1,4 +1,5 @@
-class ResidenceType < ActiveRecord::Base
+# frozen_string_literal: true
+class ResidenceType < ApplicationRecord
   has_many :residences
 
   def to_s

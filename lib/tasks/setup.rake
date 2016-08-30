@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require File.expand_path("../../environment_setup", __FILE__)
 
 desc "Configure your environment for development"

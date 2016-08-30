@@ -1,4 +1,5 @@
-class GrantStatus < ActiveRecord::Base
+# frozen_string_literal: true
+class GrantStatus < ApplicationRecord
   has_many :grants
 
   def self.initial

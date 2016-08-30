@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FormsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_grant
@@ -45,7 +46,7 @@ class FormsController < ApplicationController
   end
 
   def people_attributes
-    { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone,
+    { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone, :person_type,
                           :email, :veteran, :student_status, :_destroy, incomes_attributes] }
   end
 

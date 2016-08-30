@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :agency do
     name "Sample Agency"
@@ -40,6 +41,7 @@ FactoryGirl.define do
   factory :person do
     first_name "Frank"
     last_name "Furter"
+    person_type Person::ADULT
   end
 
   factory :user do
