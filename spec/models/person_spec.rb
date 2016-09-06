@@ -3,6 +3,27 @@ require "rails_helper"
 
 RSpec.describe Person, type: :model do
   let(:person) { build(:person) }
+  context "validations" do
+    let(:subject) { person }
+    context "when the person type is invalid" do
+      let(:person) { build(:person, person_type: "Invalid") }
+      it "is considered invalid" do
+        expect(subject).to_not be_valid
+      end
+    end
+    context "when the employment status is invalid" do
+      let(:person) { build(:person, person_type: Person::ADULT, employment_status: "Invalid") }
+      it "is considered invalid" do
+        expect(subject).to_not be_valid
+      end
+    end
+    context "when the student status is invalid" do
+      let(:person) { build(:person, person_type: Person::ADULT, student_status: "Invalid") }
+      it "is considered invalid" do
+        expect(subject).to_not be_valid
+      end
+    end
+  end
   context "current income methods" do
     before do
       person.incomes = [build(:income, :previous, monthly_income: 1000),
