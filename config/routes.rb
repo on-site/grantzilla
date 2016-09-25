@@ -34,5 +34,7 @@ Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/unauthorized'
 
+  get "/.well-known/acme-challenge/:id" => "letsencrypt#authenticate_key"
+
   root 'grants#index'
 end
