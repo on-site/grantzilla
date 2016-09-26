@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       to: proc {
         [200,
          {},
-         ["PVltCpMKHMFVvw2JnYNnsKovB8XNwbEm6iB_sjmTBvA.EOz8wpTt91fuDD0G0ziU0_tJHJNh11aZyXsVX3y7mro"]]
+         [ENV['GRANTZILLA_LETS_ENCRYPT_CHALLENGE_ID'] || 'The GRANTZILLA_LETS_ENCRYPT_CHALLENGE_ID environment variable is not set.']]
       }
 
   root 'grants#index'
