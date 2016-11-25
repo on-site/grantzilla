@@ -40,7 +40,7 @@
           <%= pf.input :zip, wrapper: "horizontal_form_4", required: true,
               input_html: { data: { guard: "required int" }, maxlength: 5 } %>
         </div>
-        <%= pf.input :phone, required: true, input_html: { data: { guard: "required phoneUS" } } %>
+        <%= pf.input :phone, input_html: { data: { guard: "phoneUS" } } %>
         <%= pf.input :email, type: "email", input_html: { data: { guard: "email" } }%>
       <% end %>
 
