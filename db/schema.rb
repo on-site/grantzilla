@@ -220,8 +220,8 @@ ActiveRecord::Schema.define(version: 20160718110954) do
   end
 
   create_table "uploads", force: :cascade do |t|
-    t.integer  "user_id",           null: false
     t.string   "user_type",         null: false
+    t.integer  "user_id",           null: false
     t.string   "description"
     t.string   "category"
     t.string   "file_fingerprint",  null: false
