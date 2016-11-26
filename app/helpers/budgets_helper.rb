@@ -45,7 +45,7 @@ module BudgetsHelper
   def budget_specified_expense_items
     {
       installment_payments: "Installment payments (credit cards or loans)",
-      miscellaneous_expenses: "Miscellaneous (cigarettes, entertainment, etc.)"
+      miscellaneous_expenses: "Miscellaneous (entertainment, etc.)"
     }
   end
 
