@@ -129,6 +129,8 @@
         <th colspan="12">
           <% if index == 0 %>
             Primary Applicant #1 (Head of Household)
+          <% elsif person.dependent? %>
+            Dependent
           <% else %>
             Applicant #<%= index + 1 %>
           <% end %>
