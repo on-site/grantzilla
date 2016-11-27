@@ -27,7 +27,8 @@
       <h2>Payee Information</h2>
       <hr/>
       <%= f.simple_fields_for :payees, @grant.payees do |pf| %>
-        <%= pf.input :name, required: true, input_html: { data: { guard: "required" } } %>
+        <%= pf.input :name, required: true, input_html: { data: { guard: "required" } },
+                    hint: "Name as it appears on Payee's W9 and tax filing documents." %>
         <%= pf.input :attention %>
         <div class="form-group">
           <%= pf.input :street_address, wrapper: "horizontal_form_8", required: true, input_html: { data: { guard: "required" } } %>
