@@ -4,3 +4,6 @@
 
 $(document).on "change", ".agency-filter, .worker-filter", ->
   $(@).parents("form").submit()
+
+$ ->
+  $.guard("#grant_grant_amount_requested").using("moneyUS", { max: 2500.00 })
