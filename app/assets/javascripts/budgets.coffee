@@ -12,6 +12,6 @@ calculateTotals = (month) ->
 $(document).on "format.money", "table.budgets input.money", ->
   calculateTotals $(@)
 
-$ ->
+$(document).on "turbolinks:load", ->
   $("table.budgets tbody tr:first-of-type input.money").each (index, item) ->
    calculateTotals item

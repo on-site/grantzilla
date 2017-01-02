@@ -14,7 +14,6 @@ gem "coffee-rails", "~> 4.2"
 gem "devise", "~> 4.2"
 gem "devise-bootstrap-views"
 gem "jquery-rails"
-gem "jquery-turbolinks"
 gem "jbuilder", "~> 2.5"
 gem "momentjs-rails", ">= 2.9.0"
 # paperclip with support for S3 storage with aws-sdk v2
