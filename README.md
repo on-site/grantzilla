@@ -21,7 +21,8 @@ This project is available as open source under the terms of the
 ## Linux Setup
 
 ```
-sudo apt-get install -y postgresql-9.3 postgresql-client-common postgresql-client-common libmagickwand-dev imagemagick
+# For Ubuntu 16+, change 9.3. t0 9.5 whereever it appears in the line below:
+sudo apt-get install -y postgresql-9.3 postgresql-server-9.3 postgresql-client-common libmagickwand-dev imagemagick
 # Change my_user_name and my_secret_password before running the next 2 commands
 sudo su - postgres -c "psql -c 'CREATE USER my_user_name WITH PASSWORD '\''my_secret_password'\'''"
 sudo su - postgres -c "psql -c 'ALTER USER my_user_name CREATEDB'"
