@@ -1,0 +1,96 @@
+<%= breadcrumbs %>
+
+<h2><%= "Applicant".pluralize(@grant.people.size) %>: <%= @grant.people.map(&:full_name).to_sentence %></h2>
+<div class="row">
+  <div class="col-md-8 col-sm-7">
+    <%= simple_form_for(@grant, url: wizard_path,  method: :put,
+        wrapper: :horizontal_form,
+        html: { class: 'form-horizontal', data: { live_guarded: true } }) do |f| %>
+      <table class="table table-striped budgets income">
+        <thead>
+          <tr>
+            <th><h4>Monthly Net Income</h4></th>
+            <th class="text-right">Last Month</th>
+            <th class="text-right">Current Month</th>
+            <th class="text-right">Next Month</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% budget_income_items.each_pair do |type, description| %>
+            <tr>
+              <td><%= description.html_safe %></td>
+              <%= f.simple_fields_for :budget, @grant.last_month_budget do |bf| %>
+                <%= render partial: "forms/fields/budget_fields", locals: { f: bf, type: type } %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="text-bold">Subtotal of Monthly Income</strong></td>
+            <td class="text-right text-bold subtotal-last-month-budget"></td>
+            <td class="text-right text-bold subtotal-current-month-budget"></td>
+            <td class="text-right text-bold subtotal-next-month-budget"></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <table class="table table-striped budgets expenses">
+        <thead>
+          <tr>
+            <th><h4>Monthly Expenses</h4></th>
+            <th class="text-right">Last Month</th>
+            <th class="text-right">Current Month</th>
+            <th class="text-right">Next Month</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% budget_expense_items.each_pair do |type, description| %>
+            <tr>
+              <td>
+                <%= description.html_safe %>
+              </td>
+              <%= f.simple_fields_for :budget, @grant.current_month_budget do |bf| %>
+                <%= render partial: "forms/fields/budget_fields", locals: { f: bf, type: type } %>
+              <% end %>
+            </tr>
+          <% end %>
+
+          <% budget_specified_expense_items.each_pair do |type, description| %>
+            <tr>
+              <td>
+                <%= f.fields_for :last_month_budget, @grant.last_month_budget do |b| %>
+                  <%= b.text_field append_description(type), class: "form-control", placeholder: "Specify" %>
+                <% end %>
+                <span class="help-block"><%= description.html_safe %></span>
+              </td>
+              <%= f.simple_fields_for :budget, @grant.next_month_budget do |bf| %>
+                <%= render partial: "forms/fields/budget_fields", locals: { f: bf, type: type } %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td class="text-bold">Subtotal of Monthly Expenses</strong></td>
+            <td class="text-right text-bold subtotal-last-month-budget"></td>
+            <td class="text-right text-bold subtotal-current-month-budget"></td>
+            <td class="text-right text-bold subtotal-next-month-budget"></td>
+          </tr>
+          <tr>
+            <td class="text-bold">Net Income</strong></td>
+            <td class="text-right text-bold total-last-month-budget"></td>
+            <td class="text-right text-bold total-current-month-budget"></td>
+            <td class="text-right text-bold total-next-month-budget"></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <%= f.submit "Save and Continue", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="col-md-4 col-sm-5">
+    <%= render "grants/controls" %>
+  </div>
+</div>

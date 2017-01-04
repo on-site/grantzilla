@@ -5,7 +5,7 @@ class FormsController < ApplicationController
   before_action :initialize_grant
 
   include Wicked::Wizard
-  steps :applicants, :overview, :properties, :employment, :uploads
+  steps :applicants, :overview, :properties, :employment, :budget, :uploads
 
   def show
     render_wizard
@@ -37,7 +37,9 @@ class FormsController < ApplicationController
     params.require(:grant).permit([:adjusted_rent, :details, :grant_amount_requested,
                                    :subsidy_type_id, :total_rent, :total_owed,
                                    coverage_type_ids: [], reason_type_ids: []],
-                                  people_attributes, payees_attributes, residence_attributes)
+                                  people_attributes, payees_attributes, residence_attributes,
+                                  last_month_budget_attributes, current_month_budget_attributes,
+                                  next_month_budget_attributes)
   end
 
   def incomes_attributes
@@ -58,6 +60,22 @@ class FormsController < ApplicationController
   def residence_attributes
     { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city,
                              :state, :zip, :move_in_date, :_destroy] }
+  end
+
+  def last_month_budget_attributes
+    { last_month_budget_attributes: budget_attributes }
+  end
+
+  def current_month_budget_attributes
+    { current_month_budget_attributes: budget_attributes }
+  end
+
+  def next_month_budget_attributes
+    { next_month_budget_attributes: budget_attributes }
+  end
+
+  def budget_attributes
+    Budget.attribute_names.map(&:to_sym) - [:created_at, :updated_at]
   end
 
   def finish_wizard_path

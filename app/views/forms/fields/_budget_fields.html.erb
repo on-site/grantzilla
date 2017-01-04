@@ -1,0 +1,8 @@
+<% budget_types.each do |budget_type| %>
+   <td>
+     <%= f.simple_fields_for budget_type, @grant.send(budget_type) do |b| %>
+     <%= b.input type, label: "", as: :money, wrapper: :none, input_html: {class: "text-right #{budget_type.to_s.dasherize}",
+         data: { guard: "moneyUS", budget_type: budget_type.to_s.dasherize }} %>
+     <% end %>
+   </td>
+<% end %>
