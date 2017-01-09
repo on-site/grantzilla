@@ -23,5 +23,7 @@ module Paperclip
     def expiring_url(_time = 3600, style_name = default_style)
       @url_generator.for(style_name, default_options)
     end
+
+    default_options[:path].gsub!(/:url/, default_options.fetch(:url))
   end
 end
