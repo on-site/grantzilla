@@ -7,8 +7,11 @@ label.btn-file {
 ul.category-checklist {
   list-style: none;
 
-  li {
-    span.glyphicon {
+  > li {
+    > span.glyphicon {
+      margin-left: -25px;
+    }
+    li {
       margin-left: -25px;
     }
   }
