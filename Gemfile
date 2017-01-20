@@ -16,9 +16,7 @@ gem "devise-bootstrap-views"
 gem "jquery-rails"
 gem "jbuilder", "~> 2.5"
 gem "momentjs-rails", ">= 2.9.0"
-# paperclip with support for S3 storage with aws-sdk v2
-# has not been published yet but is on master as of 1/22/16.
-gem "paperclip", github: "thoughtbot/paperclip"
+gem "paperclip", "~> 5.0.0"
 gem "pg"
 gem "puma"
 gem "rack-timeout"

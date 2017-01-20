@@ -5,5 +5,5 @@
 $(document).on "change", ".agency-filter, .worker-filter", ->
   $(@).parents("form").submit()
 
-$ ->
+$(document).on "turbolinks:load", ->
   $.guard("#grant_grant_amount_requested").using("moneyUS", { max: 2500.00 })
