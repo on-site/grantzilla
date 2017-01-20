@@ -1,0 +1,18 @@
+label.btn-file {
+  input[type="file"] {
+    display: none;
+  }
+}
+
+ul.category-checklist {
+  list-style: none;
+
+  > li {
+    > span.glyphicon {
+      margin-left: -25px;
+    }
+    li {
+      margin-left: -25px;
+    }
+  }
+}
