@@ -22,9 +22,10 @@
 /log/*
 !/log/.keep
 /tmp
-public/system # For paperclip attachments in development and test environments
 *~
 *\#
 .\#*
 .DS_Store
 .*.swp
+# For paperclip attachments in development and test environments
+/public/system

@@ -29,4 +29,13 @@ module FormsHelper
       "future"
     end
   end
+
+  def upload_category_classes(category)
+    @categories_uploaded = @grant.uploads.map(&:category).uniq if @categories_uploaded.nil?
+    if @categories_uploaded.include? category
+      "glyphicon glyphicon-ok-circle text-success"
+    else
+      "glyphicon glyphicon-remove-circle text-danger"
+    end
+  end
 end
