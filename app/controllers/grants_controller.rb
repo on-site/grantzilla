@@ -98,7 +98,7 @@ class GrantsController < ApplicationController
   end
 
   def grant_payee_params
-    params.require(:payee).permit(:name, :check_number)
+    params.require(:payee).permit(:check_number)
   end
 
   def people_attributes

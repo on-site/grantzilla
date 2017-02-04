@@ -29,8 +29,9 @@ let GrantControlsForm = (props) => (
 
     <div className="form-group">
       <label className="control-label" htmlFor="gcf-payee">Payee</label>
-      <input className="form-control" id="gcf-payee" name="number" type="text"
-             defaultValue={props.payee.name} />
+      <div className="form-control-static" id="gcf-payee">
+        {props.payee.name}
+      </div>
     </div>
 
     <div className="form-group hidden">
