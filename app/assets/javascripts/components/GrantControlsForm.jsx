@@ -29,8 +29,8 @@ let GrantControlsForm = (props) => (
 
     <div className="form-group">
       <label className="control-label" htmlFor="gcf-payee">Payee</label>
-      <div className="form-control-static" id="gcf-payee">
-        {props.payee.name}
+      <div className={props.payee.name == null ? 'form-control-static text-italic' : 'form-control-static'} id="gcf-payee">
+        {props.payee.name != null ? props.payee.name : 'Unspecified'}
       </div>
     </div>
 
