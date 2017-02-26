@@ -30,6 +30,7 @@ class GrantsController < ApplicationController
         pdf_filename_hash = filename_hash
         render pdf_options(file_name: pdf_filename_hash[:application],
                            debug: params[:debug].presence).merge(
+                             template: "grants/show",
                              save_to_file: pdf_filename_hash[:application],
                              disposition: 'attachment'
                            )
