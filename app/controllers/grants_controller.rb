@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
 class GrantsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :download_package, :destroy]
@@ -22,6 +23,7 @@ class GrantsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def download_package
     respond_to do |format|
       format.pdf do
