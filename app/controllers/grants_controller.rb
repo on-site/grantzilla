@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 class GrantsController < ApplicationController
-  require 'rmagick'
-  include Magick
-
   before_action :authenticate_user!
   before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :download_package, :destroy]
   before_action :set_controls_info, only: [:show, :edit]
 
+  require 'rmagick'
+  include Magick
   include PdfOptions
 
   def index
@@ -29,7 +28,8 @@ class GrantsController < ApplicationController
         pdf_filename_hash = filename_hash
         render pdf_options(file_name: pdf_filename_hash[:application],
                            debug: params[:debug].presence).merge(
-                             { save_to_file: pdf_filename_hash[:application], disposition: 'attachment' }
+                             save_to_file: pdf_filename_hash[:application],
+                             disposition: 'attachment'
                            )
         create_all_docs_in_pdf(pdf_filename_hash)
       end
@@ -127,7 +127,7 @@ class GrantsController < ApplicationController
 
   def filename_hash
     pdf_dir = "#{Rails.root}/pdfs"
-    Dir.mkdir(pdf_dir) unless File.exists?(pdf_dir)
+    Dir.mkdir(pdf_dir) unless File.exist?(pdf_dir)
 
     {
       application: "#{pdf_dir}/grant_#{@grant.id}.application.pdf",
