@@ -9,7 +9,7 @@ class UploadsController < ApplicationController
   def create
     @upload = Upload.new(upload_params)
 
-    if @upload.save
+    if @upload.save!
       redirect_to :back, notice: 'File was successfully uploaded.'
     else
       redirect_to :back, alert: 'Failed to upload file.'
