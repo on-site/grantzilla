@@ -153,6 +153,12 @@ class GrantsController < ApplicationController
   def add_uploaded_documents_from_aws(one_pdf)
     # Example of how to add images
     #   one_pdf.read("filename_with_path")
+    Upload.where(user_id: @grant.id).each do |uploaded_file|
+      uploaded_filename = uploaded_file.file_file_name
+      filename_path = "#{Rails.root}/pdfs/#{uploaded_filename}"
+      uploaded_file.file.copy_to_local_file :original, filename_path
+      one_pdf.read(filename_path)
+    end
 
     one_pdf
   end
