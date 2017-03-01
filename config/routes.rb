@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     member do
       patch 'update_controls'
       post 'add_comment'
+      get 'download_package'
     end
 
     resources :budgets, only: [:index] do

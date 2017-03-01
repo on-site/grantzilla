@@ -160,6 +160,9 @@
       <%= link_to grant_path(@grant, format: :pdf), class: "btn btn-default" do %>
         <span class="glyphicon glyphicon-print"></span> Print Application
       <% end %>
+      <%= link_to download_package_grant_path(@grant, format: :pdf), class: "btn btn-default" do %>
+        <span class="glyphicon glyphicon-download"></span> Download Package
+      <% end %>
       <%= link_to 'return', grants_path, class: "btn btn-link" %>
     </div>
   </div>

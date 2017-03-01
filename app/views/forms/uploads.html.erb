@@ -31,7 +31,7 @@
     </div>
     </ul>
     <%= simple_form_for(@upload, wrapper: :horizontal_form, html: { class: 'form-horizontal', data: { live_guarded: true} }) do |f| %>
-      <div class="form-group">
+      <div class="form-group col-sm-offset-2 col-sm-9">
         <%= f.input :category, label: "Type", collection: Upload::UPLOAD_CATEGORIES.keys,
             prompt: "Select Type of Documentation", input_html: { data: { guard: "required" } } %>
         <div class="col-sm-offset-3 col-sm-9">
@@ -41,9 +41,12 @@
             Select a File
             <%= f.file_field :file %>
           </label>
+          <span>
+            <%= f.label :uploaded_filename, id: "uploaded_filename"  %>
+          </span>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group col-sm-offset-2 col-sm-9">
         <div class="col-sm-offset-3 col-sm-9">
           <%= f.submit 'Upload Document', class: 'btn btn-primary' %>
         </div>
