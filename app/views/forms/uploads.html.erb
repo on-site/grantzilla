@@ -11,7 +11,7 @@
           <li>
             <span class="<%= upload_category_classes(name) %>"></span>
             <strong><%= name %></strong><% if name != description %>: <%= description %><% end %>
-            <% uploads = @grant.uploads.select { |x| x.category == description } %>
+            <% uploads = @grant.uploads.select { |x| x.category == name } %>
             <% if uploads.present? %>
               <ul>
                 <% uploads.each do |upload| %>
