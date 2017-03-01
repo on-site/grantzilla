@@ -158,6 +158,7 @@ class GrantsController < ApplicationController
       filename_path = "#{Rails.root}/pdfs/#{uploaded_filename}"
       uploaded_file.file.copy_to_local_file :original, filename_path
       one_pdf.read(filename_path)
+      File.delete(filename_path)
     end
 
     one_pdf
