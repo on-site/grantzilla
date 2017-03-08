@@ -34,7 +34,13 @@ class GrantsController < ApplicationController
                              save_to_file: pdf_filename_hash[:application],
                              disposition: 'attachment'
                            )
+
         create_all_docs_in_pdf(pdf_filename_hash)
+
+        send_file(pdf_filename_hash[:package],
+                  filename: pdf_filename_hash[:package],
+                  disposition: 'inline',
+                  type: "application/pdf")
       end
     end
   end
@@ -129,12 +135,12 @@ class GrantsController < ApplicationController
   end
 
   def filename_hash
-    pdf_dir = "#{Rails.root}/pdfs"
-    Dir.mkdir(pdf_dir) unless File.exist?(pdf_dir)
+    application_file = Tempfile.new("grant_#{@grant.id}.application.pdf")
+    package_file = Tempfile.new("grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf")
 
     {
-      application: "#{pdf_dir}/grant_#{@grant.id}.application.pdf",
-      package: "#{pdf_dir}/grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf"
+      application: application_file.path,
+      package: package_file.path
     }
   end
 
@@ -144,10 +150,7 @@ class GrantsController < ApplicationController
     # Add the uploaded documents
     add_uploaded_documents_from_aws(one_pdf)
 
-    one_pdf.write(pdf_filename_hash[:package])
-
-    # Delete the application pdf after it has been written along with the uploaded documents
-    File.delete(pdf_filename_hash[:application])
+    one_pdf.write("pdf:" + pdf_filename_hash[:package])
   end
 
   def add_uploaded_documents_from_aws(one_pdf)
