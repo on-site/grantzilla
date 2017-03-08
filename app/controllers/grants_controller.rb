@@ -24,27 +24,6 @@ class GrantsController < ApplicationController
   end
 
   # rubocop:disable Metrics/MethodLength
-  def download_package
-    respond_to do |format|
-      format.pdf do
-        pdf_filename_hash = filename_hash
-        render pdf_options(file_name: pdf_filename_hash[:application],
-                           debug: params[:debug].presence).merge(
-                             template: "grants/show",
-                             save_to_file: pdf_filename_hash[:application],
-                             disposition: 'attachment'
-                           )
-
-        create_all_docs_in_pdf(pdf_filename_hash)
-
-        send_file(pdf_filename_hash[:package],
-                  filename: pdf_filename_hash[:package],
-                  disposition: 'inline',
-                  type: "application/pdf")
-      end
-    end
-  end
-
   def new
     redirect_to grant_forms_path(0, :applicants)
   end
@@ -89,6 +68,27 @@ class GrantsController < ApplicationController
       render json: response
     else
       render json: { errors: @grant.errors.full_messages }
+    end
+  end
+
+  def download_package
+    respond_to do |format|
+      format.pdf do
+        pdf_filename_hash = filename_hash
+        render pdf_options(file_name: pdf_filename_hash[:application],
+                           debug: params[:debug].presence).merge(
+                             template: "grants/show",
+                             save_to_file: pdf_filename_hash[:application],
+                             disposition: 'attachment'
+                           )
+
+        create_all_docs_in_pdf(pdf_filename_hash)
+
+        send_file(pdf_filename_hash[:package],
+                  filename: pdf_filename_hash[:package],
+                  disposition: 'inline',
+                  type: "application/pdf")
+      end
     end
   end
   # rubocop:enable Metrics/AbcSize
