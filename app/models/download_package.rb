@@ -1,4 +1,5 @@
-# # This class creates the download package as a PDF file
+# frozen_string_literal: true
+# This class creates the download package as a PDF file
 class DownloadPackage
   require "prawn"
 
@@ -27,7 +28,7 @@ class DownloadPackage
   def add_uploaded_documents_from_aws(one_pdf)
     # Example of how to add images
     #   one_pdf.read("filename_with_path")
-    Upload.where(user_id: grant.id).each do |uploaded_file|
+    Upload.where(user_id: grant.id).find_each do |uploaded_file|
       uploaded_filename = uploaded_file.file_file_name
       filename_path = Tempfile.new("grant_#{@grant.id}.#{uploaded_filename}").path
       uploaded_file.file.copy_to_local_file :original, filename_path
@@ -36,18 +37,25 @@ class DownloadPackage
     end
   end
 
-  def add_comments_to_pdf(one_pdf)
+  def grant_comments
     comments = Comment.where(grant_id: grant.id)
-    return unless comments.present?
+    return "" unless comments.present?
 
-    comments_in_text = "Comments\n\n"
+    comments_in_text = "Comments for Grant #{grant.id}\n\n"
     comments.each do |comment|
-      comments_in_text << ("Last Update at #{comment.updated_at.strftime("%Y-%m-%d %l:%M %p")}\n#{comment.body}\n\n")
+      comments_in_text += "Last Update at #{comment.updated_at.strftime('%Y-%m-%d %l:%M %p')}\n#{comment.body}\n\n"
     end
+
+    comments_in_text
+  end
+
+  def add_comments_to_pdf(one_pdf)
+    comments = grant_comments
+    return unless comments.present?
 
     pdf_filename = pdf_filename_hash[:comments]
     Prawn::Document.generate(pdf_filename) do
-      text comments_in_text
+      text comments
     end
     comment_pdf = one_pdf.open(pdf_filename)
     one_pdf.read(comment_pdf)
