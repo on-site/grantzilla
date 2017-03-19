@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718110954) do
+ActiveRecord::Schema.define(version: 20170314041923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,8 +185,14 @@ ActiveRecord::Schema.define(version: 20160718110954) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cell"
-    t.string   "student_status", limit: 20
-    t.string   "person_type",    limit: 20
+    t.string   "student_status",   limit: 20
+    t.string   "person_type",      limit: 20
+    t.string   "ethnicity",        limit: 50
+    t.string   "household_income", limit: 50
+    t.string   "age_group",        limit: 50
+    t.string   "education_level",  limit: 50
+    t.string   "gender",           limit: 50
+    t.string   "disability",       limit: 50
   end
 
   create_table "reason_types", force: :cascade do |t|
@@ -220,8 +226,8 @@ ActiveRecord::Schema.define(version: 20160718110954) do
   end
 
   create_table "uploads", force: :cascade do |t|
-    t.string   "user_type",         null: false
     t.integer  "user_id",           null: false
+    t.string   "user_type",         null: false
     t.string   "description"
     t.string   "category"
     t.string   "file_fingerprint",  null: false
