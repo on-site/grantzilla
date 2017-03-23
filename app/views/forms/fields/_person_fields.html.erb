@@ -8,8 +8,6 @@
       <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
       <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
           required: true, input_html: { data: { guard: "required" }, type: "date" } %>
-      <%= f.input :age_group, collection: Person::AGE_GROUP %>
-      <%= f.input :household_income, collection: Person::HOUSEHOLD_INCOME %>
       <%= f.input :ethnicity, collection: Person::ETHNICITY %>
       <%= f.input :education_level, collection: Person::EDUCATION_LEVEL %>
       <%= f.input :student_status, collection: Person::STUDENT_STATUSES %>

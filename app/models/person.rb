@@ -29,27 +29,6 @@ class Person < ApplicationRecord
                MULTIRACIAL, NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER, WHITE,
                PREFER_NOT_TO_SAY].freeze
 
-  INCOME_LESS_THAN_25000 = "Less than $25,000"
-  INCOME_25000_34999 = "$25,000 to $34,999"
-  INCOME_35000_49999 = "$35,000 to $49,999"
-  INCOME_50000_74999 = "$50,000 to $74,999"
-  INCOME_75000_99999 = "$75,000 to $99,999"
-  INCOME_100000_149999 = "$100,000 to $149,999"
-  INCOME_150000_MORE = "$150,000 or more"
-  HOUSEHOLD_INCOME = [INCOME_LESS_THAN_25000, INCOME_25000_34999, INCOME_35000_49999,
-                      INCOME_50000_74999, INCOME_75000_99999, INCOME_100000_149999,
-                      INCOME_150000_MORE].freeze
-
-  AGE_UNDER_18_YEARS = "Under 18 years"
-  AGE_18_24_YEARS = "18 to 24 years"
-  AGE_25_34_YEARS = "25 to 34 years"
-  AGE_35_44_YEARS = "35 to 44 years"
-  AGE_45_54_YEARS = "45 to 54 years"
-  AGE_55_64_YEARS = "55 to 64 years"
-  AGE_65_OLDER = "Age 65 or older"
-  AGE_GROUP = [AGE_UNDER_18_YEARS, AGE_18_24_YEARS, AGE_25_34_YEARS, AGE_35_44_YEARS,
-               AGE_45_54_YEARS, AGE_55_64_YEARS, AGE_65_OLDER].freeze
-
   EDUCATION_LESS_THAN_HIGH_SCHOOL = "Less than high school"
   EDUCATION_HIGH_SCHOOL = "High school graduate (includes equivalency)"
   EDUCATION_SOME_COLLEGE = "Some college, no degree"
@@ -64,7 +43,8 @@ class Person < ApplicationRecord
 
   GENDER_FEMALE = "Female"
   GENDER_MALE = "Male"
-  GENDER = [GENDER_FEMALE, GENDER_MALE].freeze
+  GENDER_TRANSGENDER = "Transgender"
+  GENDER = [GENDER_FEMALE, GENDER_MALE, GENDER_TRANSGENDER].freeze
 
   DISABILITY_NO = "No"
   DISABILITY_YES = "Yes"
