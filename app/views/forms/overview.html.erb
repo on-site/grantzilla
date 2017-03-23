@@ -27,6 +27,14 @@
       <%= f.association :coverage_types, label: "Grant Usage", multiple: true, required: true,
           hint: "Please indicate all of the intended uses of the grant.",
           input_html: { data: { guard: "required" } }%>
+
+      <div class="request-amount">
+        <h2>Remaining Amount</h2>
+        <hr/>
+        <%= f.input :remaining_amount_comment, label: "Explanation",
+            hint: "Please add explanation for the remaining amount needs to be covered is less than the total amount and upload the supportive document." %>
+      </div>
+
       <div class="row">
         <div class="col-sm-offset-3 col-sm-9">
           <%= f.submit 'Save and Continue', class: 'btn btn-primary' %>
