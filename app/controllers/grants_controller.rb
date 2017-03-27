@@ -24,21 +24,6 @@ class GrantsController < ApplicationController
   end
 
   # rubocop:disable Metrics/MethodLength
-  def download_package
-    respond_to do |format|
-      format.pdf do
-        pdf_filename_hash = filename_hash
-        render pdf_options(file_name: pdf_filename_hash[:application],
-                           debug: params[:debug].presence).merge(
-                             template: "grants/show",
-                             save_to_file: pdf_filename_hash[:application],
-                             disposition: 'attachment'
-                           )
-        create_all_docs_in_pdf(pdf_filename_hash)
-      end
-    end
-  end
-
   def new
     redirect_to grant_forms_path(0, :applicants)
   end
@@ -85,6 +70,23 @@ class GrantsController < ApplicationController
       render json: { errors: @grant.errors.full_messages }
     end
   end
+
+  def download_package
+    respond_to do |format|
+      format.pdf do
+        pdf_filename_hash = filename_hash
+        render pdf_options(file_name: pdf_filename_hash[:application],
+                           debug: params[:debug].presence).merge(
+                             template: "grants/show",
+                             save_to_file: pdf_filename_hash[:application],
+                             disposition: 'attachment'
+                           )
+
+        DownloadPackage.new(@grant.id, pdf_filename_hash).create_in_pdf
+        display_download_package(pdf_filename_hash[:package])
+      end
+    end
+  end
   # rubocop:enable Metrics/AbcSize
 
   def destroy
@@ -129,38 +131,21 @@ class GrantsController < ApplicationController
   end
 
   def filename_hash
-    pdf_dir = "#{Rails.root}/pdfs"
-    Dir.mkdir(pdf_dir) unless File.exist?(pdf_dir)
+    application_file = Tempfile.new("grant_#{@grant.id}.application.pdf")
+    comments_file = Tempfile.new("grant_#{@grant.id}.comments.pdf")
+    package_file = Tempfile.new("grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf")
 
     {
-      application: "#{pdf_dir}/grant_#{@grant.id}.application.pdf",
-      package: "#{pdf_dir}/grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf"
+      application: application_file.path,
+      comments: comments_file,
+      package: package_file.path
     }
   end
 
-  def create_all_docs_in_pdf(pdf_filename_hash)
-    one_pdf = Magick::ImageList.new(pdf_filename_hash[:application])
-
-    # Add the uploaded documents
-    add_uploaded_documents_from_aws(one_pdf)
-
-    one_pdf.write(pdf_filename_hash[:package])
-
-    # Delete the application pdf after it has been written along with the uploaded documents
-    File.delete(pdf_filename_hash[:application])
-  end
-
-  def add_uploaded_documents_from_aws(one_pdf)
-    # Example of how to add images
-    #   one_pdf.read("filename_with_path")
-    Upload.where(user_id: @grant.id).each do |uploaded_file|
-      uploaded_filename = uploaded_file.file_file_name
-      filename_path = "#{Rails.root}/pdfs/#{uploaded_filename}"
-      uploaded_file.file.copy_to_local_file :original, filename_path
-      one_pdf.read(filename_path)
-      File.delete(filename_path)
-    end
-
-    one_pdf
+  def display_download_package(pdf_filename)
+    send_file(pdf_filename,
+              filename: pdf_filename,
+              disposition: 'inline',
+              type: "application/pdf")
   end
 end
