@@ -25,3 +25,26 @@ en:
   properties: Property & Payee
   employment: Income Sources
   uploads: Supportive Documentation
+  american_indian_and_alaska_native: American Indian and Alaska Native
+  asian: Asian
+  black: Black
+  hispanic_and_latino: Hispanic and Latino
+  multiracial: Multiracial
+  native_hawaiian_and_other_pacific_islander: Native Hawaiian and Other Pacific Islander
+  white: White
+  prefer_not_to_say: Prefer Not to Say
+  education_less_than_high_school: Less than high school
+  education_high_school: High school graduate (includes equivalency)
+  education_some_college: Some college, no degree
+  education_associate_degree: Associate's degree
+  education_bachelor_degree: Bachelor's degree
+  education_phd: Ph.D.
+  education_graduate_professional_degree: Graduate or professional degree
+  gender_female: Female
+  gender_male: Male
+  gender_transgender: Transgender
+  disability_no: 'No'
+  disability_yes: 'Yes'
+  part_time_student: Part-Time Student
+  full_time_student: Full-Time Student
+  daycare: Daycare
