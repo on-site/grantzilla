@@ -35,13 +35,14 @@ Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/unauthorized'
 
-  get "/.well-known/acme-challenge/:id",
-      to: proc {
-        [200,
-         {},
-         [ENV['GRANTZILLA_LETS_ENCRYPT_CHALLENGE_ID'] ||
-           'The GRANTZILLA_LETS_ENCRYPT_CHALLENGE_ID environment variable is not set.']]
-      }
+  # get "/.well-known/acme-challenge/:id",
+  #     to: proc {
+  #       [200,
+  #        {},
+  #        [ENV['GRANTZILLA_LETS_ENCRYPT_CHALLENGE_ID'] ||
+  #          'The GRANTZILLA_LETS_ENCRYPT_CHALLENGE_ID environment variable is not set.']]
+  #     }
+  get "/.well-known/acme-challenge/:id" => "letsencrypt#authenticate_key"
 
   root 'grants#index'
 end
