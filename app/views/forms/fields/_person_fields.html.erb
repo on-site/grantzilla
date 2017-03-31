@@ -3,11 +3,28 @@
     <div class="col-md-10 col-sm-11">
       <%= f.input :first_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :last_name, required: true, input_html: { data: { guard: "required" } } %>
+      <%= f.input :gender, collection: [t(:gender_female), t(:gender_male), t(:gender_transgender)] %>
+      <%= f.input :email, input_html: { data: { guard: "email"} } %>
+      <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
       <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
           required: true, input_html: { data: { guard: "required" }, type: "date" } %>
-      <%= f.input :phone, input_html: { data: { guard: "phoneUS" } } %>
-      <%= f.input :email, input_html: { data: { guard: "email"} } %>
-      <%= f.input :student_status, collection: Person::STUDENT_STATUSES %>
+      <%= f.input :ethnicity, collection: [t(:american_indian_and_alaska_native),
+                                           t(:asian),
+                                           t(:black),
+                                           t(:hispanic_and_latino),
+                                           t(:multiracial),
+                                           t(:native_hawaiian_and_other_pacific_islander),
+                                           t(:white),
+                                           t(:prefer_not_to_say)] %>
+      <%= f.input :education_level, collection: [t(:education_less_than_high_school),
+                                                 t(:education_high_school),
+                                                 t(:education_some_college),
+                                                 t(:education_associate_degree),
+                                                 t(:education_bachelor_degree),
+                                                 t(:education_phd),
+                                                 t(:education_graduate_professional_degree)] %>
+      <%= f.input :student_status, collection: [t(:part_time_student), t(:full_time_student)] %>
+      <%= f.input :disability, collection: [t(:disability_no), t(:disability_yes)] %>
       <%= f.input :veteran, wrapper: :horizontal_boolean %>
     </div>
 
