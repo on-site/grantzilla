@@ -26,7 +26,9 @@ class Upload < ApplicationRecord
         adult (pay stubs, letter verifying employment, benefits award
         letter, etc)",
     "Verification of Crisis" => "Verification of crisis (car repair
-        bill, copy of no-fault notice to vacate, verification of illness)"
+        bill, copy of no-fault notice to vacate, verification of illness)",
+    "Grant Request Amount" => "Document supporting the remaining amount
+        needs to be covered is less than the total amount."
   }.freeze
 
   belongs_to :user, polymorphic: true
