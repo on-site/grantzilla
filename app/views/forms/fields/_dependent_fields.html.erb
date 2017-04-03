@@ -6,7 +6,9 @@
       <%= f.input :last_name, required: true, input_html: { data: { guard: "required" } } %>
       <%= f.input :birth_date, as: :string, start_year: 1910, order: [:month, :day, :year],
           required: true, input_html: { data: { guard: "required" }, type: "date" } %>
-      <%= f.input :student_status, label: "Daycare/School", collection: Person::DEPENDENT_STUDENT_STATUSES %>
+      <%= f.input :student_status, label: "Daycare/School", collection: [t(:daycare),
+                                                                         t(:part_time_student),
+                                                                         t(:full_time_student)] %>
     </div>
 
     <div class="col-md-2 col-sm-1 text-right">

@@ -11,12 +11,6 @@ class Person < ApplicationRecord
   ADULT = "Adult"
   DEPENDENT = "Dependent"
 
-  DAYCARE = "Daycare"
-  FULL_TIME_STUDENT = "Full-Time Student"
-  PART_TIME_STUDENT = "Part-Time Student"
-  DEPENDENT_STUDENT_STATUSES = [DAYCARE, PART_TIME_STUDENT, FULL_TIME_STUDENT].freeze
-  STUDENT_STATUSES = [PART_TIME_STUDENT, FULL_TIME_STUDENT].freeze
-
   def adult?
     person_type == ADULT
   end
