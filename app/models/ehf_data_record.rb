@@ -15,8 +15,8 @@ class EhfDataRecord
   # These fields are required for importing the record.
   def validate
     raise StandardError, "Record skipped because no EHF Number found." if value("EHF.").blank?
-    raise StandardError, "Record skipped because no Client First Name found." if value("Client 1 FN").blank?
-    raise StandardError, "Record skipped because no Client Last Name found." if value("Client 1 LN").blank?
+    raise StandardError, "Record skipped because no Client First Name found for EHF #{ value("EHF.")}." if value("Client 1 FN").blank?
+    raise StandardError, "Record skipped because no Client Last Name found for EHF #{ value("EHF.")}." if value("Client 1 LN").blank?
   end
 
   def grant_number
