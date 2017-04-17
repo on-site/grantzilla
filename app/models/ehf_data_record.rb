@@ -16,10 +16,12 @@ class EhfDataRecord
   def validate
     raise StandardError, "Record skipped because no EHF Number found." if value("EHF.").blank?
     if value("Client 1 FN").blank?
-      raise StandardError, "Record skipped because no Client First Name found for EHF #{value('EHF.')}."
+      csv_row[csv_heading_hash["Client 1 FN"]] = "Unknown"
+      puts "Client 1 first name for EHF #{value('EHF.')} is blank.  Replaced with 'Unknown'."
     end
     if value("Client 1 LN").blank?
-      raise StandardError, "Record skipped because no Client Last Name found for EHF #{value('EHF.')}."
+      csv_row[csv_heading_hash["Client 1 LN"]] = "Unknown"
+      puts "Client 1 last name for EHF #{value('EHF.')} is blank.  Replaced with 'Unknown'."
     end
   end
 
