@@ -13,15 +13,17 @@ class EhfDataRecord
   end
 
   # These fields are required for importing the record.
+  # rubocop:disable Metrics/AbcSize
   def validate
     raise StandardError, "Record skipped because no EHF Number found." if value("EHF.").blank?
     if value("Client 1 FN").blank?
       csv_row[csv_heading_hash["Client 1 FN"]] = "Unknown"
+      # rubocop:disable Metrics/LineLength, Rails/Output
       puts "Client 1 first name for EHF #{value('EHF.')} is blank.  Replaced with 'Unknown'."
     end
     if value("Client 1 LN").blank?
       csv_row[csv_heading_hash["Client 1 LN"]] = "Unknown"
-      puts "Client 1 last name for EHF #{value('EHF.')} is blank.  Replaced with 'Unknown'."
+      puts "Client 1 last name for EHF #{value('EHF.')} is blank.  Replaced with 'Unknown'." # rubocop:disable Rails/Output
     end
   end
 
