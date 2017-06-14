@@ -32,7 +32,7 @@ class PopulateGrant
                   application_date: ehf_data_record.application_date,
                   details: ehf_data_record.description,
                   subsidy_type_id: ehf_data_record.subsidy_type_id,
-                  grant_amount: ehf_data_record.full_amount,
+                  grant_amount: ehf_data_record.check_amount,
                   grant_status_id: ehf_data_record.approved_status_id,
                   residence_id: residence.id,
                   user_id: user.id)

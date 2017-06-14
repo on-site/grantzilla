@@ -9,6 +9,7 @@ class UploadsController < ApplicationController
   def create
     @upload = Upload.new(upload_params)
 
+    # Add bang after save will throw exception
     if @upload.save
       redirect_to :back, notice: 'File was successfully uploaded.'
     else
@@ -35,6 +36,6 @@ class UploadsController < ApplicationController
   end
 
   def upload_params
-    params.require(:upload).permit(:file, :file_file_name, :user_id, :user_type)
+    params.require(:upload).permit(:category, :file, :file_file_name, :user_id, :user_type)
   end
 end

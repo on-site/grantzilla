@@ -10,16 +10,8 @@ calculateTotals = (month) ->
   $("table.expenses tfoot .total-#{budgetType}").html accounting.formatMoney(income - expenses)
 
 $(document).on "format.money", "table.budgets input.money", ->
-  month = $(@)
-  if month.hasClass("last-month-budget")
-    otherMonths = month.parents("tr").find(".current-month-budget, .next-month-budget")
-    otherMonths.each (index, otherMonth) ->
-      otherMonth = $(otherMonth)
-      return if otherMonth.val() != ""
-      otherMonth.val month.val()
-      calculateTotals otherMonth
-  calculateTotals month
+  calculateTotals $(@)
 
-$ ->
+$(document).on "turbolinks:load", ->
   $("table.budgets tbody tr:first-of-type input.money").each (index, item) ->
    calculateTotals item

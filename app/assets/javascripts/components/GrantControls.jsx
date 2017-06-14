@@ -12,8 +12,7 @@ class GrantControls extends React.Component {
         grant_amount: $form.find("#gcf-grantAmount").val()
       },
       payee: {
-        check_number: $form.find("#gcf-checkNumber").val(),
-        name: $form.find("#gcf-payee").val()
+        check_number: $form.find("#gcf-checkNumber").val()
       }
     };
     $.ajax(`/grants/${this.props.grant.id}/update_controls`, {

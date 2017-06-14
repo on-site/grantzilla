@@ -13,6 +13,24 @@ class Upload < ApplicationRecord
     "text/plain"
   ].freeze
 
+  UPLOAD_CATEGORIES = {
+    "W-9 from Landlord" => "W-9 from Landlord",
+    "Lease Agreement" => "Relevant pages of lease (pages that show name of
+        lessees, rental amount, security deposit amount, rental dates, and
+        signatures of lessees and payee).  If a lease has not been signed,
+        an Acknowledgement to Rent can be submitted in lieu of a lease.",
+    "Verification of Owed Amounts" => "Verification of owed costs
+        (3-Day Notice or other written verification of exactly what
+        lessee owes)",
+    "Verification of Income" => "Verification of income for every
+        adult (pay stubs, letter verifying employment, benefits award
+        letter, etc)",
+    "Verification of Crisis" => "Verification of crisis (car repair
+        bill, copy of no-fault notice to vacate, verification of illness)",
+    "Grant Request Amount" => "Document supporting the remaining amount
+        needs to be covered is less than the total amount."
+  }.freeze
+
   belongs_to :user, polymorphic: true
   has_attached_file :file
   validates_attachment :file,

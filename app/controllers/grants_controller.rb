@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
 class GrantsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :destroy]
+  before_action :set_grant, only: [:show, :edit, :update, :update_controls, :add_comment, :download_package, :destroy]
   before_action :set_controls_info, only: [:show, :edit]
 
+  require 'rmagick'
+  include Magick
   include PdfOptions
 
   def index
@@ -20,6 +23,7 @@ class GrantsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def new
     redirect_to grant_forms_path(0, :applicants)
   end
@@ -66,6 +70,23 @@ class GrantsController < ApplicationController
       render json: { errors: @grant.errors.full_messages }
     end
   end
+
+  def download_package
+    respond_to do |format|
+      format.pdf do
+        pdf_filename_hash = filename_hash
+        render pdf_options(file_name: pdf_filename_hash[:application],
+                           debug: params[:debug].presence).merge(
+                             template: "grants/show",
+                             save_to_file: pdf_filename_hash[:application],
+                             disposition: 'attachment'
+                           )
+
+        DownloadPackage.new(@grant.id, pdf_filename_hash).create_in_pdf
+        display_download_package(pdf_filename_hash[:package])
+      end
+    end
+  end
   # rubocop:enable Metrics/AbcSize
 
   def destroy
@@ -98,7 +119,7 @@ class GrantsController < ApplicationController
   end
 
   def grant_payee_params
-    params.require(:payee).permit(:name, :check_number)
+    params.require(:payee).permit(:check_number)
   end
 
   def people_attributes
@@ -107,5 +128,24 @@ class GrantsController < ApplicationController
 
   def residence_attributes
     { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city, :state, :zip] }
+  end
+
+  def filename_hash
+    application_file = Tempfile.new("grant_#{@grant.id}.application.pdf")
+    comments_file = Tempfile.new("grant_#{@grant.id}.comments.pdf")
+    package_file = Tempfile.new("grant_#{@grant.id}.#{@grant.updated_at.strftime('%Y-%m-%d')}.pdf")
+
+    {
+      application: application_file.path,
+      comments: comments_file,
+      package: package_file.path
+    }
+  end
+
+  def display_download_package(pdf_filename)
+    send_file(pdf_filename,
+              filename: pdf_filename,
+              disposition: 'inline',
+              type: "application/pdf")
   end
 end

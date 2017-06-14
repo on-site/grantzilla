@@ -4,63 +4,53 @@
   <div class="col-md-8 col-sm-7">
     <h2>Supportive Documentation</h2>
     <hr />
-    <p>
+    <div class="alert alert-info">
       The following supportive documentation is needed for every application:
-    </p>
-    <ul>
-      <li>
-        Three‐month budget that demonstrates cash crisis and sustainability in future
-        months
-      </li>
-      <li>
-        W‐9 from landlord
-      </li>
-      <li>
-        Relevant pages of lease (pages that show name of lessees, rental amount,
-        security deposit amount, rental dates, and signatures of lessees and payee). If
-        a lease has not been signed, an Acknowledgement to Rent can be submitted in lieu
-        of lease
-      </li>
-      <li>
-        Verification of owed costs (3‐Day Notice or other written verification of
-        exactly what lessee owes)
-      </li>
-      <li>
-        Verification of income for every adult (pay stubs, letter verifying employment,
-        benefits award letter, etc)
-      </li>
-      <li>
-        Verification of crisis (car repair bill, copy of no‐fault notice to vacate,
-        verification of illness)
-      </li>
+      <ul class="category-checklist">
+        <% Upload::UPLOAD_CATEGORIES.each_pair do |name, description| %>
+          <li>
+            <span class="<%= upload_category_classes(name) %>"></span>
+            <strong><%= name %></strong><% if name != description %>: <%= description %><% end %>
+            <% uploads = @grant.uploads.select { |x| x.category == name } %>
+            <% if uploads.present? %>
+              <ul>
+                <% uploads.each do |upload| %>
+                  <li>
+                    <%= link_to upload.file_file_name, download_upload_path(upload) %>
+                    <%= link_to upload, confirm: 'Are you sure you want to delete this file?',
+                        method: :delete, title: "Remove uploaded file", data: { toggle: "tooltip", guard: "required" } do %>
+                      <span class="glyphicon glyphicon-trash"></span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
     </ul>
-    <%= form_for(@upload, html: { class: 'new-upload form-horizontal', multipart: true }) do |f| %>
-      <div class="form-group">
-        <label class="col-sm-3 control-label" style="padding-top: 0;">
-          Upload a file
-        </label>
-        <div class="col-sm-9">
+    <%= simple_form_for(@upload, wrapper: :horizontal_form, html: { class: 'form-horizontal', data: { live_guarded: true} }) do |f| %>
+      <div class="form-group col-sm-offset-2 col-sm-9">
+        <%= f.input :category, label: "Type", collection: Upload::UPLOAD_CATEGORIES.keys,
+            prompt: "Select Type of Documentation", input_html: { data: { guard: "required" } } %>
+        <div class="col-sm-offset-3 col-sm-9">
           <%= hidden_field(:upload, :user_id) %>
           <%= hidden_field(:upload, :user_type) %>
-          <%= f.file_field :file %>
+          <label class="btn btn-default btn-file">
+            Select a File
+            <%= f.file_field :file %>
+          </label>
+          <span>
+            <%= f.label :uploaded_filename, id: "uploaded_filename"  %>
+          </span>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group col-sm-offset-2 col-sm-9">
         <div class="col-sm-offset-3 col-sm-9">
           <%= f.submit 'Upload Document', class: 'btn btn-primary' %>
         </div>
       </div>
-    <% end %>
-    <h2>Uploaded Documentation</h2>
-    <% unless @grant.uploads.empty? %>
-      <ul>
-        <% @grant.uploads.each do |upload| %>
-          <li>
-            <%= link_to upload.file_file_name, download_upload_path(upload) %>
-            <%= link_to '[X]', upload, confirm: 'Are you sure you want to delete this file?', method: :delete %>
-          </li>
-        <% end %>
-      </ul>
     <% end %>
   </div>
 

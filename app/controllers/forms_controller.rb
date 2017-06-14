@@ -35,7 +35,7 @@ class FormsController < ApplicationController
 
   def form_params
     params.require(:grant).permit([:adjusted_rent, :details, :grant_amount_requested,
-                                   :subsidy_type_id, :total_rent, :total_owed,
+                                   :subsidy_type_id, :total_rent, :total_owed, :remaining_amount_comment,
                                    coverage_type_ids: [], reason_type_ids: []],
                                   people_attributes, payees_attributes, residence_attributes)
   end
@@ -47,7 +47,8 @@ class FormsController < ApplicationController
 
   def people_attributes
     { people_attributes: [:id, :first_name, :last_name, :birth_date, :phone, :person_type,
-                          :email, :veteran, :student_status, :_destroy, incomes_attributes] }
+                          :email, :veteran, :student_status, :ethnicity, :education_level,
+                          :gender, :disability, :_destroy, incomes_attributes] }
   end
 
   def payees_attributes
