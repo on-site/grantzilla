@@ -32,6 +32,7 @@ class EhfDataRecord
   end
 
   def application_date
+    # Format: mm/dd/YYYY
     application_date = value("Date")
     valid_date_string?(application_date) ? Date.strptime(application_date, '%m/%d/%Y') : nil
   end
@@ -112,7 +113,7 @@ class EhfDataRecord
 
   def client1_dob
     dob = value("Client 1 DOB")
-    valid_date_string?(dob) ? dob : nil
+    valid_date_string?(dob) ? Date.strptime(dob, '%m/%d/%Y') : nil
   end
 
   def client1_email
@@ -138,7 +139,7 @@ class EhfDataRecord
 
   def client2_dob
     dob = value("Client 2 DOB")
-    valid_date_string?(dob) ? dob : nil
+    valid_date_string?(dob) ? Date.strptime(dob, '%m/%d/%Y') : nil
   end
 
   def client2_email
@@ -383,7 +384,7 @@ class EhfDataRecord
   end
 
   def date_part_out_of_range?(parts)
-    parts[0].to_i > 12 || parts[1].to_i > 31 || parts[2].to_i > 2016
+    parts[0].to_i > 12 || parts[1].to_i > 31 || parts[2].to_i > 2017
   end
 
   def number?(value)
