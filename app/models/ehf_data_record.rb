@@ -5,6 +5,9 @@
 # to lookup the position in the EHF data record of the associated data.
 # rubocop:disable ClassLength
 class EhfDataRecord
+
+  DEFAULT_APPLICATION_DATE = "01/01/1995"
+
   def initialize(csv_headings, csv_row, lookup_cache)
     @csv_heading_hash = convert_headers_to_hash csv_headings
     @csv_row = csv_row
@@ -34,7 +37,7 @@ class EhfDataRecord
   def application_date
     # Format: mm/dd/YYYY
     application_date = value("Date")
-    valid_date_string?(application_date) ? Date.strptime(application_date, '%m/%d/%Y') : nil
+    valid_date_string?(application_date) ? Date.strptime(application_date, '%m/%d/%Y') : DEFAULT_APPLICATION_DATE
   end
 
   def agency_name
