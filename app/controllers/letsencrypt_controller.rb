@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class LetsencryptController < ApplicationController
   def authenticate_key
-    render text: "QiEFRR3bXobdJx9xrfioKBXCJcivzI0iL0bG6sZCjFw.EOz8wpTt91fuDD0G0ziU0_tJHJNh11aZyXsVX3y7mro"
+    render text: "9gUAR3lrGe6MQ01Xxa4PnY7gGpvcYCIbGfgr2Ox2OF0.Yr_GjVvd1LZ8VhpCEWJJ4OY7t9QoHTilT8VztJg0v_w"
   end
 end

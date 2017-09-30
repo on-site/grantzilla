@@ -1,8 +1,8 @@
 QUALIFYING_CRITERIA = [
-  "Injury/Illness/Death in Family",
+  "Injury/illness/death in family",
   "Loss of employment",
   "Moving from temporary/unsuitable living conditions",
-  "Currently honeless",
+  "Currently homeless",
   "Rent increase unaffordable",
   "Victim of crime/natural disaster",
   "Delay/cancellation/change in subsidy, assistance, or benefits",
@@ -14,21 +14,22 @@ QUALIFYING_CRITERIA.each do |criteria|
   ReasonType.create(description: criteria)
 end
 
-unless Rails.env.production?
-  agency = Agency.create!({name: "HIF"})
-  user = User.new
-  user.email = "admin@hifinf.org"
-  user.password = "password"
-  user.role = "case_worker"
-  user.agency = agency
-  user.skip_confirmation!
-  user.save!
-end
+agency = Agency.create!({name: "HIF"})
 
-user = User.new
-user.email = "admin@hifinfo.org"
-user.password = "password"
-user.role = "admin"
-user.approved = true
-user.skip_confirmation!
-user.save!
+admin_user = User.new
+admin_user.email = "admin@hifinfo.org"
+admin_user.password = "Helping0thers!"
+admin_user.role = "admin"
+admin_user.approved = true
+admin_user.agency = agency
+admin_user.skip_confirmation!
+admin_user.save!
+
+hif_user = User.new
+hif_user.email = "inas@hifinfo.org"
+hif_user.password = "housing!"
+hif_user.role = "case_worker"
+hif_user.approved = true
+hif_user.agency = agency
+hif_user.skip_confirmation!
+hif_user.save!
