@@ -5,7 +5,6 @@
 # to lookup the position in the EHF data record of the associated data.
 # rubocop:disable ClassLength
 class EhfDataRecord
-
   DEFAULT_APPLICATION_DATE = "01/01/1995"
 
   def initialize(csv_headings, csv_row, lookup_cache)
