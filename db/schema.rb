@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323050841) do
+ActiveRecord::Schema.define(version: 20170821041805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "agencies", force: :cascade do |t|
     t.string "name"
@@ -131,6 +132,12 @@ ActiveRecord::Schema.define(version: 20170323050841) do
     t.integer "reason_type_id"
     t.index ["grant_id"], name: "index_grants_reason_types_on_grant_id", using: :btree
     t.index ["reason_type_id"], name: "index_grants_reason_types_on_reason_type_id", using: :btree
+  end
+
+  create_table "imported_ehf_records", force: :cascade do |t|
+    t.integer "grant_id"
+    t.hstore  "ehf_record"
+    t.index ["grant_id"], name: "index_imported_ehf_records_on_grant_id", using: :btree
   end
 
   create_table "income_types", force: :cascade do |t|

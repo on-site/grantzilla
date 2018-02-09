@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
 # This class manages the reading of the CSV file and population of the different models.
 class DataImportManager
   require 'csv'
@@ -18,6 +19,7 @@ class DataImportManager
     process_rows csv_headings, csv_rows, lookup_cache
     display_results csv_rows.length
     log_history csv_rows.length
+    save_to_db
   end
 
   private
@@ -71,6 +73,25 @@ class DataImportManager
       import_person ehf_data_record, grant
       increment_ehf_data_records_imported
     end
+  end
+
+  def save_to_db
+    duplicated = []
+    added = []
+    ehf_data_records = CSV.open(csv_file, headers: true).map(&:to_h)
+    ehf_data_records.map do |ehf|
+      grant_id = ehf["EHF."]
+      added.include?(grant_id) ? duplicated << grant_id : added << grant_id
+      ImportedEhfRecord.create!(grant_id: grant_id,
+                                ehf_record: ehf)
+    end
+    output_results(ehf_data_records.size, added.size, duplicated)
+  end
+
+  def output_results(number_ehf_records, number_added, duplicated)
+    Rails.logger.error "Total ehf records: #{number_ehf_records}"
+    Rails.logger.error "Processed grants: #{number_added}"
+    Rails.logger.error "Duplicated grants: #{duplicated}"
   end
 
   def import_agency(ehf_data_record)

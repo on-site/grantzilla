@@ -21,7 +21,7 @@
               input_html: { data: { guard: "required int" }, maxlength: 5 } %>
         </div>
         <%= rf.input :move_in_date, as: :string, start_year: 1910, order: [:month, :day, :year],
-            required: true, input_html: { data: { guard: "required" }, type: "date" } %>
+            input_html: { type: "date" } %>
       <% end %>
 
       <h2>Payee Information</h2>
