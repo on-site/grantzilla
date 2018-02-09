@@ -57,7 +57,7 @@
               <h4 class="light"><%= person.full_name %></h4>
               <% if person.birth_date.present? %>
                 <div>
-                  <%= time_ago_in_words(person.birth_date) %> old
+                  Birth Date: <%= person.birth_date %> (<%= time_ago_in_words(person.birth_date) %> old)
                 </div>
               <% end %>
               <% if person.phone.present? %>
