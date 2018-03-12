@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
 class Grant < ApplicationRecord
   COMPONENTS = [:grants_reason_types, :people, :residence, :payees].freeze
 

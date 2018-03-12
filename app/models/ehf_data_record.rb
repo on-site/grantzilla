@@ -247,7 +247,8 @@ class EhfDataRecord
   end
 
   def coverage_types
-    coverage_type_keys.map.with_index do |_,i|
+    coverage_type_keys.map.with_index do |_, i|
+      # rubocop:disable Style/IfUnlessModifier
       if string_to_boolean value(coverage_type_keys[i])
         lookup_coverage_type i
       end
@@ -276,7 +277,7 @@ class EhfDataRecord
   end
 
   def reason_types
-    reason_type_keys.map.with_index do |_,i|
+    reason_type_keys.map.with_index do |_, i|
       if string_to_boolean value(reason_type_keys[i])
         lookup_reason_type i
       end
