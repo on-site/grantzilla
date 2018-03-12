@@ -58,7 +58,7 @@ class FormsController < ApplicationController
 
   def residence_attributes
     { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city,
-                             :state, :zip, :move_in_date, :_destroy] }
+                             :county, :state, :zip, :move_in_date, :_destroy] }
   end
 
   def finish_wizard_path

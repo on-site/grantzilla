@@ -113,6 +113,10 @@ class Grant < ApplicationRecord
     self[:grant_amount] = value.to_s.delete("$,")
   end
 
+  def grant_rsgp=(value)
+    self[:grant_rsgp] = value.to_s
+  end
+
   private
 
   def set_application_date

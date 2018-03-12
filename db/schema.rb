@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821041805) do
+ActiveRecord::Schema.define(version: 20180305023906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,8 @@ ActiveRecord::Schema.define(version: 20170821041805) do
     t.float    "total_owed"
     t.float    "grant_amount_requested"
     t.text     "remaining_amount_comment"
+    t.string   "grant_rsgp"
+    t.boolean  "grant_survey"
   end
 
   create_table "grants_payees", force: :cascade do |t|
@@ -225,6 +227,7 @@ ActiveRecord::Schema.define(version: 20170821041805) do
     t.float   "rent"
     t.float   "deposit"
     t.float   "amount_returned"
+    t.string  "county"
   end
 
   create_table "subsidy_types", force: :cascade do |t|

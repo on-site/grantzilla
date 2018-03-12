@@ -9,7 +9,9 @@ class GrantControls extends React.Component {
     let data = {
       grant: {
         grant_status_id: $form.find("#gcf-statusId").val(),
-        grant_amount: $form.find("#gcf-grantAmount").val()
+        grant_amount: $form.find("#gcf-grantAmount").val(),
+        grant_rsgp: $form.find("#gcf-grantRsgp").val(),
+        grant_survey: $form.find("#gcf-grantSurvey").val()
       },
       payee: {
         check_number: $form.find("#gcf-checkNumber").val()

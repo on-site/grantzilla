@@ -246,13 +246,12 @@ class EhfDataRecord
     sanitize_phone_number value("P Fax")
   end
 
-  def coverage_type
-    coverage_type_keys.each_index do |i|
+  def coverage_types
+    coverage_type_keys.map.with_index do |_,i|
       if string_to_boolean value(coverage_type_keys[i])
-        return lookup_coverage_type i
+        lookup_coverage_type i
       end
     end
-    nil
   end
 
   def subsidy_type_id
@@ -276,17 +275,16 @@ class EhfDataRecord
     value("Criterion")
   end
 
-  def reason_type
-    reason_type_keys.each_index do |i|
+  def reason_types
+    reason_type_keys.map.with_index do |_,i|
       if string_to_boolean value(reason_type_keys[i])
-        return lookup_reason_type i
+        lookup_reason_type i
       end
     end
-    nil
   end
 
   def vip
-    string_to_boolean value("VIP")
+    value("VIP")
   end
 
   def description
@@ -493,6 +491,6 @@ class EhfDataRecord
   def value(name)
     ordinal = csv_heading_hash[name]
     return nil if ordinal.blank? || csv_row[ordinal].blank?
-    csv_row[ordinal]
+    csv_row[ordinal].strip
   end
 end
