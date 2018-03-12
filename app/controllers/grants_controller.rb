@@ -13,6 +13,7 @@ class GrantsController < ApplicationController
     @grants = Grant.list(current_user, grant_index_params)
 
     respond_to do |format|
+      format.html
       format.csv { send_data ExportData.to_csv }
     end
   end
