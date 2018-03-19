@@ -13,7 +13,7 @@ class DataImportManager
 
   def import_data
     lookup_cache = LookupCache.new
-    csv_rows = CSV.read(csv_file)
+    csv_rows = CSV.read(csv_file, col_sep: "\t", encoding: 'iso-8859-1')
     csv_headings = csv_rows.first
     csv_rows.shift # skip headings
     process_rows csv_headings, csv_rows, lookup_cache
@@ -78,7 +78,7 @@ class DataImportManager
   def save_to_db
     duplicated = []
     added = []
-    ehf_data_records = CSV.open(csv_file, headers: true).map(&:to_h)
+    ehf_data_records = CSV.open(csv_file, headers: true, col_sep: "\t", encoding: 'iso-8859-1').map(&:to_h)
     ehf_data_records.map do |ehf|
       grant_id = ehf["EHF."]
       added.include?(grant_id) ? duplicated << grant_id : added << grant_id

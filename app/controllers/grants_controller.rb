@@ -11,6 +11,11 @@ class GrantsController < ApplicationController
 
   def index
     @grants = Grant.list(current_user, grant_index_params)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data ExportData.to_csv }
+    end
   end
 
   def show
@@ -111,7 +116,7 @@ class GrantsController < ApplicationController
   end
 
   def grant_admin_params
-    params.require(:grant).permit(:grant_status_id, :grant_amount)
+    params.require(:grant).permit(:grant_status_id, :grant_amount, :grant_rsgp, :grant_survey)
   end
 
   def grant_index_params
@@ -127,7 +132,7 @@ class GrantsController < ApplicationController
   end
 
   def residence_attributes
-    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city, :state, :zip] }
+    { residence_attributes: [:id, :residence_type_id, :address, :unit_number, :city, :county, :state, :zip] }
   end
 
   def filename_hash

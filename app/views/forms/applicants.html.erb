@@ -11,7 +11,7 @@
         wrapper: :horizontal_form,
         html: { class: 'form-horizontal', data: { live_guarded: true } }) do |f| %>
       <div class="people">
-        <%= f.simple_fields_for :people, @grant.people do |pf| %>
+        <%= f.simple_fields_for :people, @grant.people.order(:id) do |pf| %>
           <% if pf.object.adult? %>
             <%= render partial: person_fields, locals: { f: pf } %>
           <% elsif pf.object.dependent? %>

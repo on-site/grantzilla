@@ -19,6 +19,12 @@ let GrantControlsForm = (props) => (
     </div>
 
     <div className="form-group">
+      <label className="control-label" htmlFor="gcf-grantRsgp">RSGP</label>
+        <input className="form-control" id="gcf-grantRsgp" type="text"
+               defaultValue={props.grant.grant_rsgp} />
+    </div>
+
+    <div className="form-group">
       <label className="control-label" htmlFor="gcf-checkNumber">Check Number</label>
       <div className="input-group">
         <div className="input-group-addon">#</div>
@@ -32,6 +38,14 @@ let GrantControlsForm = (props) => (
       <div className={props.payee.name == null ? 'form-control-static text-italic' : 'form-control-static'} id="gcf-payee">
         {props.payee.name != null ? props.payee.name : 'Unspecified'}
       </div>
+    </div>
+
+    <div className="form-group">
+      <label className="control-label" htmlFor="gcf-grantSurvey">Survey</label>
+      <select className="select form-control" id="gcf-grantSurvey" defaultValue={props.grant.grant_survey}>
+        <option value="false">No</option>
+        <option value="true">Yes</option>
+      </select>
     </div>
 
     <div className="form-group hidden">

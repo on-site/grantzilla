@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
 class Grant < ApplicationRecord
   COMPONENTS = [:grants_reason_types, :people, :residence, :payees].freeze
 
@@ -111,6 +112,10 @@ class Grant < ApplicationRecord
 
   def grant_amount=(value)
     self[:grant_amount] = value.to_s.delete("$,")
+  end
+
+  def grant_rsgp=(value)
+    self[:grant_rsgp] = value.to_s
   end
 
   private

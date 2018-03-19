@@ -1,18 +1,12 @@
-QUALIFYING_CRITERIA = [
-  "Injury/illness/death in family",
-  "Loss of employment",
-  "Moving from temporary/unsuitable living conditions",
-  "Currently homeless",
-  "Rent increase unaffordable",
-  "Victim of crime/natural disaster",
-  "Delay/cancellation/change in subsidy, assistance, or benefits",
-  "No-fault notice to vacate",
-  "Unanticipated expenses"
-]
-
-QUALIFYING_CRITERIA.each do |criteria|
-  ReasonType.create(description: criteria)
-end
+#QUALIFYING_CRITERIA = [
+#  "Injury/illness/death in family",
+#  "Moving from temporary/unsuitable living conditions",
+#  "Delay/cancellation/change in subsidy, assistance, or benefits"
+#]
+#
+#QUALIFYING_CRITERIA.each do |criteria|
+#  ReasonType.create(description: criteria)
+#end
 
 agency = Agency.create!({name: "HIF"})
 

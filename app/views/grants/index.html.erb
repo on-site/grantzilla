@@ -1,5 +1,12 @@
 <h1>Grant Applications</h1>
 
+<% if current_user.admin? %>
+  <p>
+    Report:
+    <%= link_to "CSV", grants_path(format: "csv") %>
+  </p>
+<% end %>
+
 <form action="<%= grants_path %>" class="table-filters">
   <div class="row">
     <div class="col-sm-4">

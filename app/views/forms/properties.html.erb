@@ -13,7 +13,12 @@
               required: true, input_html: { data: { guard: "required" } } %>
           <%= rf.input :unit_number, label: "Unit", wrapper: "horizontal_form_4", required: false %>
         </div>
-        <%= rf.input :city, required: true, input_html: { data: { guard: "required" } } %>
+        <div class="form-group">
+          <%= rf.input :city,  wrapper: "horizontal_form_8", required: true,
+              input_html: { data: { guard: "required" } } %>
+          <%= rf.input :county,  wrapper: "horizontal_form_4", required: true,
+              collection: [ "San Mateo", "Santa Clara" ], input_html: { data: { guard: "required" } } %>
+        </div>
         <div class="form-group">
           <%= rf.input :state, wrapper: "horizontal_form_8", required: true,
               collection: AddressHelper::US_STATES, input_html: { data: { guard: "required" } } %>

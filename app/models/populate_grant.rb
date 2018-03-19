@@ -5,22 +5,22 @@ class PopulateGrant
     Rails.logger.info "populating grant for #{ehf_data_record.grant_number}"
     grant = create_grant ehf_data_record, residence, user
     if grant.present?
-      add_coverage_type grant, ehf_data_record.coverage_type
-      add_reason_type grant, ehf_data_record.reason_type
+      add_coverage_types grant, ehf_data_record.coverage_types.compact
+      add_reason_types grant, ehf_data_record.reason_types.compact
       add_payee grant, payee
     end
     grant
   end
 
-  def self.add_coverage_type(grant, coverage_type)
-    grant.coverage_types << coverage_type if coverage_type.present?
+  def self.add_coverage_types(grant, coverage_types)
+    grant.coverage_types << coverage_types if coverage_types.present?
   end
-  private_class_method :add_coverage_type
+  private_class_method :add_coverage_types
 
-  def self.add_reason_type(grant, reason_type)
-    grant.reason_types << reason_type if reason_type.present?
+  def self.add_reason_types(grant, reason_types)
+    grant.reason_types << reason_types if reason_types.present?
   end
-  private_class_method :add_reason_type
+  private_class_method :add_reason_types
 
   def self.add_payee(grant, payee)
     grant.payees << payee if payee.present?
@@ -33,6 +33,7 @@ class PopulateGrant
                   details: ehf_data_record.description,
                   subsidy_type_id: ehf_data_record.subsidy_type_id,
                   grant_amount: ehf_data_record.check_amount,
+                  grant_rsgp: ehf_data_record.vip,
                   grant_status_id: ehf_data_record.approved_status_id,
                   residence_id: residence.id,
                   user_id: user.id)
